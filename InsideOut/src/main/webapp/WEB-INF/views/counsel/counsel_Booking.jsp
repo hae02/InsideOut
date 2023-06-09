@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	index.jsp
-	
-	<a href="counsel_Booking">상담 예약</a>
+
+상담 예약 페이지
+
 </body>
 </html>
