@@ -8,5 +8,7 @@
 </head>
 <body>
 	index.jsp
+	
+	<a href="survey">만족도조사</a>
 </body>
 </html>

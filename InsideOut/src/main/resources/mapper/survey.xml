@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.InsideOut.dao.SurveyDao">
+	<select id="getQuestionList" resultType="surveyquestion">
+		select * from survey_question
+	</select>
+	
+	<insert id="insertMulti" parameterType="int">
+		insert into survey_answer(question_no, answer_rating, answer_cate, answer_ord) values(#{idx}, #{answer}, '0100', #{idx})
+	</insert>
+	
+	<insert id="insertSubj" parameterType="String">
+		insert into survey_answer(question_no, answer_rating, answer_cate, answer_ord) values(6, null, '0200', 6)
+	</insert>
+</mapper>
