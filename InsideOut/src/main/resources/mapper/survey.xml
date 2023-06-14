@@ -7,11 +7,32 @@
 		select * from survey_question
 	</select>
 	
-	<insert id="insertMulti" parameterType="int">
-		insert into survey_answer(question_no, answer_rating, answer_cate, answer_ord) values(#{idx}, #{answer}, '0100', #{idx})
+	<insert id="insertMulti" parameterType="surveyanswer">
+		insert into survey_answer(question_no, answer_rating, answer_cate, answer_ord) 
+			values(#{question_no}, #{answer_rating}, '0100', #{question_no})
+		<selectKey keyProperty="answer_no" resultType="int" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertMultiResult" parameterType="surveyresult">
+		insert into survey_result values('1', '1', #{question_no}, #{answer_no}, null)
 	</insert>
 	
 	<insert id="insertSubj" parameterType="String">
-		insert into survey_answer(question_no, answer_rating, answer_cate, answer_ord) values(6, null, '0200', 6)
+		insert into survey_answer(question_no, answer_rating, answer_cate, answer_ord) 
+			values(6, null, '0200', 6)
+		<selectKey keyProperty="answer_no" resultType="int" order="AFTER">
+			select last_insert_id()
+		</selectKey>
 	</insert>
+	
+	<insert id="insertSubjResult" parameterType="surveyresult">
+		insert into survey_result values('1', '1', 6, #{answer_no} + 1, #{answer_subj})
+	</insert>
+	
+	<update id="updateSurvey">
+		update survey set survey_state = '0200', survey_dt = sysdate() 
+			where student_no = #{student_no} and booking_no = #{booking_no}
+	</update>
 </mapper>

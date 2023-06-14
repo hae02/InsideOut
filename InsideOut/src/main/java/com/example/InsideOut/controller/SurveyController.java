@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.InsideOut.model.SurveyAnswerBean;
 import com.example.InsideOut.model.SurveyQuestionBean;
+import com.example.InsideOut.model.SurveyResultBean;
 import com.example.InsideOut.service.SurveyService;
 
 @Controller
@@ -20,7 +23,7 @@ public class SurveyController {
 	private SurveyService service;
 
 	// 만족도조사
-	@RequestMapping("survey")
+	@RequestMapping("student/survey")
 	public String survey(Model model) {
 		List<SurveyQuestionBean> question = new ArrayList<SurveyQuestionBean>();
 		question = service.getQuestionList();
@@ -31,8 +34,9 @@ public class SurveyController {
 	}
 	
 	// 만족도조사 제출
-	@RequestMapping("surveySubmit")
-	public String surveySubmit(HttpServletRequest request, Model model) {
+	@RequestMapping("student/surveySubmit")
+	public String surveySubmit(@ModelAttribute SurveyAnswerBean sab, @ModelAttribute SurveyResultBean srb, 
+								HttpServletRequest request, Model model) {
 		int[] answer = new int[6];
 		for (int i = 1; i <= 5; i++) {
 			answer[i] = Integer.parseInt(request.getParameter("answer" + i));
@@ -40,11 +44,24 @@ public class SurveyController {
 		String answer6 = request.getParameter("answer6");
 		
 		for (int i = 1; i <= 5; i++) {
-			service.insertMulti(answer[i], i);
+			sab.setQuestion_no(i);
+			sab.setAnswer_rating(answer[i]);
+			service.insertMulti(sab);
+			
+			srb.setQuestion_no(i);
+			srb.setAnswer_no(sab.getAnswer_no());
+			
+			service.insertMultiResult(srb);
 		}
 		
-		service.insertSubj(answer6);
-		 
+		service.insertSubj();
+		
+		srb.setAnswer_no(sab.getAnswer_no());
+		srb.setAnswer_subj(answer6);
+		service.insertSubjResult(srb);
+		
+		service.updateSurvey();
+		
 		return "survey/survey_form";
 	}
 }

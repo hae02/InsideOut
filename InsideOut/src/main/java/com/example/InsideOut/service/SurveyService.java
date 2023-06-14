@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.InsideOut.dao.SurveyDao;
+import com.example.InsideOut.model.SurveyAnswerBean;
 import com.example.InsideOut.model.SurveyQuestionBean;
+import com.example.InsideOut.model.SurveyResultBean;
 
 @Service
 public class SurveyService {
@@ -18,11 +20,23 @@ public class SurveyService {
 		return dao.getQuestionList();
 	}
 	
-	public void insertMulti(int answer, int idx) {
-		dao.insertMulti(answer, idx);
+	public void insertMulti(SurveyAnswerBean sab) {
+		dao.insertMulti(sab);
 	}
 	
-	public void insertSubj(String answer) {
-		dao.insertSubj(answer);
+	public void insertMultiResult(SurveyResultBean srb) {
+		dao.insertMultiResult(srb);
+	}
+	
+	public void insertSubj() {
+		dao.insertSubj();
+	}
+	
+	public void insertSubjResult(SurveyResultBean srb) {
+		dao.insertSubjResult(srb);
+	}
+	
+	public void updateSurvey() {
+		dao.updateSurvey();
 	}
 }
