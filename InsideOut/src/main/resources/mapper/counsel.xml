@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.InsideOut.dao.CounselDao">
+	
+	<select id="getCounselType" parameterType="String" resultType="counselType">
+		select * from counsel_type where counsel_typeno=#{counsel_typeno}
+	</select>
+	
+	
+	<insert id="insertCounsel" parameterType="booking">
+		insert into counsel_booking (student_no, counsel_typeno, counsel_request_content, booking_dt, booking_time, staff_no)
+		values ('0', ${counsel_typeno}, '${counsel_request_content}', DATE_FORMAT('${booking_dt}', '%Y%m%d'), '${booking_time}', ${staff_no});
+	</insert>
+	
+</mapper>
