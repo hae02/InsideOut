@@ -16,7 +16,7 @@
 	</insert>
 	
 	<insert id="insertMultiResult" parameterType="surveyresult">
-		insert into survey_result values('1', '1', #{question_no}, #{answer_no}, null)
+		insert into survey_result values('1', #{booking_no}, #{question_no}, #{answer_no}, null)
 	</insert>
 	
 	<insert id="insertSubj" parameterType="String">
@@ -28,11 +28,22 @@
 	</insert>
 	
 	<insert id="insertSubjResult" parameterType="surveyresult">
-		insert into survey_result values('1', '1', 6, #{answer_no} + 1, #{answer_subj})
+		insert into survey_result values('1', #{booking_no}, 6, #{answer_no} + 1, #{answer_subj})
 	</insert>
 	
 	<update id="updateSurvey">
-		update survey set survey_state = '0200', survey_dt = sysdate() 
-			where student_no = #{student_no} and booking_no = #{booking_no}
+		update survey set survey_state = '0200', survey_dt = sysdate() where booking_no = #{booking_no}
 	</update>
+	
+	<select id="getSurveyList" resultType="survey">
+		<![CDATA[
+		select * from (select @rownum := @rownum + 1 as rnum, s1.* from survey s1,
+		(select @rownum := 0 ) s2 order by booking_no desc) s2
+		where rnum >= ((#{page}-1) * 10 + 1)  and rnum <= (#{page} * 10) and student_no = #{student_no}
+		]]>
+	</select>
+	
+	<select id="getSurveyCount" parameterType="String" resultType="int">
+		select count(*) from survey where student_no = #{student_no}
+	</select>
 </mapper>

@@ -7,9 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	index.jsp
-	
-	<a href="student/survey">만족도 조사 폼</a>
-	<a href="student/surveyList">만족도 조사 리스트</a>
+	<script>
+		location.href="surveyList";
+	</script>
 </body>
 </html>

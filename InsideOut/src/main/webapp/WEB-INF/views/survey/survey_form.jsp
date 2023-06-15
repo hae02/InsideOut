@@ -51,7 +51,7 @@
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
 					<li><a href="#">상담 내역</a></li>
-					<li><a href="survey">만족도 조사</a></li>
+					<li><a href="surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="#">쪽지함</a></li>
 					<li><a href="#">회원정보 수정</a></li>
@@ -62,6 +62,7 @@
 			<main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
 				<h3>만족도 조사</h3>
 				<form method="post" action="surveySubmit">
+					<input type="hidden" name="booking_no" value="${booking_no}">
 					<c:forEach var="question" items="${question}" end="4">
 						<div>Q. ${question.question_name}</div>
 						<div class="btn-group btn-group-lg" role="group"

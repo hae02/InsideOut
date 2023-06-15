@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.InsideOut.dao.SurveyDao;
 import com.example.InsideOut.model.SurveyAnswerBean;
+import com.example.InsideOut.model.SurveyBean;
 import com.example.InsideOut.model.SurveyQuestionBean;
 import com.example.InsideOut.model.SurveyResultBean;
 
@@ -36,7 +37,15 @@ public class SurveyService {
 		dao.insertSubjResult(srb);
 	}
 	
-	public void updateSurvey() {
-		dao.updateSurvey();
+	public void updateSurvey(String booking_no) {
+		dao.updateSurvey(booking_no);
+	}
+	
+	public List<SurveyBean> getSurveyList(String student_no, int page) {
+		return dao.getSurveyList(student_no, page);
+	}
+	
+	public int getSurveyCount(String student_no) {
+		return dao.getSurveyCount(student_no);
 	}
 }
