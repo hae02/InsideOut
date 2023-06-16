@@ -10,6 +10,7 @@ import com.example.InsideOut.model.SurveyAnswerBean;
 import com.example.InsideOut.model.SurveyBean;
 import com.example.InsideOut.model.SurveyQuestionBean;
 import com.example.InsideOut.model.SurveyResultBean;
+import com.example.InsideOut.model.SurveyStaticBean;
 
 @Service
 public class SurveyService {
@@ -41,11 +42,19 @@ public class SurveyService {
 		dao.updateSurvey(booking_no);
 	}
 	
+	public void insertStatic(SurveyStaticBean ssb) {
+		dao.insertStatic(ssb);
+	}
+	
 	public List<SurveyBean> getSurveyList(String student_no, int page) {
 		return dao.getSurveyList(student_no, page);
 	}
 	
 	public int getSurveyCount(String student_no) {
 		return dao.getSurveyCount(student_no);
+	}
+	
+	public List<SurveyStaticBean> getStaticList(String staff_no) {
+		return dao.getStaticList(staff_no);
 	}
 }

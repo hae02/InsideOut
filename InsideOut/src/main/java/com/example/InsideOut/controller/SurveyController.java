@@ -1,6 +1,8 @@
 package com.example.InsideOut.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +20,11 @@ import com.example.InsideOut.model.SurveyAnswerBean;
 import com.example.InsideOut.model.SurveyBean;
 import com.example.InsideOut.model.SurveyQuestionBean;
 import com.example.InsideOut.model.SurveyResultBean;
+import com.example.InsideOut.model.SurveyStaticBean;
 import com.example.InsideOut.service.SurveyService;
 
 @Controller
+@RequestMapping("api/vi")
 public class SurveyController {
 
 	@Autowired
@@ -41,12 +45,14 @@ public class SurveyController {
 	// 만족도 조사 제출
 	@RequestMapping("student/surveySubmit")
 	public String surveySubmit(@ModelAttribute SurveyAnswerBean sab, @ModelAttribute SurveyResultBean srb,
-			HttpServletRequest request, Model model) {
+			@ModelAttribute SurveyStaticBean ssb, HttpServletRequest request, Model model) {
 		int[] answer = new int[6];
 		for (int i = 1; i <= 5; i++) {
 			answer[i] = Integer.parseInt(request.getParameter("answer" + i));
 		}
 		String answer6 = request.getParameter("answer6");
+		
+		int total = Arrays.stream(answer).sum();
 
 		String booking_no = request.getParameter("booking_no");
 
@@ -69,6 +75,14 @@ public class SurveyController {
 		service.insertSubjResult(srb);
 
 		service.updateSurvey(booking_no);
+		
+		LocalDate now = LocalDate.now();
+		String year = Integer.toString(now.getYear());
+		
+		ssb.setYear(year);
+		ssb.setBooking_no(booking_no);
+		ssb.setTotal(total);
+		service.insertStatic(ssb);
 
 		return "survey/survey_submitResult";
 	}
@@ -122,4 +136,13 @@ public class SurveyController {
 	 * return surveyList; }
 	 */
 
+	@RequestMapping("staff/surveyList")
+	public String surveyStaff(Model model) {
+		String staff_no = "1";
+		
+		List<SurveyStaticBean> staticList = service.getStaticList(staff_no);
+		model.addAttribute("staticList", staticList);
+		
+		return "survey/survey_staff";
+	}
 }

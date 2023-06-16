@@ -29,7 +29,7 @@
 
 			<ul
 				class="nav col-12 col-md-auto mb-2 justify-content-end mb-md-0">
-				<li><a href="#" class="nav-link px-2 link-dark">로그인</a></li>
+				<li><a href="/loginform" class="nav-link px-2 link-dark">로그인</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">회원가입</a></li>
 			</ul>
 		</header>

@@ -51,7 +51,7 @@
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
 					<li><a href="#">상담 내역</a></li>
-					<li><a href="surveyList">만족도 조사</a></li>
+					<li><a href="api/vi/surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="#">쪽지함</a></li>
 					<li><a href="#">회원정보 수정</a></li>
