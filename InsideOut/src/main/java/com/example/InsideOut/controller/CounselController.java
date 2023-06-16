@@ -47,7 +47,8 @@ public class CounselController {
 	    
 	    // 상담사 일정 뿌려주기
 	    
-		System.out.println("staff: "+staff);
+	    
+		System.out.println("staff: "+staffService.getStaffList(staff));
 
 	    return "counsel/counsel_Booking";
 	}
@@ -58,14 +59,21 @@ public class CounselController {
 	public String counsel_Content(@RequestParam("counsel_typeno") String counsel_typeno, 
 								  @RequestParam("booking_dt") String booking_dt, 
 								  @RequestParam("booking_time") String booking_time, 
-								  @RequestParam("staff_no") String staff_no, Model model) throws Exception {
+								  @RequestParam("staff_no") int staff_no, Model model) throws Exception {
+		
 		System.out.println("counsel_Content");
+		System.out.println("booking_dt: "+booking_dt);
+		
+		Staff staff = staffService.getStaff(staff_no);
+		System.out.println("staff: "+staff);
 		
 		CounselType counselType = counselService.getCounselType(counsel_typeno);
 		model.addAttribute("counselType", counselType); // 상담 타입
 		model.addAttribute("booking_dt", booking_dt); // 예약 날짜
 		model.addAttribute("booking_time", booking_time); // 예약 시간
 		model.addAttribute("staff_no", staff_no); // 상담사
+		model.addAttribute("staff", staff); // 상담사
+		
 		
 		return "counsel/counsel_Content";
 	}

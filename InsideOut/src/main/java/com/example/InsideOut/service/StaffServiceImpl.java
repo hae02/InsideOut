@@ -19,5 +19,11 @@ public class StaffServiceImpl implements StaffService {
 	    return staffDao.getStaffList(staff);
 	}
 
+	@Override
+	public Staff getStaff(int staff_no) {
+		// TODO Auto-generated method stub
+		return staffDao.getStaff(staff_no);
+	}
+
 
 }

@@ -11,4 +11,6 @@ public interface StaffDao {
 	
 	public List<Staff> getStaffList(Staff staff);
 
+	public Staff getStaff(int staff_no);
+
 }
