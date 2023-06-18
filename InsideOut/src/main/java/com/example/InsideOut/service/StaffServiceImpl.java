@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.InsideOut.dao.StaffDao;
-import com.example.InsideOut.model.Staff;
+import com.example.InsideOut.model.StaffBean;
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -15,12 +15,12 @@ public class StaffServiceImpl implements StaffService {
 	private StaffDao staffDao;
 
 	@Override
-	public List<Staff> getStaffList(Staff staff) {
+	public List<StaffBean> getStaffList(StaffBean staff) {
 	    return staffDao.getStaffList(staff);
 	}
 
 	@Override
-	public Staff getStaff(int staff_no) {
+	public StaffBean getStaff(int staff_no) {
 		// TODO Auto-generated method stub
 		return staffDao.getStaff(staff_no);
 	}

@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.example.InsideOut.model.Staff;
+import com.example.InsideOut.model.StaffBean;
 
 @Mapper
 public interface StaffDao {
 	
-	public List<Staff> getStaffList(Staff staff);
+	public List<StaffBean> getStaffList(StaffBean staff);
 
-	public Staff getStaff(int staff_no);
+	public StaffBean getStaff(int staff_no);
 
 }

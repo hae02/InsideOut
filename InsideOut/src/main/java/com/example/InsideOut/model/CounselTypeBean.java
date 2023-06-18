@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Alias("counselType")
-public class CounselType {
+public class CounselTypeBean {
 	
 	private String counsel_typeno; // 종류번호
 	private String counsel_typename; // 상담종류명

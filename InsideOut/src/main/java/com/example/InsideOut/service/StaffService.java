@@ -2,12 +2,12 @@ package com.example.InsideOut.service;
 
 import java.util.List;
 
-import com.example.InsideOut.model.Staff;
+import com.example.InsideOut.model.StaffBean;
 
 public interface StaffService {
 
-	public List<Staff> getStaffList(Staff staff);
+	public List<StaffBean> getStaffList(StaffBean staff);
 
-	public Staff getStaff(int staff_no);
+	public StaffBean getStaff(int staff_no);
 
 }

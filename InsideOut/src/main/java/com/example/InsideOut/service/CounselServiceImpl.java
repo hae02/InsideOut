@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.InsideOut.dao.CounselDao;
-import com.example.InsideOut.model.CounselBooking;
-import com.example.InsideOut.model.CounselType;
+import com.example.InsideOut.model.CounselBookingBean;
+import com.example.InsideOut.model.CounselTypeBean;
 
 @Service
 public class CounselServiceImpl implements CounselService {
@@ -14,16 +14,16 @@ public class CounselServiceImpl implements CounselService {
 	private CounselDao counselDao;
 	
 	@Override
-	public CounselType getCounselType(String counsel_typeno) throws Exception {
+	public CounselTypeBean getCounselType(String counsel_typeno) throws Exception {
 		// TODO Auto-generated method stub
-		CounselType counselType = counselDao.getCounselType(counsel_typeno);
-		return counselType;
+		CounselTypeBean counselTypeBean = counselDao.getCounselType(counsel_typeno);
+		return counselTypeBean;
 	}
 
 	@Override
-	public int insertCounsel(CounselBooking counselBooking) throws Exception {
+	public int insertCounsel(CounselBookingBean counselBookingBean) throws Exception {
 		// TODO Auto-generated method stub
-		return counselDao.insertCounsel(counselBooking);
+		return counselDao.insertCounsel(counselBookingBean);
 	}
 
 

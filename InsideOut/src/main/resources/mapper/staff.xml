@@ -4,10 +4,10 @@
 <mapper namespace="com.example.InsideOut.dao.StaffDao">
 	
 	<!-- 상담사 프로필 가져오기 -->
-	<select id="getStaffList" resultType="com.example.InsideOut.model.Staff">
+	<select id="getStaffList" resultType="com.example.InsideOut.model.StaffBean">
 		select * from staff
 	</select>
-	<select id="getStaff" parameterType="int" resultType="com.example.InsideOut.model.Staff">
+	<select id="getStaff" parameterType="int" resultType="com.example.InsideOut.model.StaffBean">
 		select * from staff where staff_no=#{staff_no}
 	</select>
 

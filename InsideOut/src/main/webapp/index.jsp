@@ -11,5 +11,6 @@
 	
 	<a href="counsel_Type">상담 예약</a>
 	<a href="staffList">상담사 리스트</a>
+	<a href="loginform">상담사 리스트</a>
 </body>
 </html>

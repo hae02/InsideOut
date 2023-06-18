@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Alias("booking") // DTO클래스 Alias 설정
-public class CounselBooking {
+public class CounselBookingBean {
 	
 	private String student_no; // 학생번호
 	private int booking_no; // 예약번호

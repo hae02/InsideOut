@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.InsideOut.model.CounselBooking;
-import com.example.InsideOut.model.CounselType;
-import com.example.InsideOut.model.Staff;
+import com.example.InsideOut.model.CounselBookingBean;
+import com.example.InsideOut.model.CounselTypeBean;
+import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.service.CounselService;
 import com.example.InsideOut.service.StaffService;
 
@@ -33,20 +33,19 @@ public class CounselController {
 	// 상담사 및 일정 선택
 	@RequestMapping("counsel_Booking")
 	public String counselBooking(@RequestParam("counsel_typeno") String counsel_typeno,
-								Staff staff, Model model) throws Exception {
+								StaffBean staff, Model model) throws Exception {
 	    System.out.println("counselBooking");
 	    System.out.println("counsel_typeno: " + counsel_typeno);
 
 	    // 상담 타입 가져오기
-	    CounselType counselType = counselService.getCounselType(counsel_typeno);
-	    model.addAttribute("counselType", counselType);
-	    System.out.println("counselType: " + counselType);
+	    CounselTypeBean counselTypeBean = counselService.getCounselType(counsel_typeno);
+	    model.addAttribute("counselType", counselTypeBean);
+	    System.out.println("counselType: " + counselTypeBean);
 
 	    // 상담사 리스트 가져오기
 	    model.addAttribute("staffList", staffService.getStaffList(staff));
 	    
-	    // 상담사 일정 뿌려주기
-	    
+	    // 상담사 일정 뿌려서 선택 못하게 처리
 	    
 		System.out.println("staff: "+staffService.getStaffList(staff));
 
@@ -64,11 +63,11 @@ public class CounselController {
 		System.out.println("counsel_Content");
 		System.out.println("booking_dt: "+booking_dt);
 		
-		Staff staff = staffService.getStaff(staff_no);
+		StaffBean staff = staffService.getStaff(staff_no);
 		System.out.println("staff: "+staff);
 		
-		CounselType counselType = counselService.getCounselType(counsel_typeno);
-		model.addAttribute("counselType", counselType); // 상담 타입
+		CounselTypeBean counselTypeBean = counselService.getCounselType(counsel_typeno);
+		model.addAttribute("counselType", counselTypeBean); // 상담 타입
 		model.addAttribute("booking_dt", booking_dt); // 예약 날짜
 		model.addAttribute("booking_time", booking_time); // 예약 시간
 		model.addAttribute("staff_no", staff_no); // 상담사
@@ -80,10 +79,10 @@ public class CounselController {
 	
 	// 상담 내용 작성 저장
 	@RequestMapping("counsel_ContentOk")
-	public String counsel_ContentOk(@ModelAttribute CounselBooking counselBooking, Model model) throws Exception {
+	public String counsel_ContentOk(@ModelAttribute CounselBookingBean counselBookingBean, Model model) throws Exception {
 		
 		
-		int result = counselService.insertCounsel(counselBooking);
+		int result = counselService.insertCounsel(counselBookingBean);
 		if(result == 1) System.out.println("입력성공");
 		model.addAttribute("result", result);
 		
