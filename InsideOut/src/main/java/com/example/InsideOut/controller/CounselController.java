@@ -67,7 +67,7 @@ public class CounselController {
 	public String counsel_Content(@RequestParam("counsel_typeno") String counsel_typeno, 
 								  @RequestParam("booking_dt") String booking_dt, 
 								  @RequestParam("booking_time") String booking_time, 
-								  @RequestParam("staff_no") int staff_no, Model model) throws Exception {
+								  @RequestParam("staff_no") String staff_no, Model model) throws Exception {
 		
 		System.out.println("counsel_Content");
 		System.out.println("booking_dt: "+booking_dt);
@@ -96,10 +96,11 @@ public class CounselController {
 		return "counsel/counsel_Type";
 	}
 	
+	// 확정 시간 처리
 	@ResponseBody
 	@RequestMapping("getDt")
-	public List<CounselBookingBean> getDt(String bookingDt, String staffNo) throws Exception {
+	public List<CounselBookingBean> getDt(String booking_dt, String staff_no) throws Exception {
 		
-		return counselService.getDt(staffNo, bookingDt);
+		return counselService.getDt(staff_no, booking_dt);
 	}
 }

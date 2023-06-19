@@ -14,6 +14,6 @@ public interface CounselDao {
 
 	public int insertCounsel(CounselBookingBean counselBookingBean) throws Exception;
 
-	public List<CounselBookingBean> getDt(String staffNo, String bookingDt) throws Exception;
+	public List<CounselBookingBean> getDt(String staff_no, String booking_dt) throws Exception;
 
 }

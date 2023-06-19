@@ -16,8 +16,8 @@
 		select *
 		from counsel_booking
 		left outer join code on code.cd = CONFIRM_TIME
-		where staff_no = #{staffNo}
-		and confirm_dt = #{bookingDt}
+		where staff_no = #{staff_no}
+		and confirm_dt = #{booking_dt}
 		and cate = 5000;
 	</select>
 	

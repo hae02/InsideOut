@@ -10,10 +10,8 @@
 <title>상담 예약</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- 부트스트랩 -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 
 </head>
 <style>
@@ -73,21 +71,45 @@
 	color: #fff;
 }
 
+.booking_time .btn.active {
+	background-color: #E0F5DF;
+	color: black;
+}
+
 .staff .btn[value :"checked"] {
 	background-color: #E0F5DF;
 	color: #fff;
 }
 
-.booking_time td {
+/* .booking_time td {
 	text-align: center;
 	padding: 8px;
 	border: 1px solid #ccc;
+} */
+
+.booking_time .btn {
+	text-align: center;
+	padding: 8px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	width: 250px;
+	margin: 0px 0px 0px;
+	
 }
 
-.booking_time th {
+/* .booking_time th {
 	text-align: center;
 	padding: 15px;
 	width: 500px;
+} */
+.booking_time .disabled {
+	border: 0px;
+	text-align: center;
+	padding: 17px;
+	width: 250px;
+	font-weight: bold;
+	color: #212529;
+	margin: 0px 0px 0px;
 }
 
 .staff .btn {
@@ -114,13 +136,11 @@
 </style>
 
 <body>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
 	<div class="container">
 		<form method="post" action="counsel_Content">
-			<input type="hidden" id="counsel_typeno" name="counsel_typeno"
-				value="${counselType.counsel_typeno}"> <input type="hidden"
-				id="booking_dt" name="booking_dt" value="">
+			<input type="hidden" id="counsel_typeno" name="counsel_typeno" value="${counselType.counsel_typeno}"> 
+			<input type="hidden" id="booking_dt" name="booking_dt" value="">
 
 			<h1>${counselType.counsel_typename}</h1>
 			<p>${counselType.counsel_typedetail}</p>
@@ -138,8 +158,7 @@
 								<img src="images/6735382.png" width="100px">
 							</div>
 							<div class="col-8">
-								<input class="btn" type="radio" id="staff_no_${s.staff_no}"
-									name="staff_no" value="${s.staff_no}">
+								<input class="btn" type="radio" id="staff_no_${s.staff_no}" name="staff_no" value="${s.staff_no}">
 								<h5 class="card-title text-dark">${s.staff_name}</h5>
 								<p class="card-text text-dark">${s.staff_tel}</p>
 								<p class="card-text text-dark">${s.staff_email}</p>
@@ -148,7 +167,6 @@
 					</label>
 				</c:forEach>
 			</div>
-
 			<br> <br> <br> <br>
 
 			<!-- Calendar -->
@@ -180,9 +198,48 @@
 						<tbody></tbody>
 					</table>
 				</div>
+				
 
 				<!-- BOOKING_TIME -->
-				<div class="booking_time">
+				<div class="btn-group-vertical booking_time">
+					<label class="disabled"> 
+					&nbsp;
+					</label> 
+					<label class="disabled"> 
+					예약시간
+					</label> 
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0100" value="0100"> 9:00
+					</label> 
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0200" value="0200"> 10:00
+					</label> 
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0300" value="0300"> 11:00
+					</label>
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0400" value="0400"> 12:00
+					</label>
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0500" value="0500"> 13:00
+					</label>
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0600" value="0600"> 14:00
+					</label>
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0700" value="0700"> 15:00
+					</label>
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0800" value="0800"> 16:00
+					</label>
+					<label class="btn"> 
+					<input type="radio" name="booking_time" id="booking_time_0900" value="0900"> 17:00
+					</label>
+				</div>
+				
+				</div>
+				
+<!-- 				<div class="booking_time">
 					<table>
 						<tr>
 							<th colspan="2">&nbsp;</th>
@@ -237,8 +294,7 @@
 							<td>17:00</td>
 						</tr>
 					</table>
-				</div>
-			</div>
+				</div> -->
 
 			<script>
 	var booking_dt = ''; // 예약 날짜를 담을 변수
@@ -275,13 +331,10 @@
 	          // 선택 가능한 날짜에 클릭 이벤트 리스너 추가
 	          cell.addEventListener('click', selectDate);
 	        }
-
 	        date++;
 	      }
-
 	      row.appendChild(cell);
 	    }
-
 	    calendarBody.appendChild(row);
 	  }
 
@@ -327,16 +380,18 @@
 	  
 	  if (typeof staff_no === 'undefined') { // 상담사 값이 없을 때
 		  removeSelectedClass(); // 확정날짜 초기화
-	  	  clearSelectedRadioButtons(); // 확정시간 초기화
-		  alert('상담사를 먼저 선택해주세요.');
+		  alert('상담사를 선택해주세요.');
+		  return;
 		}
 	  
+	  clearSelectedRadioButtons(); // 확정시간 초기화
 	  
 	  console.log("staff_no: "+staff_no);
 	  getConfirmTime(booking_dt, staff_no);
 	  /* document.write(booking_dt); // 웹페이지에 변수 값 출력 */
 
 	  $("#booking_dt").val(booking_dt); // booking_dt 변수에 저장
+	 /*  $("#staff_no").val(staff_no); // staff_no 변수에 저장 */
 	}
 	
 	/* 확정날짜 초기화 */
@@ -348,7 +403,7 @@
 		  });
 		}
 	
-	/* 확정일자(라디오버튼) 초기화 */
+	/* 확정시간(라디오버튼) 초기화 */
 	function clearSelectedRadioButtons() {
 		  var radioButtons = document.querySelectorAll('input[type="radio"]:checked'); // 선택된 라디오 버튼을 선택합니다.
 		  
@@ -389,16 +444,17 @@
 	  }
 	  updateCalendar(currentYear, currentMonth);
 	});
-	
-	// 상담사 스케줄에 따라 라디오 버튼 처리
+
+	// 라디오 버튼 활성화
 	function activateRadioButton() {
 		const radioBtns = document.querySelectorAll('input[type="radio"][name="booking_time"]');
-
+		
 		radioBtns.forEach((radioBtn) => {
 		  radioBtn.disabled = false;
 		});
 	}
 	
+	// 예약 날짜와 상담사 번호에 해당하는 예약 가능한 시간대를 가져와서 라디오 버튼 활성화, 비활성화 처리
  	function getConfirmTime(booking_dt, staff_no){ 		
 		// jQuery를 이용한 AJAX 요청
 		$.ajax({
@@ -406,8 +462,8 @@
 		  method: "GET",
 		  dataType: "json",
 		  data: { 
-			  bookingDt: booking_dt,
-			  staffNo: staff_no
+			  booking_dt: booking_dt,
+			  staff_no: staff_no
 		  },
 		  success: function(response) {	    
 			  activateRadioButton()
@@ -425,14 +481,13 @@
 		  }
 		});
  	}
-	
 		</script>
-
 
 			<br> <br> <br>
 			<!-- <button type="button">이전</button> -->
 			<button type="submit" class="btn btn-success">다음</button>
 		</form>
 	</div>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>	
 </body>
 </html>

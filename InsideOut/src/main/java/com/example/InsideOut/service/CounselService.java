@@ -11,6 +11,6 @@ public interface CounselService {
 
 	public int insertCounsel(CounselBookingBean counselBookingBean) throws Exception;
 
-	public List<CounselBookingBean> getDt(String staffNo, String confirmDt) throws Exception;
+	public List<CounselBookingBean> getDt(String staff_no, String confirm_dt) throws Exception;
 
 }

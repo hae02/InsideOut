@@ -8,6 +8,6 @@ public interface StaffService {
 
 	public List<StaffBean> getStaffList(StaffBean staff);
 
-	public StaffBean getStaff(int staff_no);
+	public StaffBean getStaff(String staff_no);
 
 }

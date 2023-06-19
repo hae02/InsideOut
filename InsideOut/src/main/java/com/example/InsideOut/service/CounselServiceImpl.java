@@ -29,8 +29,8 @@ public class CounselServiceImpl implements CounselService {
 	}
 
 	@Override
-	public List<CounselBookingBean> getDt(String staffNo, String bookingDt) throws Exception {		
-		return counselDao.getDt(staffNo, bookingDt);
+	public List<CounselBookingBean> getDt(String staff_no, String booking_dt) throws Exception {		
+		return counselDao.getDt(staff_no, booking_dt);
 	}
 
 }
