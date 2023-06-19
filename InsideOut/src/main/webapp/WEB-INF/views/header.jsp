@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Header</title>
+<!-- 부트스트랩 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -29,8 +30,7 @@
 
 			<ul
 				class="nav col-12 col-md-auto mb-2 justify-content-end mb-md-0">
-				<li><a href="/loginform" class="nav-link px-2 link-dark">로그인</a></li>
-				<li><a href="#" class="nav-link px-2 link-dark">회원가입</a></li>
+				<li><a href="/logout" class="nav-link px-2 link-dark">로그아웃</a></li>
 			</ul>
 		</header>
 	</div>

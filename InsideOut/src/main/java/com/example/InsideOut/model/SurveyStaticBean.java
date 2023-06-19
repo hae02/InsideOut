@@ -11,4 +11,5 @@ public class SurveyStaticBean {
 	private String student_no;
 	private String booking_no;
 	private int total;
+	private String answer_subj;
 }

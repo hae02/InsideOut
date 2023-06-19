@@ -54,7 +54,11 @@ public class SurveyService {
 		return dao.getSurveyCount(student_no);
 	}
 	
-	public List<SurveyStaticBean> getStaticList(String staff_no) {
-		return dao.getStaticList(staff_no);
+	public List<SurveyStaticBean> getStaticList(String staff_no, int page) {
+		return dao.getStaticList(staff_no, page);
+	}
+	
+	public int getStaticCount(String staff_no) {
+		return dao.getStaticCount(staff_no);
 	}
 }

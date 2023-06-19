@@ -8,16 +8,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- 부트스트랩 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
-<!-- toast grid -->
-<!-- <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/grid/latest/tui-grid.css" /> -->
 <style>
 .bd-navbar {
 	position: sticky;
@@ -59,7 +56,8 @@
 					<li><a href="#">상담 내역</a></li>
 					<li><a href="surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
-					<li><a href="#">쪽지함</a></li>
+					<li><a href="#">보낸 쪽지함</a></li>
+					<li><a href="#">받은 쪽지함</a></li>
 					<li><a href="#">회원정보 수정</a></li>
 				</ul>
 				<br>
@@ -129,39 +127,5 @@
 			</main>
 		</div>
 	</div>
-
-	<!-- <div id="grid"></div>
-
-	<script>
-		window.onload = function() {
-			$.ajax({
-				url : "/surveyList/getSurveyList",
-				method : "GET",
-				data : "JSON",
-				contentType : "application/json; charset=UTF-8",
-				success : function(result) {
-					console.log(result);
-					
-					grid.resetData(result);
-				}
-			});
-			
-			const grid = new tui.Grid({
-				el : document.getElementById('grid'),
-				scrollX : false,
-				scrollY : false,
-				columns : [ {
-					header : '예약 번호',
-					name : 'booking_no'
-				}, {
-					header : '진행 상태',
-					name : 'survey_state'
-				}, {
-					header : '만족도 조사 일시',
-					name : 'survey_dt'
-				} ]
-			});
-		};
-	</script> -->
 </body>
 </html>
