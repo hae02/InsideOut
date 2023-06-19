@@ -1,11 +1,14 @@
 package com.example.InsideOut.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.InsideOut.model.CounselBookingBean;
 import com.example.InsideOut.model.CounselTypeBean;
@@ -13,6 +16,8 @@ import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.service.CounselService;
 import com.example.InsideOut.service.StaffService;
 
+
+//@RequestMapping("api/v1/user/")
 @Controller
 public class CounselController {
 
@@ -33,6 +38,7 @@ public class CounselController {
 	// 상담사 및 일정 선택
 	@RequestMapping("counsel_Booking")
 	public String counselBooking(@RequestParam("counsel_typeno") String counsel_typeno,
+								CounselBookingBean cBookingBean,
 								StaffBean staff, Model model) throws Exception {
 	    System.out.println("counselBooking");
 	    System.out.println("counsel_typeno: " + counsel_typeno);
@@ -42,6 +48,9 @@ public class CounselController {
 	    model.addAttribute("counselType", counselTypeBean);
 	    System.out.println("counselType: " + counselTypeBean);
 
+//	    CounselBookingBean counselBookingBean = counselService.getCounselBooking(cBookingBean);
+//	    model.addAttribute("cBookingBean", cBookingBean);
+	    
 	    // 상담사 리스트 가져오기
 	    model.addAttribute("staffList", staffService.getStaffList(staff));
 	    
@@ -73,7 +82,6 @@ public class CounselController {
 		model.addAttribute("staff_no", staff_no); // 상담사
 		model.addAttribute("staff", staff); // 상담사
 		
-		
 		return "counsel/counsel_Content";
 	}
 	
@@ -81,11 +89,17 @@ public class CounselController {
 	@RequestMapping("counsel_ContentOk")
 	public String counsel_ContentOk(@ModelAttribute CounselBookingBean counselBookingBean, Model model) throws Exception {
 		
-		
 		int result = counselService.insertCounsel(counselBookingBean);
 		if(result == 1) System.out.println("입력성공");
 		model.addAttribute("result", result);
 		
 		return "counsel/counsel_Type";
+	}
+	
+	@ResponseBody
+	@RequestMapping("getDt")
+	public List<CounselBookingBean> getDt(String bookingDt, String staffNo) throws Exception {
+		
+		return counselService.getDt(staffNo, bookingDt);
 	}
 }

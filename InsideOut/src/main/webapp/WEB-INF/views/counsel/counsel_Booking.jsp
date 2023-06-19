@@ -1,71 +1,82 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>상담 예약</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- 부트스트랩 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 
 </head>
-
 <style>
 .container {
-  	justify-content: center;
-  	align-items: center;
+	justify-content: center;
+	align-items: center;
 }
+
 .calendar {
 	width: 50%;
 }
+
 .calendar th {
 	text-align: center;
 	padding: 15px;
 }
+
 .calendar td {
 	cursor: pointer;
 	text-align: center;
 	padding: 30px;
 	border: 1px solid #ccc;
 }
+
 .calendar td.weekend {
-  background-color: #F2F2F2;
-  color: red;
+	background-color: #F2F2F2;
+	color: red;
 }
+
 .calendar td.weekend:last-child {
-  color: #0000ff; /* 토요일 텍스트 색상 설정 */
+	color: #0000ff; /* 토요일 텍스트 색상 설정 */
 }
+
 .calendar table {
 	width: 100%;
 }
+
 .calendar .selected {
 	background-color: #E0F5DF;
 }
+
 .calendar .prev, .calendar .next {
 	cursor: pointer;
 }
+
 .calendar-container {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .btn {
 	display: inline-block;
 }
+
 .staff .btn.active {
-    background-color: #E0F5DF;
-    color: #fff;
-}
-.staff .btn[value:"checked"] {
-    background-color: #E0F5DF;
-    color: #fff;
+	background-color: #E0F5DF;
+	color: #fff;
 }
 
-
+.staff .btn[value :"checked"] {
+	background-color: #E0F5DF;
+	color: #fff;
+}
 
 .booking_time td {
 	text-align: center;
@@ -87,14 +98,14 @@
 	text-align: left;
 	padding: 1.375rem 1rem !important; /* 컨텐트 세로 가운데 정렬 */
 	border: 1px solid #ccc;
-} 
+}
 
 .day th:first-child {
-  color: #ff0000; /* 일요일 텍스트 색상 설정 */
+	color: #ff0000; /* 일요일 텍스트 색상 설정 */
 }
 
 .day th:last-child {
-  color: #0000ff; /* 토요일 텍스트 색상 설정 */
+	color: #0000ff; /* 토요일 텍스트 색상 설정 */
 }
 
 .btn {
@@ -103,30 +114,33 @@
 </style>
 
 <body>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<div class="container">
 		<form method="post" action="counsel_Content">
-			<input type="hidden" id="counsel_typeno" name="counsel_typeno" value="${counselType.counsel_typeno}"> 
-			<input type="hidden" id="booking_dt" name="booking_dt" value="">
-			
+			<input type="hidden" id="counsel_typeno" name="counsel_typeno"
+				value="${counselType.counsel_typeno}"> <input type="hidden"
+				id="booking_dt" name="booking_dt" value="">
+
 			<h1>${counselType.counsel_typename}</h1>
 			<p>${counselType.counsel_typedetail}</p>
 			<br>
 			<hr>
-			<br><br>
+			<br> <br>
 			<h3>상담사</h3>
-			
+
 			<!-- 교직원 프로필 -->
 			<div class="btn-group-toggle staff" data-toggle="buttons">
 				<c:forEach items="${staffList}" var="s">
-					<label class="btn" for="staff_no">
+					<label class="btn" for="staff_no_${s.staff_no}">
 						<div class="row">
 							<div class="col">
 								<img src="images/6735382.png" width="100px">
 							</div>
 							<div class="col-8">
-								<input class="btn" type="radio" id="staff_no" name="staff_no" value="${s.staff_no}">
-								<h5 class="card-title text-dark" >${s.staff_name}</h5>
+								<input class="btn" type="radio" id="staff_no_${s.staff_no}"
+									name="staff_no" value="${s.staff_no}">
+								<h5 class="card-title text-dark">${s.staff_name}</h5>
 								<p class="card-text text-dark">${s.staff_tel}</p>
 								<p class="card-text text-dark">${s.staff_email}</p>
 							</div>
@@ -134,20 +148,24 @@
 					</label>
 				</c:forEach>
 			</div>
-			<br><br><br><br>
-			
+
+			<br> <br> <br> <br>
+
 			<!-- Calendar -->
-			<h3>일정선택</h3><br>
+			<h3>일정선택</h3>
+			<br>
 			<div class="calendar-container">
 				<div class="calendar col-9">
 					<table>
 						<thead>
 							<tr>
 								<!-- <th class="prev">&lt;</th> -->
-								<th class="prev"><img src="images/caret-left-fill.svg" width="30px"></th>
+								<th class="prev"><img src="images/caret-left-fill.svg"
+									width="30px"></th>
 								<th colspan="5" class="month-year"></th>
-								<th class="next"><img src="images/caret-right-fill.svg" width="30px"></th>
-<!-- 								<th class="next">&gt;</th> -->
+								<th class="next"><img src="images/caret-right-fill.svg"
+									width="30px"></th>
+								<!-- 								<th class="next">&gt;</th> -->
 							</tr>
 							<tr class="day">
 								<th>일</th>
@@ -162,58 +180,67 @@
 						<tbody></tbody>
 					</table>
 				</div>
-				
+
 				<!-- BOOKING_TIME -->
 				<div class="booking_time">
 					<table>
 						<tr>
-						<th colspan="2">&nbsp;</th>
+							<th colspan="2">&nbsp;</th>
 						</tr>
 						<tr>
-						<th>선택</th>
-						<th>시간</th>
+							<th>선택</th>
+							<th>시간</th>
 						</tr>
 						<tr>
-						<td><input type="radio" id="booking_time" name="booking_time" value="0100"></td>
-						<td>9:00</td>
+							<td><input type="radio" id="booking_time_0100"
+								name="booking_time" value="0100"></td>
+							<td>9:00</td>
 						</tr>
 						<tr>
-						<td><input type="radio" id="booking_time" name="booking_time" value="0200"></td>
-						<td>10:00</td>
+							<td><input type="radio" id="booking_time_0200"
+								name="booking_time" value="0200"></td>
+							<td>10:00</td>
 						</tr>
 						<tr>
-						<td><input type="radio" id="booking_time" name="booking_time" value="0300"></td>
-						<td>11:00</td>
+							<td><input type="radio" id="booking_time_0300"
+								name="booking_time" value="0300"></td>
+							<td>11:00</td>
 						</tr>
 						<tr>
-						<td><input type="radio" id="booking_time" name="booking_time" value="0400"></td>
-						<td>12:00</td>
+							<td><input type="radio" id="booking_time_0400"
+								name="booking_time" value="0400"></td>
+							<td>12:00</td>
 						</tr>
 						<tr>
-						<td><input type="radio" id="booking_time" name="booking_time" value="0500"></td>
-						<td>13:00</td>
-						</tr>	
-						<tr>	
-						<td><input type="radio" id="booking_time" name="booking_time" value="0600"></td>
-						<td>14:00</td>
+							<td><input type="radio" id="booking_time_0500"
+								name="booking_time" value="0500"></td>
+							<td>13:00</td>
 						</tr>
 						<tr>
-							<td><input type="radio" id="booking_time" name="booking_time" value="0700"></td>
+							<td><input type="radio" id="booking_time_0600"
+								name="booking_time" value="0600"></td>
+							<td>14:00</td>
+						</tr>
+						<tr>
+							<td><input type="radio" id="booking_time_0700"
+								name="booking_time" value="0700"></td>
 							<td>15:00</td>
 						</tr>
 						<tr>
-						<td><input type="radio" id="booking_time" name="booking_time" value="0800"></td>
-						<td>16:00</td>
+							<td><input type="radio" id="booking_time_0800"
+								name="booking_time" value="0800"></td>
+							<td>16:00</td>
 						</tr>
 						<tr>
-						<td><input type="radio" id="booking_time" name="booking_time" value="0900"></td>
-						<td>17:00</td>
+							<td><input type="radio" id="booking_time_0900"
+								name="booking_time" value="0900"></td>
+							<td>17:00</td>
 						</tr>
 					</table>
-					</div>
-	</div>
+				</div>
+			</div>
 
-	<script>
+			<script>
 	var booking_dt = ''; // 예약 날짜를 담을 변수
 
 	// 달력 업데이트 함수
@@ -280,11 +307,55 @@
 	  var selectedDateFull = selectedYearMonth + selectedDate.toString().padStart(2, '0');
 
 	  booking_dt = selectedDateFull; // 선택된 날짜를 booking_dt 변수에 할당
+	  
 	  console.log('booking_dt:', booking_dt);
+	  
+	  var staff_no;
+	  var activeBtns = document.querySelectorAll('.btn.active');
+	  
+	  activeBtns.forEach(function(btn) {
+		  var divs = btn.querySelectorAll('div.col-8');
+		  if (divs.length > 0) {
+		    divs.forEach(function(div) {
+		      var input = div.querySelector('input');
+		      if (input) {
+		      	staff_no = input.value;
+		      }
+		    });
+		  }
+		});
+	  
+	  if (typeof staff_no === 'undefined') { // 상담사 값이 없을 때
+		  removeSelectedClass(); // 확정날짜 초기화
+	  	  clearSelectedRadioButtons(); // 확정시간 초기화
+		  alert('상담사를 먼저 선택해주세요.');
+		}
+	  
+	  
+	  console.log("staff_no: "+staff_no);
+	  getConfirmTime(booking_dt, staff_no);
 	  /* document.write(booking_dt); // 웹페이지에 변수 값 출력 */
 
 	  $("#booking_dt").val(booking_dt); // booking_dt 변수에 저장
 	}
+	
+	/* 확정날짜 초기화 */
+	function removeSelectedClass() {
+		  var selectedElements = document.querySelectorAll('.selected'); // class가 'selected'인 요소들을 선택합니다.
+		  
+		  selectedElements.forEach(function(element) {
+		    element.classList.remove('selected'); // 선택된 요소의 'selected' 클래스를 제거합니다.
+		  });
+		}
+	
+	/* 확정일자(라디오버튼) 초기화 */
+	function clearSelectedRadioButtons() {
+		  var radioButtons = document.querySelectorAll('input[type="radio"]:checked'); // 선택된 라디오 버튼을 선택합니다.
+		  
+		  radioButtons.forEach(function(radioButton) {
+		    radioButton.checked = false; // 선택된 라디오 버튼의 상태를 해제합니다.
+		  });
+		}
 
 	// 월과 연도를 포맷팅하는 함수
 	function getFormattedMonthYear(month, year) {
@@ -318,12 +389,50 @@
 	  }
 	  updateCalendar(currentYear, currentMonth);
 	});
+	
+	// 상담사 스케줄에 따라 라디오 버튼 처리
+	function activateRadioButton() {
+		const radioBtns = document.querySelectorAll('input[type="radio"][name="booking_time"]');
+
+		radioBtns.forEach((radioBtn) => {
+		  radioBtn.disabled = false;
+		});
+	}
+	
+ 	function getConfirmTime(booking_dt, staff_no){ 		
+		// jQuery를 이용한 AJAX 요청
+		$.ajax({
+		  url: "/getDt",
+		  method: "GET",
+		  dataType: "json",
+		  data: { 
+			  bookingDt: booking_dt,
+			  staffNo: staff_no
+		  },
+		  success: function(response) {	    
+			  activateRadioButton()
+
+		    response.forEach((booking) => {
+		    	  var radioId = "booking_time_"+ booking.confirm_time;
+		    	  const radioBtn = document.getElementById(radioId);
+		    	  radioBtn.disabled = true;
+		    	  
+		    });
+		  },
+		  error: function(xhr, status, error) {
+		    console.log(error);
+		    // 에러 처리를 합니다.
+		  }
+		});
+ 	}
+	
 		</script>
 
-		<br><br><br>
-		<!-- <button type="button">이전</button> -->
-		<button type="submit" class="btn btn-success">다음</button>
-	</form>
-</div>
+
+			<br> <br> <br>
+			<!-- <button type="button">이전</button> -->
+			<button type="submit" class="btn btn-success">다음</button>
+		</form>
+	</div>
 </body>
 </html>

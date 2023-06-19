@@ -67,7 +67,7 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public String login() {
-		System.out.println("");
+		System.out.println("login");
 		return "api/v1/user/counsel_Type";
 	}
 }

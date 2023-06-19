@@ -1,5 +1,11 @@
 package com.example.InsideOut.configuration;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +15,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.example.InsideOut.configuration.jwt.JwtAuthenticationFilter;
 import com.example.InsideOut.configuration.jwt.JwtAuthorizationFilter;
+import com.example.InsideOut.configuration.jwt.JwtProperties;
 import com.example.InsideOut.dao.UserRepository;
 
 @Configuration
@@ -28,6 +37,14 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http
+				.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/main")
+				.invalidateHttpSession(true)
+				.deleteCookies(JwtProperties.HEADER_STRING)
+				.deleteCookies("JSESSIONID")
+				.permitAll()
+				.and()
 				.csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
@@ -43,7 +60,7 @@ public class SecurityConfig {
 						.access("hasRole('ROLE_STAFF') or hasRole('ROLE_ADMIN')")
 						.antMatchers("/api/v1/admin/**")
 						.access("hasRole('ROLE_ADMIN')")
-						.anyRequest().permitAll()) // 해당 요청에 관해 모두 접근 가능
+						.anyRequest().permitAll())
 				.build();
 	}
 
@@ -56,5 +73,23 @@ public class SecurityConfig {
 					.addFilter(new JwtAuthenticationFilter(authenticationManager))
 					.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
 		}
+	}
+	
+    @Bean
+    public AuthenticationSuccessHandler loginSuccessHandler() {
+        return new CostomLoginSuccessHandler();
+    }
+	
+	public class CostomLoginSuccessHandler implements AuthenticationSuccessHandler{
+
+		@Override
+		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+				Authentication authentication) throws IOException, ServletException {
+	        
+	        // 리다이렉트 수행
+	        response.sendRedirect("/home");
+			
+		}
+		
 	}
 }

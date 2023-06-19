@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +19,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.InsideOut.auth.PrincipalDetails;
 import com.example.InsideOut.model.LoginRequestDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,12 +32,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			throws AuthenticationException {
 		System.out.println("JwtAuthenticationFilter : 로그인시도");
 
+		//여기서 암호화 비교
+		
 	
 		LoginRequestDto loginRequestDto = new LoginRequestDto();
 		loginRequestDto.setUsername(request.getParameter("username"));
 		loginRequestDto.setPassword(request.getParameter("password"));
 		
-		System.out.println("JwtAuthenticationFilter : "+loginRequestDto);
+		
 
 		UsernamePasswordAuthenticationToken authenticationToken = 
 				new UsernamePasswordAuthenticationToken(
@@ -45,10 +47,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 						loginRequestDto.getPassword());
 		
 		System.out.println("JwtAuthenticationFilter : 토큰생성완료");
-
+		
+		// 인증 성공하면 만드는 객체
 		Authentication authentication = 
 				authenticationManager.authenticate(authenticationToken);
 		
+		// principal에 username을 담고, password는 보안상 비워둠
 		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
 		System.out.println("Authentication : "+principalDetailis.getUser().getUsername());
 		
@@ -68,10 +72,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		String jwtToken = JWT.create()
 				.withSubject(principalDetailis.getUsername())
 				.withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME))
+				//payload에 담기는 정보
 				.withClaim("id", principalDetailis.getUser().getMem_no())
 				.withClaim("username", principalDetailis.getUser().getUsername())
 				.sign(Algorithm.HMAC512(JwtProperties.SECRET));
+
+		// 쿠키 객체에 토큰 값 저장
+		Cookie cookie = new Cookie(JwtProperties.HEADER_STRING, jwtToken);
+		cookie.setMaxAge(JwtProperties.EXPIRATION_TIME);
+		cookie.setPath("/");
 		
-		response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
+		//응답 헤더에 해당 쿠키를 포함시켜 클라이언트로 전송
+		response.addCookie(cookie);
 	}
 }

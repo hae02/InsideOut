@@ -12,4 +12,14 @@
 		values ('0', ${counsel_typeno}, '${counsel_request_content}', DATE_FORMAT('${booking_dt}', '%Y%m%d'), '${booking_time}', ${staff_no});
 	</insert>
 	
+	<select id="getDt" parameterType="String" resultType="com.example.InsideOut.model.CounselBookingBean">
+		select *
+		from counsel_booking
+		left outer join code on code.cd = CONFIRM_TIME
+		where staff_no = #{staffNo}
+		and confirm_dt = #{bookingDt}
+		and cate = 5000;
+	</select>
+	
+	
 </mapper>

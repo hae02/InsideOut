@@ -19,7 +19,13 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-
+	
+<!-- 	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+		<version>2.5.4</version>
+	</dependency> -->
+		
 		<!-- jwt 설정 파일 -->
 		<dependency>
 			<groupId>com.auth0</groupId>

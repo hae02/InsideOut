@@ -1,5 +1,7 @@
 package com.example.InsideOut.service;
 
+import java.util.List;
+
 import com.example.InsideOut.model.CounselBookingBean;
 import com.example.InsideOut.model.CounselTypeBean;
 
@@ -9,6 +11,6 @@ public interface CounselService {
 
 	public int insertCounsel(CounselBookingBean counselBookingBean) throws Exception;
 
-//	public Staff getStaffList(String staff_no);
+	public List<CounselBookingBean> getDt(String staffNo, String confirmDt) throws Exception;
 
 }

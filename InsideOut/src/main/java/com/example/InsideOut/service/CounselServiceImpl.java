@@ -1,5 +1,7 @@
 package com.example.InsideOut.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,9 @@ public class CounselServiceImpl implements CounselService {
 		return counselDao.insertCounsel(counselBookingBean);
 	}
 
-
+	@Override
+	public List<CounselBookingBean> getDt(String staffNo, String bookingDt) throws Exception {		
+		return counselDao.getDt(staffNo, bookingDt);
+	}
 
 }
