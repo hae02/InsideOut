@@ -13,6 +13,7 @@ import lombok.Data;
 @Data
 @Alias("member")
 public class MemberBean {
+
 	private String mem_no; 
 	private String username; 
 	private String password;

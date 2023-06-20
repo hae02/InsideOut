@@ -1,13 +1,21 @@
 package com.example.InsideOut.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.example.InsideOut.dao.UserRepository;
 import com.example.InsideOut.model.DeptBean;
@@ -24,18 +32,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
 	
-	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final MemberServiceImpl memberService;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping({"/",""})
 	public String sssss() {
+		return "member/loginForm";
+	}
+	
+	@GetMapping("/joinSelect")
+	public String joinSelect() {
 		return "member/joinSelect";
 	}
 	
 	@GetMapping("/joinForm")
 	public String joinForm(Model model, String mem_type) {
-		System.out.println("mem_type: " + mem_type);
 		model.addAttribute("mem_type", mem_type);
 		
 		return "member/joinForm";
@@ -60,12 +72,8 @@ public class MemberController {
 		
 		System.out.println("member: "+member);
 		
-		return "redirect:/loginform";
-	}
-	
-	@GetMapping("loginform")
-	public String loginform() {
-		
 		return "member/loginForm";
 	}
+
+	
 }
