@@ -63,30 +63,32 @@
                 <form method="post" action="" name="rdform" id="rdform">
                     <table class="table"> 
                         <thead>
-                           <!--  <tr>
+                            <tr>
                                 <th>No.</th>
                                 <th>보낸 사람</th>
+                                <th>받은 사람</th>
                                 <th>내용</th>
-                                <th>시각</th>
-                                <th>확인</th>
-                            </tr> -->
+                                <th>시간</th>
+                              <!--   <th>확인</th> -->
+                            </tr>
                         </thead>
     
     
-        <div class="title"><h4>받은쪽지함</h4></div>
+        <div class="title"><h4>보낸쪽지함</h4></div>
 
         <form name="sdform" id="sdform" method="post">
         <input type="hidden" name="send_id" value="${send_id}">
            <%--  <div style="float:right; font-size:1.4rem;">총 메시지 : ${cnt }</div> --%>
             <input type="hidden" name="page" value="${page }">
 
-            <table class="table" border=1 align=center>
-                <tr style="text-align:center;">
+ <!--            <table class="table" border=1 align=center> -->
+           <!--      <tr style="text-align:center;">
+                
                     <th width="10%">보낸사람</th>
                     <th width="10%">받은사람</th>
                     <th width="70%">내용</th>
                     <th width="10%">날짜</th>
-                </tr>
+                </tr> -->
 
                 <c:if test="${empty noteList }">
                     <tr>
@@ -94,38 +96,39 @@
                     </tr>
                 </c:if>
                 <c:if test="${not empty noteList }">
-                    <c:forEach var="rcv" items="${noteList }">
+                    <c:forEach var="send" items="${noteList }">
                         <tr style="text-align:center">
-                            <td>${rcv.send_id }</td>
-                            <td>${rcv.recv_id }</td>
+                           <td >${send.note_no}</td>
+                            <td>${send.send_id }</td>
+                            <td>${send.recv_id }</td>
                             <td>
-<a href="notesendview?cnt=${rcv.note_no}&send_id=${rcv.send_id}">${rcv.message}</a>
+<a href="notesendview?cnt=${send.note_no}&send_id=${send.send_id}">${send.message}</a>
 <%-- <a href="notesendview?cnt=${rcv.note_no}&amp;send_id=${rcv.send_id}" onclick="showMessage(event)">
 ${rcv.message}</a> --%>
 
                             </td>
-                            <td><fmt:formatDate value="${rcv.snd_dt }" pattern="yyyy.MM.dd"/></td>
+                            <td><fmt:formatDate value="${send.snd_dt }" pattern="yyyy.MM.dd"/></td>
                         </tr>
                     </c:forEach>
                 </c:if>
             </table>
             
-             <div style="float:right; font-size:1.4rem;">총 메시지 : ${cnt }</div>
+            <%--  <div style="float:right; font-size:1.4rem;">총 메시지 : ${cnt }</div> --%>
         </form>
 
         <!-- 페이지 블록 -->
         <div class="pgn" style="text-align:center;">
-            <a href="sendlist?page=1&send_id=${sessionScope.sender}" style="text-decoration:none"> < </a>
+            <a href="sendlist?page=1&send_id=${send_id}" style="text-decoration:none"> < </a>
             <c:if test="${startPage !=1 }">
-                <a href="sendlist?page=${page }&send_id=${sessionScope.sender}">이전</a>
+                <a href="sendlist?page=${page }&send_id=${send_id}">이전</a>
             </c:if>
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                <a href="sendlist?page=${i}&send_id=${sessionScope.sender}"> [${i}]  </a>            
+                <a href="sendlist?page=${i}&send_id=${send_id}"> [${i}]  </a>            
             </c:forEach>
             <c:if test="${endPage != pageCount}">
-                <a href="sendlist?page=${page }&send_id=${sessionScope.sender}">다음 </a>                       
+                <a href="sendlist?page=${page }&send_id=${send_id}">다음 </a>                       
             </c:if>
-            <a href="sendlist?page=${pageCount }&send_id=${sessionScope.sender}" style="text-decoration:none"> >  </a>             
+            <a href="sendlist?page=${pageCount }&send_id=${send_id}" style="text-decoration:none"> >  </a>             
         </div>
 
     </div>

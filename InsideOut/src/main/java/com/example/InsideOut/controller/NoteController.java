@@ -286,15 +286,20 @@ public class NoteController {
 		return "note/notereply";
 	}
 
-	// 보낸 쪽지 상세 페이지
+	// 보낸 쪽지 상세 페이지(안됨) 
 	/* @GetMapping("notesendview") */
 	 @RequestMapping("/notesendview") 
 	/* public String notesendview(int cnt, Model model) */
-	public String notesendview(@RequestParam("send_id") String send_id, @RequestParam("cnt") int cnt,
+	public String notesendview(Authentication authentication,@RequestParam("send_id") String send_id, @RequestParam("cnt") int cnt,
 			@RequestParam(defaultValue = "1") int page, Model model) {
+		 
+		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+	     send_id = principalDetails.getUser().getUsername();
 
 		NoteBean note = noteService.getSentNoteDetail(cnt);
 		model.addAttribute("note", note);
+		  model.addAttribute("send_id", send_id); // send_id 값을 모델에 추가
+		  model.addAttribute("message", note.getMessage()); // message 값을 모델에 추가
 		// model.addAttribute("note", cnt)
 
 		return "note/notesendview";
@@ -303,13 +308,19 @@ public class NoteController {
 	// 받은 쪽지 상세 페이지
 	/* @GetMapping("notercvview") */
 	 @RequestMapping("/notercvview") 
-	public String notercvview(@RequestParam("recv_id") String recv_id, @RequestParam("cnt") int cnt,
+	public String notercvview(Authentication authentication,@RequestParam("recv_id") String recv_id, @RequestParam("cnt") int cnt,
 			@RequestParam(defaultValue = "1") int page, Model model) {
+		 
+
+		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		 recv_id = principalDetails.getUser().getUsername();
 
 		NoteBean note = noteService.getReceivedNoteDetail(cnt);
 		System.out.println("받은 쪽지함  DTO:"+ note);
 		
 		model.addAttribute("note", note);
+		 model.addAttribute("recv_id", recv_id); 
+		  model.addAttribute("message", note.getMessage()); // message 값을 모델에 추가
 
 		return "note/notercvview";
 	}
@@ -321,6 +332,7 @@ public class NoteController {
 		
 		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 	     String recv_id = principalDetails.getUser().getUsername();
+	     String send_id = principalDetails.getUser().getUsername();
 		 
 		 
 		 int result = noteService.deleteNoteById(note_No);
@@ -330,6 +342,7 @@ public class NoteController {
 		model.addAttribute("result", result);
 		model.addAttribute("page", page);
 		model.addAttribute("recv_id", recv_id);
+		model.addAttribute("send_id", send_id);
 
 		return "note/deleteresult";
 

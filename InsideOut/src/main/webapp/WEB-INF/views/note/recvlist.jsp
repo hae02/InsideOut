@@ -102,7 +102,7 @@
                                 <th>받은 사람</th>
                                 <th>내용</th>
                                 <th>시간</th>
-                                <th>확인</th>
+                       <!--          <th>확인</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -112,15 +112,36 @@
                                     <td style="width: 15%; text-align: center;">${note.send_id}</td>
                                     <td style="width: 15%; text-align: center;">${note.recv_id}</td>
                                     <td style="width: 30%; text-align: center;"><a href="notercvview?cnt=${note.note_no}&amp;recv_id=${note.recv_id}">${note.message}</a></td>
-                                    <td style="width: 16%; text-align: center;"><fmt:formatDate value="${note.rcv_dt}" pattern="yy.MM.dd HH:mm:ss" /></td>
-                                    <td style="width: 6%; text-align: center;"><input type="checkbox" id="checked" name="checked" value="${note.note_no}" style="width: 20px; height: 20px;"></td>
+                                    <td style="width: 16%; text-align: center;"><fmt:formatDate value="${note.rcv_dt}" pattern="yyyy.MM.dd" /></td>
+<%--                                     <td style="width: 6%; text-align: center;"><input type="checkbox" id="checked" name="checked" value="${note.note_no}" style="width: 20px; height: 20px;"></td> --%>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
-                    <div style="float: left;">
+                    
+                    
+                     <!-- 페이지 블록 -->
+        <div class="pgn" style="text-align:center;">
+            <a href="recvlist?page=1&recv_id=${recv_id}" style="text-decoration:none"> < </a>
+            <c:if test="${startPage !=1 }">
+                <a href="recvlist?page=${page }&recv_id=${recv_id}">이전</a>
+            </c:if>
+            <c:forEach var="i" begin="${startPage}" end="${endPage}">
+                <a href="recvlist?page=${i}&recv_id=${recv_id}"> [${i}]  </a>            
+            </c:forEach>
+            <c:if test="${endPage != pageCount}">
+                <a href="recvlist?page=${page }&recv_id=${recv_id}">다음 </a>                       
+            </c:if>
+            <a href="recvlist?page=${pageCount }&recv_id=${recv_id}" style="text-decoration:none"> >  </a>             
+        </div>
+
+    </div>
+                    
+                    
+                    
+                   <!--  <div style="float: left;">
                         <button type="button" class="btn btn-primary" onclick="msgchk()">읽음</button>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

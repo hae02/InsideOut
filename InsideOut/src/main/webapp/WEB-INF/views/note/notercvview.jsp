@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 
 
-<script>
+<!-- <script>
 	function mytable1(recv_id) {
 		alert(recv_id);
 		location.href = "recvlist?recv_id=" + recv_id;
@@ -18,19 +18,18 @@
 		document.rdform.action = "sendlist?send_id=" + send_id;
 		document.rdform.submit();
 	}
-</script>
+</script> -->
 
 
 </head>
 <body>
 
-	<div>
+<%-- 	<div>
 		<input type="button" value="받은 메시지" onclick="mytable1('${recv_id }')"
 			class="btn btn-info" style="font-size: 1.6rem;"> 
 			<input type="button" value="보낸 메시지" onclick="mytable2('${send_id}')"
 			class="btn btn-outline-light text-dark" style="font-size: 1.6rem;">		
-	<!-- 	<li class="list-group-item active"><input type="submit"></li> -->
-	</div>
+	</div> --%>
 
 
 
@@ -39,21 +38,7 @@
 			<td width=100 align=center>보낸 이</td>
 			<td>${note.recv_id}</td>
 		</tr>
-		<%-- <tr>
-							<td align=center>받는 이</td>
-							<td>${note.send_id}</td>
-						
-						</tr> --%>
-		<%-- <tr>
-							<td align=center>보낸 날짜</td>
-							<td><fmt:formatDate value="${note.snd_dt}"
-					  pattern="yyyy-MM-dd HH:mm:ss"/></td>
-						</tr> --%>
-
-		<%-- 	<tr>
-							<td align=center>제목</td>
-							<td>${note.nsubject}</td>
-						</tr> --%>
+		
 
 		<tr>
 			<td height=200 align=center>내용</td>
