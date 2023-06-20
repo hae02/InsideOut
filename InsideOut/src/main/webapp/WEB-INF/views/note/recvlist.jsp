@@ -88,6 +88,7 @@
                     <li><a href="#">1:1 문의</a></li>
                     <li><a href="recvlist?recv_id=${recv_id}">받은쪽지함</a></li>
                     <li><a href="sendlist?send_id=${send_id}">보낸쪽지함</a></li>
+                        <li><a href="writenote?send_id=${send_id}">쪽지작성</a></li>
                 </ul>
             </div>
             <div class="col-9" style="margin-top: 20px;">
@@ -97,9 +98,10 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
+                                <th>보낸 사람</th>
                                 <th>받은 사람</th>
                                 <th>내용</th>
-                                <th>시각</th>
+                                <th>시간</th>
                                 <th>확인</th>
                             </tr>
                         </thead>
@@ -107,7 +109,8 @@
                             <c:forEach items="${noteList}" var="note">
                                 <tr>
                                     <td style="width: 6%; text-align: center;">${note.note_no}</td>
-                                    <td style="width: 28%; text-align: center;">${note.send_id}</td>
+                                    <td style="width: 15%; text-align: center;">${note.send_id}</td>
+                                    <td style="width: 15%; text-align: center;">${note.recv_id}</td>
                                     <td style="width: 30%; text-align: center;"><a href="notercvview?cnt=${note.note_no}&amp;recv_id=${note.recv_id}">${note.message}</a></td>
                                     <td style="width: 16%; text-align: center;"><fmt:formatDate value="${note.rcv_dt}" pattern="yy.MM.dd HH:mm:ss" /></td>
                                     <td style="width: 6%; text-align: center;"><input type="checkbox" id="checked" name="checked" value="${note.note_no}" style="width: 20px; height: 20px;"></td>
