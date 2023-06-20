@@ -23,5 +23,4 @@ public class StaffController {
 	    return "staff/staffList";
 	}
 
-
 }

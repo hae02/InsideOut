@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 부트스트랩 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <style>
 .btn {
@@ -16,31 +16,40 @@
 	height: 300px;
 	margin-right: 50px;
 }
-.containe {
-  	justify-content: center;
-  	align-items: center;
-  	display: flex;
-  	height: 100vh;
-}
 
+.containe {
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	height: 100vh;
+}
 </style>
 <body>
-
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 	<div class="containe">
-		<button class="btn btn-outline-success" type="button" name="counsel_typeno" onclick="location.href='counsel_Booking?counsel_typeno=0101'">
+		<button class="btn btn-outline-success" type="button"
+			name="counsel_typeno"
+			onclick="location.href='counsel_Booking?counsel_typeno=0101'">
 			<img src="images/people-fill.svg" width="40%">
 			<h3>대학생활</h3>
 		</button>
-		<button class="btn btn-outline-success" type="button" name="counsel_typeno" onclick="location.href='counsel_Booking?counsel_typeno=0102'">
+		<button class="btn btn-outline-success" type="button"
+			name="counsel_typeno"
+			onclick="location.href='counsel_Booking?counsel_typeno=0102'">
 			<img src="images/briefcase-fill.svg" width="40%">
 			<h3>취업/진로</h3>
 		</button>
-		<button class="btn btn-outline-success" type="button" name="counsel_typeno" onclick="location.href='counsel_Booking?counsel_typeno=0103'">
+		<button class="btn btn-outline-success" type="button"
+			name="counsel_typeno"
+			onclick="location.href='counsel_Booking?counsel_typeno=0103'">
 			<img src="images/mortarboard-fill.svg" width="40%">
 			<h3>학사</h3>
 		</button>
 
-		<button class="btn btn-outline-success" type="button" name="counsel_typeno" onclick="location.href='counsel_Booking?counsel_typeno=0104'">
+		<button class="btn btn-outline-success" type="button"
+			name="counsel_typeno"
+			onclick="location.href='counsel_Booking?counsel_typeno=0104'">
 			<img src="images/person-check-fill.svg" width="40%">
 			<h3>개인고민</h3>
 		</button>

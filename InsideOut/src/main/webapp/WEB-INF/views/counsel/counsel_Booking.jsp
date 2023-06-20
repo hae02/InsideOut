@@ -10,8 +10,10 @@
 <title>상담 예약</title>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- 부트스트랩 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 
 </head>
 <style>
@@ -62,10 +64,6 @@
 	justify-content: space-between;
 }
 
-.btn {
-	display: inline-block;
-}
-
 .staff .btn.active {
 	background-color: #E0F5DF;
 	color: #fff;
@@ -81,12 +79,6 @@
 	color: #fff;
 }
 
-/* .booking_time td {
-	text-align: center;
-	padding: 8px;
-	border: 1px solid #ccc;
-} */
-
 .booking_time .btn {
 	text-align: center;
 	padding: 8px;
@@ -97,11 +89,6 @@
 	
 }
 
-/* .booking_time th {
-	text-align: center;
-	padding: 15px;
-	width: 500px;
-} */
 .booking_time .disabled {
 	border: 0px;
 	text-align: center;
@@ -133,14 +120,23 @@
 .btn {
 	display: inline-block;
 }
+
+.btn-group-toggle.staff { /* 상담사 프로필 */
+	margin-left: 12%;
+}
+
+
 </style>
 
 <body>
 
 	<div class="container">
 		<form method="post" action="counsel_Content">
-			<input type="hidden" id="counsel_typeno" name="counsel_typeno" value="${counselType.counsel_typeno}"> 
-			<input type="hidden" id="booking_dt" name="booking_dt" value="">
+			<input type="hidden" id="counsel_typeno" name="counsel_typeno"
+				value="${counselType.counsel_typeno}"> <input type="hidden"
+				id="booking_dt" name="booking_dt" value=""> <input
+				type="hidden" id="staff_no" name="staff_no" value=""> <input
+				type="hidden" id="staff_name" name="staff_name" value="">
 
 			<h1>${counselType.counsel_typename}</h1>
 			<p>${counselType.counsel_typedetail}</p>
@@ -150,6 +146,7 @@
 			<h3>상담사</h3>
 
 			<!-- 교직원 프로필 -->
+			<div class="d-flex justify-content-center">
 			<div class="btn-group-toggle staff" data-toggle="buttons">
 				<c:forEach items="${staffList}" var="s">
 					<label class="btn" for="staff_no_${s.staff_no}">
@@ -158,7 +155,8 @@
 								<img src="images/6735382.png" width="100px">
 							</div>
 							<div class="col-8">
-								<input class="btn" type="radio" id="staff_no_${s.staff_no}" name="staff_no" value="${s.staff_no}">
+								<input class="btn" type="radio" id="staff_no_${s.staff_no}"
+									name="staff_no" value="${s.staff_no}">
 								<h5 class="card-title text-dark">${s.staff_name}</h5>
 								<p class="card-text text-dark">${s.staff_tel}</p>
 								<p class="card-text text-dark">${s.staff_email}</p>
@@ -167,6 +165,8 @@
 					</label>
 				</c:forEach>
 			</div>
+			</div>
+
 			<br> <br> <br> <br>
 
 			<!-- Calendar -->
@@ -177,13 +177,11 @@
 					<table>
 						<thead>
 							<tr>
-								<!-- <th class="prev">&lt;</th> -->
 								<th class="prev"><img src="images/caret-left-fill.svg"
 									width="30px"></th>
 								<th colspan="5" class="month-year"></th>
 								<th class="next"><img src="images/caret-right-fill.svg"
 									width="30px"></th>
-								<!-- 								<th class="next">&gt;</th> -->
 							</tr>
 							<tr class="day">
 								<th>일</th>
@@ -198,103 +196,41 @@
 						<tbody></tbody>
 					</table>
 				</div>
-				
 
 				<!-- BOOKING_TIME -->
 				<div class="btn-group-vertical booking_time">
-					<label class="disabled"> 
-					&nbsp;
-					</label> 
-					<label class="disabled"> 
-					예약시간
-					</label> 
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0100" value="0100"> 9:00
-					</label> 
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0200" value="0200"> 10:00
-					</label> 
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0300" value="0300"> 11:00
-					</label>
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0400" value="0400"> 12:00
-					</label>
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0500" value="0500"> 13:00
-					</label>
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0600" value="0600"> 14:00
-					</label>
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0700" value="0700"> 15:00
-					</label>
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0800" value="0800"> 16:00
-					</label>
-					<label class="btn"> 
-					<input type="radio" name="booking_time" id="booking_time_0900" value="0900"> 17:00
+					<label class="disabled"> &nbsp; </label> <label class="disabled">
+						예약시간 </label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0100" value="0100">
+						9:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0200" value="0200">
+						10:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0300" value="0300">
+						11:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0400" value="0400">
+						12:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0500" value="0500">
+						13:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0600" value="0600">
+						14:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0700" value="0700">
+						15:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0800" value="0800">
+						16:00
+					</label> <label class="btn"> <input type="radio"
+						name="booking_time" id="booking_time_0900" value="0900">
+						17:00
 					</label>
 				</div>
-				
-				</div>
-				
-<!-- 				<div class="booking_time">
-					<table>
-						<tr>
-							<th colspan="2">&nbsp;</th>
-						</tr>
-						<tr>
-							<th>선택</th>
-							<th>시간</th>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0100"
-								name="booking_time" value="0100"></td>
-							<td>9:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0200"
-								name="booking_time" value="0200"></td>
-							<td>10:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0300"
-								name="booking_time" value="0300"></td>
-							<td>11:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0400"
-								name="booking_time" value="0400"></td>
-							<td>12:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0500"
-								name="booking_time" value="0500"></td>
-							<td>13:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0600"
-								name="booking_time" value="0600"></td>
-							<td>14:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0700"
-								name="booking_time" value="0700"></td>
-							<td>15:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0800"
-								name="booking_time" value="0800"></td>
-							<td>16:00</td>
-						</tr>
-						<tr>
-							<td><input type="radio" id="booking_time_0900"
-								name="booking_time" value="0900"></td>
-							<td>17:00</td>
-						</tr>
-					</table>
-				</div> -->
+			</div>
+
 
 			<script>
 	var booking_dt = ''; // 예약 날짜를 담을 변수
@@ -350,6 +286,8 @@
 
 	// 선택된 날짜 처리 함수
 	function selectDate() {
+		
+		
 	  var calendarCells = document.querySelectorAll('.calendar td');
 	  calendarCells.forEach(function(cell) {
 	    cell.classList.remove('selected');
@@ -359,17 +297,32 @@
 	  var selectedYearMonth = currentYear + (currentMonth + 1).toString().padStart(2, '0');
 	  var selectedDateFull = selectedYearMonth + selectedDate.toString().padStart(2, '0');
 
+	  var currentDt = new Date();
+	  var selectedDt = new Date(currentYear, currentMonth, this.textContent);
+	  
+	  if (selectedDt < currentDt) {
+		removeSelectedClass(); // 날짜 초기화  
+	    alert('예약날짜는 현재날짜 이후로 선택해주세요.');
+	    return;
+	  }
+		
 	  booking_dt = selectedDateFull; // 선택된 날짜를 booking_dt 변수에 할당
 	  
 	  console.log('booking_dt:', booking_dt);
 	  
 	  var staff_no;
+	  var staff_name;
 	  var activeBtns = document.querySelectorAll('.btn.active');
 	  
 	  activeBtns.forEach(function(btn) {
 		  var divs = btn.querySelectorAll('div.col-8');
 		  if (divs.length > 0) {
 		    divs.forEach(function(div) {
+		      var nameElement = div.querySelector('h5.card-title');
+			  if (nameElement) {
+			    staff_name = nameElement.textContent;
+			  }
+			  
 		      var input = div.querySelector('input');
 		      if (input) {
 		      	staff_no = input.value;
@@ -391,7 +344,8 @@
 	  /* document.write(booking_dt); // 웹페이지에 변수 값 출력 */
 
 	  $("#booking_dt").val(booking_dt); // booking_dt 변수에 저장
-	 /*  $("#staff_no").val(staff_no); // staff_no 변수에 저장 */
+	  $("#staff_no").val(staff_no); // staff_no 변수에 저장 */
+	  $("#staff_name").val(staff_name); // staff_name 변수에 저장 */
 	}
 	
 	/* 확정날짜 초기화 */
@@ -482,12 +436,11 @@
 		});
  	}
 		</script>
-
-			<br> <br> <br>
-			<!-- <button type="button">이전</button> -->
+			<br>
 			<button type="submit" class="btn btn-success">다음</button>
 		</form>
 	</div>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>	
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

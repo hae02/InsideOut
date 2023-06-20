@@ -33,4 +33,10 @@ public class CounselServiceImpl implements CounselService {
 		return counselDao.getDt(staff_no, booking_dt);
 	}
 
+	@Override
+	public String getBooking(String booking_time) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.getBooking(booking_time);
+	}
+
 }

@@ -16,4 +16,6 @@ public interface CounselDao {
 
 	public List<CounselBookingBean> getDt(String staff_no, String booking_dt) throws Exception;
 
+	public String getBooking(String booking_time) throws Exception;
+
 }
