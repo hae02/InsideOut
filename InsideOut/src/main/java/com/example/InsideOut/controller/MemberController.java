@@ -28,7 +28,7 @@ public class MemberController {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final MemberServiceImpl memberService;
 	
-	@GetMapping({"/joinSelect",""})
+	@GetMapping({"/",""})
 	public String sssss() {
 		return "member/joinSelect";
 	}
