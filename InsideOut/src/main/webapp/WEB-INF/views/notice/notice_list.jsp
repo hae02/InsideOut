@@ -9,14 +9,19 @@
 <head>
 <meta charset="UTF-8">
 <title>공지 게시판 목록</title>
-<link rel="stylesheet" href="./css/bbs.css" type="text/css">
+<!-- 부트스트랩 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="noticelist_wrap">
 		<h2 class="noticelist_title"> <공지사항> </h2>
 		<div id="noticelist_c">글 개수 : ${noticelistcount}</div>
 
-		<table class = "table" id="noticelist_t">
+		<table class="table" id="noticelist_t">
 			<tr align="center" valign="middle" bordercolor="#333333">
 				<td style="font-family: Tahoma; font-size: 11pt;" width="8%"
 					height="26">
