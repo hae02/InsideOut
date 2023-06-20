@@ -30,7 +30,7 @@ public class NoteController {
 
 	@Autowired
 	private NoteService noteService;
-	
+			
 
 	// 쪽지 작성창으로
 //	 @GetMapping("/writenote") 
