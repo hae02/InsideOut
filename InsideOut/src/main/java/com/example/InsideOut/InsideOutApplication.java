@@ -16,4 +16,5 @@ public class InsideOutApplication {
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
 }
