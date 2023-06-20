@@ -67,7 +67,7 @@
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">상담내용</label>
 				<textarea class="form-control" id="counsel_request_content"
-					placeholder="상담내용을 입력해주세요." rows="20"></textarea>
+					name="counsel_request_content" placeholder="상담내용을 입력해주세요." rows="20"></textarea>
 			</div>
 
 			<button type="reset" class="btn btn-success">취소</button>
