@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.example.InsideOut.model;
 
 import lombok.Data;
@@ -9,3 +10,16 @@ public class LoginRequestDto {
 	private String password;
 }
 
+=======
+package com.example.InsideOut.model;
+
+import lombok.Data;
+
+//토큰 생성을 위해 사용하는 dto(관심사 분리)
+@Data
+public class LoginRequestDto {
+	private String username;
+	private String password;
+}
+
+>>>>>>> InsideOut/kea
