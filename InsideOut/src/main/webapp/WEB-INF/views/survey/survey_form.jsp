@@ -40,8 +40,24 @@
 
 .bd-sidebar .nav>li>a {
 	display: block;
-	padding: .25rem 1.5rem;
-	font-size: 120%;
+	padding: 1rem 1.5rem;
+	font-size: 110%;
+	text-decoration: none;
+	color: green;
+	font-weight: bold;
+}
+
+#question {
+	margin: 30px 0;
+}
+
+.questionname {
+	margin-bottom: 10px;
+}
+
+.surveysubj {
+	width: 250px;
+	margin-bottom: 30px;
 }
 </style>
 </head>
@@ -62,28 +78,30 @@
 			</div>
 
 			<main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
-				<h3>만족도 조사</h3>
+				<h3>상담 만족도 조사</h3>
 				<form method="post" action="surveySubmit">
 					<input type="hidden" name="booking_no" value="${booking_no}">
 					<c:forEach var="question" items="${question}" end="4">
-						<div>Q. ${question.question_name}</div>
-						<div class="btn-group btn-group-lg" role="group"
-							aria-label="Basic radio toggle button group">
-							<c:forEach var="i" begin="1" end="5">
-								<input type="radio" class="btn-check"
-									name="answer${question.question_no}"
-									id="answer${question.question_no}${i}" value="${i}"
-									onClick="change(${question.question_no}, ${i})">
-								<label class="btn btn-outline-primary"
-									for="answer${question.question_no}${i}">${i}</label>
-							</c:forEach>
+						<div id="question">
+							<div class="questionname">Q. ${question.question_name}</div>
+							<div class="btn-group btn-group-lg" role="group"
+								aria-label="Basic radio toggle button group">
+								<c:forEach var="i" begin="1" end="5">
+									<input type="radio" class="btn-check"
+										name="answer${question.question_no}"
+										id="answer${question.question_no}${i}" value="${i}"
+										onClick="change(${question.question_no}, ${i})">
+									<label class="btn btn-outline-primary"
+										for="answer${question.question_no}${i}">${i}</label>
+								</c:forEach>
+							</div>
 						</div>
 					</c:forEach>
 
 					<c:forEach var="question" items="${question}" begin="5">
-						<div>Q. ${question.question_name}</div>
+						<div class="questionname">Q. ${question.question_name}</div>
 						<textarea name="answer${question.question_no}"
-							id="answer${question.question_no}"></textarea>
+							id="answer${question.question_no}" class="form-control surveysubj"></textarea>
 					</c:forEach>
 
 					<div>

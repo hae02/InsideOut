@@ -42,8 +42,11 @@
 
 .bd-sidebar .nav>li>a {
 	display: block;
-	padding: .25rem 1.5rem;
-	font-size: 120%;
+	padding: 1rem 1.5rem;
+	font-size: 110%;
+	text-decoration: none;
+	color: green;
+	font-weight: bold;
 }
 </style>
 </head>
@@ -64,6 +67,7 @@
 			</div>
 
 			<main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
+				<h3 style="margin-bottom: 30px;">상담 만족도 조사</h3>
 				<div>
 					<table class="table">
 						<thead>
@@ -79,8 +83,7 @@
 								<tr>
 									<th>${no}</th>
 									<c:if test="${list.survey_state == '0100'}">
-										<td>
-											<a href="survey?booking_no=${list.booking_no}">${list.booking_no}</a>
+										<td><a href="survey?booking_no=${list.booking_no}">${list.booking_no}</a>
 										</td>
 										<td>미실시</td>
 									</c:if>
@@ -88,9 +91,8 @@
 										<td>${list.booking_no}</td>
 										<td>완료</td>
 									</c:if>
-									<td>
-										<fmt:formatDate value="${list.survey_dt}" pattern="yyyy-MM-dd"/>
-									</td>
+									<td><fmt:formatDate value="${list.survey_dt}"
+											pattern="yyyy-MM-dd" /></td>
 								</tr>
 								<c:set var="no" value="${no-1}"></c:set>
 							</c:forEach>
@@ -104,8 +106,8 @@
 							<c:if test="${listcount > 0}">
 								<c:if test="${startpage > 10}">
 									<li class="page-item"><a class="page-link"
-										href="surveyList?page=${startpage-10}"
-										aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										href="surveyList?page=${startpage-10}" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
 									</a></li>
 								</c:if>
 

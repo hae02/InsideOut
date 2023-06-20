@@ -40,8 +40,15 @@
 
 .bd-sidebar .nav>li>a {
 	display: block;
-	padding: .25rem 1.5rem;
-	font-size: 120%;
+	padding: 1rem 1.5rem;
+	font-size: 110%;
+	text-decoration: none;
+	color: green;
+	font-weight: bold;
+}
+
+#total {
+	text-decoration: none;
 }
 </style>
 </head>
@@ -63,6 +70,7 @@
 			</div>
 
 			<main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
+				<h3 style="margin-bottom: 30px;">상담 만족도 조사</h3>
 				<div>
 					<table class="table">
 						<thead>
@@ -73,18 +81,20 @@
 							</tr>
 						</thead>
 						<tbody id="table-body">
-							<c:forEach items="${staticList}" var="list">
+							<c:forEach items="${staticList}" var="list" varStatus="vs">
 								<tr>
 									<th>${no}</th>
 									<td>${list.year}</td>
-									<td><a href="" data-bs-toggle="modal"
-										data-bs-target="#resultModal">★ ${list.total/5}</a></td>
+									<td><a href="" id="total" data-bs-toggle="modal"
+										data-bs-target="#resultModal${vs.index}">★ ${list.total/5}
+									</a></td>
 								</tr>
 								<c:set var="no" value="${no-1}"></c:set>
 
 								<!-- Modal -->
-								<div class="modal fade" id="resultModal" tabindex="-1"
-									aria-labelledby="resultModalLabel" aria-hidden="true">
+								<div class="modal fade" id="resultModal${vs.index}"
+									tabindex="-1" aria-labelledby="resultModalLabel"
+									aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header border-bottom-0">
