@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +10,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	index.jsp
-	
-	<a href="counselType">상담 예약</a>
-	<a href="staffList">상담사 리스트</a>
-	<a href="loginform">로그인</a>
+
+<c:if test="${result == 1}">
+	<script>
+	aliert("예약성공");
+	location.href="counselType";
+	</script>
+</c:if>
+
 </body>
 </html>

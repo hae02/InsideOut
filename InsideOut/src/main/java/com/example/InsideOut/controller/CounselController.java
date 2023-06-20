@@ -27,16 +27,16 @@ public class CounselController {
 	private StaffService staffService;
 	
 	// 상담 종류 선택
-	@RequestMapping("counsel_Type")
-	public String counsel_Type() throws Exception {
+	@RequestMapping("counselType")
+	public String counselType() throws Exception {
 		
-		System.out.println("counsel_Type");
+		System.out.println("counselType");
 		
-		return "counsel/counsel_Type";
+		return "counsel/counselType";
 	}
 	
 	// 상담사 및 일정 선택
-	@RequestMapping("counsel_Booking")
+	@RequestMapping("counselBooking")
 	public String counselBooking(@RequestParam("counsel_typeno") String counsel_typeno,
 								CounselBookingBean cBookingBean,
 								StaffBean staff, Model model) throws Exception {
@@ -53,12 +53,12 @@ public class CounselController {
 	    model.addAttribute("staffList", staffService.getStaffList(staff));
 		System.out.println("staff: "+staffService.getStaffList(staff));
 
-	    return "counsel/counsel_Booking";
+	    return "counsel/counselBooking";
 	}
 
 	
 	// 상담 내용 작성 폼
-	@RequestMapping("counsel_Content")
+	@RequestMapping("counselContent")
 	public String counsel_Content(@RequestParam("counsel_typeno") String counsel_typeno, 
 								  @RequestParam("booking_dt") String booking_dt, 
 								  @RequestParam("booking_time") String booking_time, 
@@ -84,11 +84,11 @@ public class CounselController {
 		model.addAttribute("staff", staff); // 상담사
 		model.addAttribute("cd_nm", cd_nm); // 공통코드 시간
 		
-		return "counsel/counsel_Content";
+		return "counsel/counselContent";
 	}
 	
 	// 상담 내용 작성 저장
-	@RequestMapping("counsel_ContentOk")
+	@RequestMapping("counselContentOk")
 	public String counsel_ContentOk(@ModelAttribute CounselBookingBean counselBookingBean, 
 									Model model) throws Exception {
 		
@@ -96,7 +96,7 @@ public class CounselController {
 		if(result == 1) System.out.println("입력성공");
 		model.addAttribute("result", result);
 		
-		return "counsel/counsel_Type";
+		return "counsel/counselType";
 	}
 	
 	// 확정 시간 처리
