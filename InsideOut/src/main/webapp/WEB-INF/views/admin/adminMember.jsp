@@ -80,7 +80,7 @@
 					<%-- <select name="search" class="fl-search-select">
 					<option value="username"
 						<c:if test="${search=='username'}">selected="selected" </c:if>>작성자</option>
-				</select>  --%>
+					</select>  --%>
 					<input type="text" placeholder="검색어를 입력해 주세요!" name="keyword"
 						required>
 					<!-- 사용자가 입력한 검색어(keyword)를 list로 가져감 -->
