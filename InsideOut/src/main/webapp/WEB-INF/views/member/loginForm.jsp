@@ -11,6 +11,7 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 	<form action="/login" method="post">
 		<table>
 			<tr>
@@ -29,5 +30,23 @@
 		</table>
 	</form>
 	<div><a href="/joinSelect">회원 가입</a> 아이디 찾기 비밀번호 찾기</div>
+=======
+<form action="login" method="post">
+<table>
+	<tr>
+		<td><input type="text" name="username" placeholder="학 번"></td>
+	</tr>
+	<tr>
+		<td><input type="password" name="password" placeholder="비밀 번호"></td>
+	</tr>
+	<tr>
+	<td colspan="2">
+	<button type="submit">로그인</button>
+	</td>
+	</tr>
+</table>
+</form>
+
+>>>>>>> InsideOut/master
 </body>
 </html>
