@@ -1,6 +1,5 @@
 package com.example.InsideOut.controller;
 
-<<<<<<< HEAD
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -10,18 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-=======
->>>>>>> InsideOut/master
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
-=======
->>>>>>> InsideOut/master
 
 import com.example.InsideOut.dao.UserRepository;
 import com.example.InsideOut.model.DeptBean;
@@ -42,12 +36,7 @@ public class MemberController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping({"/",""})
-	public String start() {
-		return "member/loginForm";
-	}
-	
-	@GetMapping("/loginForm")
-	public String loginForm() {
+	public String sssss() {
 		return "member/loginForm";
 	}
 	
@@ -98,4 +87,5 @@ public class MemberController {
 		System.out.println("login");
 		return "api/v1/user/counsel_Type";
 	}
+
 }
