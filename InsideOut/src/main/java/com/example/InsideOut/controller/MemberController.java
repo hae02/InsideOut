@@ -19,6 +19,7 @@ import org.springframework.web.context.annotation.SessionScope;
 
 import com.example.InsideOut.dao.UserRepository;
 import com.example.InsideOut.model.DeptBean;
+import com.example.InsideOut.model.LoginRequestDto;
 import com.example.InsideOut.model.MemberBean;
 import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.model.StudentBean;
@@ -36,7 +37,12 @@ public class MemberController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping({"/",""})
-	public String sssss() {
+	public String start() {
+		return "member/loginForm";
+	}
+	
+	@GetMapping("/loginForm")
+	public String loginForm() {
 		return "member/loginForm";
 	}
 	
@@ -81,11 +87,4 @@ public class MemberController {
 		
 		return "/member/loginResult";
 	}
-	
-	@GetMapping("login")
-	public String login() {
-		System.out.println("login");
-		return "api/v1/user/counsel_Type";
-	}
-
 }
