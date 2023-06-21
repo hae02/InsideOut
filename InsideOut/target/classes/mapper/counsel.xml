@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.InsideOut.dao.CounselDao">
+	
+	<select id="getCounselType" parameterType="String" resultType="counselType">
+		select * from counsel_type where counsel_typeno=#{counsel_typeno}
+	</select>
+	
+	<insert id="insertCounsel" parameterType="booking">
+		insert into counsel_booking (student_no, counsel_typeno, counsel_request_content, booking_dt, booking_time, staff_no)
+		values ('0', #{counsel_typeno}, #{counsel_request_content}, #{booking_dt}, #{booking_time}, #{staff_no})
+	</insert>
+	
+	<select id="getDt" parameterType="String" resultType="com.example.InsideOut.model.CounselBookingBean">
+		select *
+		from counsel_booking
+		left outer join code on code.cd = CONFIRM_TIME
+		where staff_no = #{staff_no}
+		and confirm_dt = #{booking_dt}
+		and cate = '5000'
+	</select>
+	
+	<select id="getBooking" parameterType="String" resultType="String">
+  		select cd_nm from code where cate = '5000' and cd = #{booking_time};
+	</select>
+	
+	<select id="getCounsel" parameterType="String" resultType="booking">
+<!--   		select * from counsel_booking where booking_no = #{booking_no}; -->
+  		select * from counsel_booking where booking_no = '34';
+	</select>
+	
+	<insert id="insertRecord" parameterType="record">
+		insert into counsel_record (student_no, booking_no, counsel_content, counsel_record_dt)
+		values (#{student_no}, #{booking_no}, #{counsel_content}, sysdate())
+	</insert>
+	
+	<select id="getRecordList" parameterType="String" resultType="com.example.InsideOut.model.CounselRecordBean">
+		select * from counsel_record
+	</select>
+	
+	<select id="getDetail" parameterType="String" resultType="com.example.InsideOut.model.CounselRecordBean">
+		select * from counsel_record where booking_no = #{booking_no}
+	</select> 
+	
+	<update id="updateRecord" parameterType="record">
+		update counsel_record set 
+		counsel_content = #{counsel_content},
+		counsel_record_dt = sysdate()
+		where booking_no = #{booking_no}
+	</update>
+	
+	<delete id="recordDelete" parameterType="int">
+		delete from counsel_record where booking_no = ${booking_no}
+	</delete>
+	
+</mapper>
