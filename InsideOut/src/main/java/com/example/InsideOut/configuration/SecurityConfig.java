@@ -95,4 +95,3 @@ public class SecurityConfig {
 		
 	}
 }
->>>>>>> InsideOut/jikong

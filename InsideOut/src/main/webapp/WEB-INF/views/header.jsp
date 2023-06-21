@@ -22,7 +22,7 @@
 			<ul
 				class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 				<li><a href="#" class="nav-link px-2 link-dark">마이페이지</a></li>
-				<li><a href="#" class="nav-link px-2 link-dark">상담예약</a></li>
+				<li><a href="/counselType" class="nav-link px-2 link-dark">상담예약</a></li>
 				<li><a href="#" class="nav-link px-2 link-dark">취업정보</a></li>
 				<li><a href="/notice_list.do" class="nav-link px-2 link-dark">공지사항</a></li>
 			</ul>
