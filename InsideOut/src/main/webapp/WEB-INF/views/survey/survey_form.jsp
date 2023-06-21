@@ -74,7 +74,6 @@
 					<li><a href="#">받은 쪽지함</a></li>
 					<li><a href="#">회원정보 수정</a></li>
 				</ul>
-				<br>
 			</div>
 
 			<main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
