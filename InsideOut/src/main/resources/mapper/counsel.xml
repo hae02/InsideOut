@@ -22,12 +22,36 @@
 	</select>
 	
 	<select id="getBooking" parameterType="String" resultType="String">
- 		<!-- SELECT DISTINCT c.cd_nm
- 		FROM counsel_booking AS cb
-  		INNER JOIN code AS c ON cb.booking_time = c.cd
-  		WHERE c.cate = '5000'
-  		AND c.cd=#{booking_time} -->
   		select cd_nm from code where cate = '5000' and cd = #{booking_time};
 	</select>
+	
+	<select id="getCounsel" parameterType="String" resultType="booking">
+<!--   		select * from counsel_booking where booking_no = #{booking_no}; -->
+  		select * from counsel_booking where booking_no = '34';
+	</select>
+	
+	<insert id="insertRecord" parameterType="record">
+		insert into counsel_record (student_no, booking_no, counsel_content, counsel_record_dt)
+		values (#{student_no}, #{booking_no}, #{counsel_content}, sysdate())
+	</insert>
+	
+	<select id="getRecordList" parameterType="String" resultType="com.example.InsideOut.model.CounselRecordBean">
+		select * from counsel_record
+	</select>
+	
+	<select id="getDetail" parameterType="String" resultType="com.example.InsideOut.model.CounselRecordBean">
+		select * from counsel_record where booking_no = #{booking_no}
+	</select> 
+	
+	<update id="updateRecord" parameterType="record">
+		update counsel_record set 
+		counsel_content = #{counsel_content},
+		counsel_record_dt = sysdate()
+		where booking_no = #{booking_no}
+	</update>
+	
+	<delete id="recordDelete" parameterType="int">
+		delete from counsel_record where booking_no = ${booking_no}
+	</delete>
 	
 </mapper>

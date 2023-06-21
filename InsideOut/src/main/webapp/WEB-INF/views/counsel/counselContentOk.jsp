@@ -13,7 +13,7 @@
 
 <c:if test="${result == 1}">
 	<script>
-	aliert("예약성공");
+	alert("예약성공");
 	location.href="counselType";
 	</script>
 </c:if>

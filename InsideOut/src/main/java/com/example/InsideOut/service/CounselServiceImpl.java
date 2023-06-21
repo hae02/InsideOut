@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.InsideOut.dao.CounselDao;
 import com.example.InsideOut.model.CounselBookingBean;
+import com.example.InsideOut.model.CounselRecordBean;
 import com.example.InsideOut.model.CounselTypeBean;
 
 @Service
@@ -37,6 +38,42 @@ public class CounselServiceImpl implements CounselService {
 	public String getBooking(String booking_time) throws Exception {
 		// TODO Auto-generated method stub
 		return counselDao.getBooking(booking_time);
+	}
+
+	@Override
+	public CounselBookingBean getCounsel(CounselBookingBean counselBookingBean) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.getCounsel(counselBookingBean);
+	}
+
+	@Override
+	public int insertRecord(CounselRecordBean counselRecordBean) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.insertRecord(counselRecordBean);
+	}
+
+	@Override
+	public List<CounselRecordBean> getRecordList(CounselRecordBean counselRecordBean) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.getRecordList(counselRecordBean);
+	}
+
+	@Override
+	public CounselRecordBean getDetail(String booking_no) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.getDetail(booking_no);
+	}
+
+	@Override
+	public int updateRecord(CounselRecordBean counselRecordBean) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.updateRecord(counselRecordBean);
+	}
+
+	@Override
+	public int recordDelete(String booking_no) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.recordDelete(booking_no);
 	}
 
 }
