@@ -62,12 +62,11 @@
 					<li><a href="surveyList">만족도 조사</a></li>
 					<li><a href="#">내가 쓴 글</a></li>
 					<li><a href="#">1:1 문의</a></li>
-					<li><a href="recvlist?recv_id=${send_id}">받은쪽지함</a></li>
-                    <li><a href="sendlist?send_id=${send_id}">보낸쪽지함</a></li>
-                    <li><a href="writenote?send_id=${send_id}">쪽지작성</a></li>
+					<li><a href="recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
+                    <li><a href="sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
+                    <li><a href="writenote?send_id=${staff_no}">쪽지작성</a></li>
 					<li><a href="#">회원정보 수정</a></li>
 				</ul>
-				<br>
 			</div>
 
 			<main class="col-9 py-md-3 pl-md-5 bd-content" role="main">

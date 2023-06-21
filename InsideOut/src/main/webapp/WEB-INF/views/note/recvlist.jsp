@@ -87,8 +87,8 @@
                     <li><a href="surveyList">만족도 조사</a></li>
                     <li><a href="#">1:1 문의</a></li>
                     <li><a href="recvlist?recv_id=${recv_id}">받은쪽지함</a></li>
-                    <li><a href="sendlist?send_id=${send_id}">보낸쪽지함</a></li>
-                        <li><a href="writenote?send_id=${send_id}">쪽지작성</a></li>
+                    <li><a href="sendlist?send_id=${recv_id}">보낸쪽지함</a></li>
+                  	<li><a href="writenote?send_id=${recv_id}">쪽지작성</a></li>
                 </ul>
             </div>
             <div class="col-9" style="margin-top: 20px;">
@@ -136,13 +136,13 @@
         </div>
 
     </div>
-                    
-                    
-                    
-                   <!--  <div style="float: left;">
+
+
+
+			<!--  <div style="float: left;">
                         <button type="button" class="btn btn-primary" onclick="msgchk()">읽음</button>
                     </div> -->
-                </form>
+			</form>
             </div>
         </div>
     </div>

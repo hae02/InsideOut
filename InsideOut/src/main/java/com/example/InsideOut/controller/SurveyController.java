@@ -132,6 +132,7 @@ public class SurveyController {
 		
 		int no = listcount - startpage + 1;
 
+		model.addAttribute("student_no", student_no);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
@@ -172,6 +173,7 @@ public class SurveyController {
 		
 		int no = listcount - startpage + 1;
 
+		model.addAttribute("staff_no", staff_no);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);

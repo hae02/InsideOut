@@ -59,9 +59,9 @@
 					<li><a href="#">상담 내역</a></li>
 					<li><a href="surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
-					<li><a href="recvlist?recv_id=${send_id}">받은쪽지함</a></li>
-                    <li><a href="sendlist?send_id=${send_id}">보낸쪽지함</a></li>
-                    <li><a href="writenote?send_id=${send_id}">쪽지작성</a></li>
+					<li><a href="recvlist?recv_id=${student_no}">받은쪽지함</a></li>
+                    <li><a href="sendlist?send_id=${student_no}">보낸쪽지함</a></li>
+                    <li><a href="writenote?send_id=${student_no}">쪽지작성</a></li>
 					<li><a href="#">회원정보 수정</a></li>
 				</ul>
 				<br>
