@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.InsideOut.dao.CounselDao">
+	
+	<select id="getCounselType" parameterType="String" resultType="counselType">
+		select * from counsel_type where counsel_typeno=#{counsel_typeno}
+	</select>
+	
+	<insert id="insertCounsel" parameterType="booking">
+		insert into counsel_booking (student_no, counsel_typeno, counsel_request_content, booking_dt, booking_time, staff_no)
+		values ('0', #{counsel_typeno}, #{counsel_request_content}, #{booking_dt}, #{booking_time}, #{staff_no})
+	</insert>
+	
+	<select id="getDt" parameterType="String" resultType="com.example.InsideOut.model.CounselBookingBean">
+		select *
+		from counsel_booking
+		left outer join code on code.cd = CONFIRM_TIME
+		where staff_no = #{staff_no}
+		and confirm_dt = #{booking_dt}
+		and cate = '5000'
+	</select>
+	
+	<select id="getBooking" parameterType="String" resultType="String">
+ 		<!-- SELECT DISTINCT c.cd_nm
+ 		FROM counsel_booking AS cb
+  		INNER JOIN code AS c ON cb.booking_time = c.cd
+  		WHERE c.cate = '5000'
+  		AND c.cd=#{booking_time} -->
+  		select cd_nm from code where cate = '5000' and cd = #{booking_time};
+	</select>
+	
+</mapper>
