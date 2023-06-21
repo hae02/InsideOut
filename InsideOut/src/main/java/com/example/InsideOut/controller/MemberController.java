@@ -37,7 +37,12 @@ public class MemberController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@GetMapping({"/",""})
-	public String sssss() {
+	public String start() {
+		return "member/loginForm";
+	}
+	
+	@GetMapping("/loginForm")
+	public String loginForm() {
 		return "member/loginForm";
 	}
 	
@@ -75,5 +80,11 @@ public class MemberController {
 		return "member/loginForm";
 	}
 
-	
+	@GetMapping("/loginResult")
+	public String loginResult(Model model) {
+		
+		model.addAttribute("result", 2);
+		
+		return "/member/loginResult";
+	}
 }

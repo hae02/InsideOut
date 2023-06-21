@@ -46,7 +46,7 @@ public class SecurityConfig {
 		return http
 				.logout()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/loginform")
+				.logoutSuccessUrl("/loginForm")
 				.invalidateHttpSession(true)
 				.deleteCookies(JwtProperties.HEADER_STRING)
 				.deleteCookies("JSESSIONID")
