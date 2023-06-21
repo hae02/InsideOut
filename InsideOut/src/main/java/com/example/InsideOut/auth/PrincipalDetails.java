@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.InsideOut.model.MemberBean;
 
-public class PrincipalDetails implements UserDetails{
+public class PrincipalDetails  implements UserDetails{
 
 	private MemberBean member;
 	

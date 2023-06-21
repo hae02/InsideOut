@@ -1,17 +1,13 @@
 package com.example.InsideOut.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.InsideOut.dao.UserRepository;
 import com.example.InsideOut.model.DeptBean;
-import com.example.InsideOut.model.LoginRequestDto;
 import com.example.InsideOut.model.MemberBean;
 import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.model.StudentBean;
@@ -67,5 +63,11 @@ public class MemberController {
 	public String loginform() {
 		
 		return "member/loginForm";
+	}
+	
+	@GetMapping("login")
+	public String login() {
+		System.out.println("login");
+		return "api/v1/user/counsel_Type";
 	}
 }
