@@ -68,7 +68,7 @@
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
 					<li><a href="#">상담 내역</a></li>
-					<li><a href="api/vi/surveyList">만족도 조사</a></li>
+					<li><a href="api/v1/surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="recvlist?recv_id=${send_id}">받은쪽지함</a></li>
                     <li><a href="sendlist?send_id=${send_id}">보낸쪽지함</a></li>

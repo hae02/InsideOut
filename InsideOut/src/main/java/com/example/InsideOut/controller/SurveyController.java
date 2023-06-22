@@ -28,7 +28,7 @@ import com.example.InsideOut.model.SurveyStaticBean;
 import com.example.InsideOut.service.SurveyService;
 
 @Controller
-@RequestMapping("api/vi")
+@RequestMapping("api/v1")
 public class SurveyController {
 
 	@Autowired
