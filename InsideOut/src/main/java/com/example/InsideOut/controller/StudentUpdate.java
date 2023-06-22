@@ -21,7 +21,7 @@ public class StudentUpdate {
     private StudentService studentService;
 
     // 학생 정보 수정 폼
-    @GetMapping("/studentUpdateForm")
+	@GetMapping("/studentUpdateForm")
     public String studentUpdateForm(Authentication authentication, Model model) {
     	PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
     	System.out.println("수정폼 진입");

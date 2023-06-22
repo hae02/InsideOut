@@ -17,9 +17,17 @@ public interface BoardService {
 
 	public void del_ok(int post_no) throws Exception;
 	
-	public int getListCount() throws Exception;
-	
 	public List getNoticeList(int page) throws Exception;
+	
+	public int getNoticeCount() throws Exception;
+	
+	public List getJobList(int page) throws Exception;
+	
+	public int getJobCount() throws Exception;
+	
+	public List getQnAList(int page) throws Exception;
+	
+	public int getQnACount() throws Exception;
 
 
 	

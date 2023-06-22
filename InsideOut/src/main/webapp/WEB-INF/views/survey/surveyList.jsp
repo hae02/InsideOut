@@ -62,7 +62,7 @@
 					<li><a href="/api/v1/user/recvlist?recv_id=${student_no}">받은쪽지함</a></li>
                     <li><a href="/api/v1/user/sendlist?send_id=${student_no}">보낸쪽지함</a></li>
                     <li><a href="/api/v1/user/writenote?send_id=${student_no}">쪽지작성</a></li>
-					<li><a href="#">회원정보 수정</a></li>
+					<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
 				</ul>
 				<br>
 			</div>

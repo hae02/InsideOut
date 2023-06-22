@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>공지사항 내용</title>
+<title>QnA 내용</title>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>

@@ -8,13 +8,13 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>공지 게시판 목록</title>
+<title>QnA 게시판 목록</title>
 <link rel="stylesheet" href="./css/bbs.css" type="text/css">
 </head>
 <body>
 <c:import url="../header.jsp" />
 <div id="noticelist_wrap">
-		<h2 class="noticelist_title"> <공지사항> </h2>
+		<h2 class="noticelist_title"> <QnA> </h2>
 		<div id="noticelist_c">글 개수 : ${noticelistcount}</div>
 
 		<table class = "table" id="noticelist_t">

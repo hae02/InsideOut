@@ -17,7 +17,7 @@
   onsubmit="return del_check()">
   <input type="hidden" name="post_no" value="${bcont.post_no}" />
   <input type="hidden" name="page" value="${page}" />
-  <input type="hidden" name="board_name" value="notice" />
+  <input type="hidden" name="board_name" value="job" />
   
    <table id="boarddel_t">
     <tr>

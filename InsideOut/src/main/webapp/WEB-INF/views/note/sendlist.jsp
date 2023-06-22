@@ -573,9 +573,9 @@ html body a {
 					<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${send_id}">받은쪽지함</a></li>
-                    <li><a href="/api/v1/user/sendlist?send_id=${send_id}">보낸쪽지함</a></li>
-                    <li><a href="/api/v1/user/writenote?send_id=${send_id}">쪽지작성</a></li>
-					<li><a href="#">회원정보 수정</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${send_id}">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${send_id}">쪽지작성</a></li>
+					<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
 				</ul>
 			</div>
 
@@ -591,8 +591,7 @@ html body a {
 									<div class="chat-message">
 										<div class="chat-message-content">
 											<a href="" id="message" data-bs-toggle="modal"
-												data-bs-target="#noteModal${vs.index}">${send.message}
-											</a>
+												data-bs-target="#noteModal${vs.index}">${send.message} </a>
 										</div>
 									</div>
 
@@ -610,7 +609,7 @@ html body a {
 													<p>${send.message}</p>
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-outline-primary" 
+													<button type="button" class="btn btn-outline-primary"
 														onClick="location.href='notereplyform?send_id=${send.send_id}&recv_id=${send.recv_id}&note_No=${send.note_no}'">답장</button>
 													<button type="button" class="btn btn-outline-danger"
 														onClick="location.href='notedelete?note_No=${send.note_no}'">삭제</button>

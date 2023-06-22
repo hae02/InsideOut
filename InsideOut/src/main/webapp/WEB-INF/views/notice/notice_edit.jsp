@@ -40,7 +40,7 @@
 </head>
 <body>
 	<h1>공지사항 수정</h1>
-	<form method="post" action="board_edit_ok.do" enctype="multipart/form-data">
+	<form method="post" action="board_edit_ok" enctype="multipart/form-data">
 		<input Type = hidden name= post_no value="${bcont.post_no}"/>
 		<input Type = hidden name= page value="${page}"/>
 		<input Type = hidden name= board_name value="notice"/>

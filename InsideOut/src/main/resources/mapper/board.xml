@@ -7,24 +7,19 @@
 	<!--공지 게시판 작성 -->
 	<insert id="board_insert" parameterType="board">
 
-		insert into
-		post(board_no, writer_id, post_title, post_content,
-		htmlPost_content,
-		post_readcount, post_dt)
+		insert into post(board_no, writer_id, post_title, post_content,
+		htmlPost_content, post_readcount, post_dt)
 		values (#{board_no}, '학사과',
-		#{post_title},
-		#{post_content}, #{htmlPost_content}, 0, sysdate())
+		#{post_title}, #{post_content}, #{htmlPost_content}, 0, sysdate())
 	</insert>
 
 	<!-- 첨부파일 있을때 -->
 	<!-- 첨부파일 -->
 	<insert id="file_insert" parameterType="board">
 
-		insert into file(
-		real_file_nm, save_file_nm,
+		insert into file( real_file_nm, save_file_nm,
 		file_path, file_size)
-		values (
-		#{real_file_nm}, #{save_file_nm},
+		values ( #{real_file_nm}, #{save_file_nm},
 		#{file_path},#{file_size} )
 	</insert>
 
@@ -39,10 +34,8 @@
 		insert into post(board_no, writer_id, post_title, post_content,
 		htmlPost_content,
 		file_no, post_readcount, post_dt)
-		values (#{board_no},
-		'학사과', #{post_title},
-		#{post_content}, #{htmlPost_content},#{file_no},
-		0, sysdate())
+		values (#{board_no}, '학사과', #{post_title},
+		#{post_content}, #{htmlPost_content},#{file_no}, 0, sysdate())
 	</insert>
 
 
@@ -51,26 +44,43 @@
 		select count(*) from post
 		where board_no = 400
 	</select>
+	
+	<!--취업게시글 갯수 -->
+	<select id="job_count" resultType="int">
+		select count(*) from post
+		where board_no = 200
+	</select>
+	
+	<!--QnA게시글 갯수 -->
+	<select id="QnA_count" resultType="int">
+		select count(*) from post
+		where board_no = 500
+	</select>
 
 
 	<!--공지게시판 목록 -->
 	<select id="notice_list" parameterType="int" resultType="board">
-	<![CDATA[
-      select * from (select @rownum := @rownum + 1 as rnum, s1.* from post s1,
-      (select @rownum := 0 ) s2 order by post_no desc) s2
-      where rnum >= ((#{page}-1) * 10 + 1) and rnum <= (#{page} * 10) and board_no = 400
-      ]]>
+	select * from post where board_no = 400 order by post_no desc limit #{start}, 10 
 	</select>
+	
+	<!--취업게시판 목록 -->
+	<select id="job_list" parameterType="int" resultType="board">
+	select * from post where board_no = 200 order by post_no desc limit #{start}, 10 
+	</select>
+	
+	<!--QnA게시판 목록 -->
+	<select id="QnA_list" parameterType="int" resultType="board">
+	select * from post where board_no = 400 order by post_no desc limit #{start}, 10 
+	</select>
+	
 
 
 	<!-- 게시판 상세보기 -->
 	<select id="board_cont" parameterType="int" resultType="board">
-		SELECT *
-		FROM post p LEFT JOIN file f ON p.file_no = f.file_no
+		SELECT * FROM post p LEFT JOIN file f ON p.file_no = f.file_no 
 		where p.post_no=#{post_no}
 		UNION
-		SELECT * FROM post p RIGHT JOIN file f ON
-		p.file_no = f.file_no
+		SELECT * FROM post p RIGHT JOIN file f ON p.file_no = f.file_no 
 		WHERE p.file_no IS NULL and p.post_no=#{post_no}
 	</select>
 
@@ -85,21 +95,17 @@
 
 	<!-- 수정 새로 첨부 없을때 -->
 	<update id="board_edit" parameterType="board">
-		UPDATE post SET post_title
-		= #{post_title},
-		post_content = #{post_content} , htmlpost_content =
-		#{htmlPost_content}
+		UPDATE post SET post_title = #{post_title},
+		post_content = #{post_content} , htmlpost_content = #{htmlPost_content}
 		where post_no = #{post_no}
 	</update>
 
 	<!-- 첨부파일 있을때 -->
 	<!-- 첨부파일 -->
 	<insert id="edit_file" parameterType="board">
-		insert into file(
-		real_file_nm, save_file_nm,
+		insert into file( real_file_nm, save_file_nm,
 		file_path, file_size)
-		values (
-		#{real_file_nm}, #{save_file_nm},
+		values ( #{real_file_nm}, #{save_file_nm},
 		#{file_path},#{file_size} )
 	</insert>
 	<!-- 수정 새로 첨부 있을때 -->
@@ -108,10 +114,8 @@
 			resultType="int">
 			select max(file_no) from file
 		</selectKey>
-		UPDATE post SET post_title = #{post_title}, post_content =
-		#{post_content},
-		htmlpost_content = #{htmlPost_content}, file_no=
-		#{file_no}
+		UPDATE post SET post_title = #{post_title}, post_content = #{post_content},
+		htmlpost_content = #{htmlPost_content}, file_no= #{file_no}
 		where post_no = #{post_no}
 	</update>
 
@@ -121,24 +125,23 @@
 		delete from post where
 		post_no=#{post_no}
 	</delete>
-
+	
 	<insert id="1:1 insert" parameterType="board">
-		<selectKey keyProperty="board_re_ref" order="BEFORE"
-			resultType="int">
-			select ifnull(max(post_no),0) + 1 from post
-		</selectKey>
-		insert into post
-		(board_no,up_post_no,writer_id,post_title,
-		post_content,post_dt, board_re_ref)
-		values
-		('300', '0', #{writer_id},#{post_title},#{post_content},#{post_dt}
-		,#{board_re_ref})
-	</insert>
+      <selectKey keyProperty="board_re_ref" order="BEFORE" resultType="int">
+         select ifnull(max(post_no),0) + 1 from post
+      </selectKey>   
+      insert into post
+         (board_no,up_post_no,writer_id,post_title,
+         post_content,post_dt, board_re_ref)
+      values
+         ('300', '0', #{writer_id},#{post_title},#{post_content},#{post_dt}
+         ,#{board_re_ref})
+   </insert>
 
 	<!-- 취업게시판 총게시물 수 <select id="notice_count" resultType="int"> select count(*) 
 		from post where board_no = 400 </select> 자주하는 질문게시판 총게시물 수 <select id="notice_count" 
 		resultType="int"> select count(*) from post where board_no = 400 </select> -->
-
-
+		
+		
 
 </mapper>	

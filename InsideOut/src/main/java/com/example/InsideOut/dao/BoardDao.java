@@ -10,7 +10,15 @@ import com.example.InsideOut.model.BoardBean;
 	
 	  public List<BoardBean> getNoticeList(int page) throws Exception;
 	  
-	  public int getListCount() throws Exception;
+	  public List<BoardBean> getJobList(int page) throws Exception;
+	  
+	  public List<BoardBean> getQnAList(int page) throws Exception;
+	  
+	  public int getNoticeCount() throws Exception;
+	  
+	  public int getJobCount() throws Exception;
+	  
+	  public int getQnACount() throws Exception;
 
 	  
 	  public BoardBean getBoardCont(int post_no) throws Exception;
