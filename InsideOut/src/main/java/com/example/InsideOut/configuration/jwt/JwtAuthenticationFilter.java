@@ -44,24 +44,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		logger.info("JwtAuthenticationFilter : 로그인시도");
-		System.out.println("JwtAuthenticationFilter : 로그인시도");
 
 		LoginRequestDto loginRequestDto = new LoginRequestDto();
 		loginRequestDto.setUsername(request.getParameter("username"));
 		loginRequestDto.setPassword(request.getParameter("password"));
 		
-		System.out.println("loginRequestDto:"+loginRequestDto);
-
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 				loginRequestDto.getUsername(), loginRequestDto.getPassword());
 
 		// 인증에 관련된 객체 생성
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
-		System.out.println("authentication:"+authentication);
 
 		// principal에 username을 담고, password는 보안상 비워둠
 		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
-		System.out.println("Authentication : " + principalDetailis.getUser().getUsername());
 
 		return authentication;
 
@@ -72,7 +67,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			Authentication authResult) throws IOException, ServletException {
 		logger.info("successfulAuthentication 실행: 인증 완료");
 		
-
 		PrincipalDetails principalDetailis = (PrincipalDetails) authResult.getPrincipal();
 
 		String jwtToken = JWT.create().withSubject(principalDetailis.getUsername())

@@ -3,6 +3,7 @@ package com.example.InsideOut.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,4 +35,21 @@ public class LoginController {
        }
     }
 
+
+	@GetMapping("/loginResult")
+	public String loginResult(Model model) {
+		
+		model.addAttribute("result", 2);
+		
+		return "/member/loginResult";
+	}
+	
+//	@GetMapping("")
+//	public String lostSelect
+	
+	@GetMapping("/lostPassword")
+	public String lostPassword() {
+		return "member/lostPassword";
+	}
 }
+>>>>>>> InsideOut/sunk
