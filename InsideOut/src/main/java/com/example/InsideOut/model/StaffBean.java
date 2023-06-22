@@ -11,9 +11,9 @@ public class StaffBean {
 	private String staff_name; 
 	private String staff_tel; 
 	private String staff_email; 
-	private String mem_no; 
 	private String dept_cd; 
 	
 	private String username; 
+	private String dept_name; 
 
 }

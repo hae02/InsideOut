@@ -72,8 +72,9 @@ public class SecurityConfig {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-			http.addFilter(corsConfig.corsFilter()).addFilter(new JwtAuthenticationFilter(authenticationManager))
-					.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
+			http.addFilter(corsConfig.corsFilter())
+				.addFilter(new JwtAuthenticationFilter(authenticationManager))
+				.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
 		}
 	}
 
