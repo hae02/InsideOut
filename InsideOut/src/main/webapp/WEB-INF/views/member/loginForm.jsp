@@ -5,13 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
-<script type="text/javascript">
-	
-</script>
+<script src="/js/member/logincheck.js"></script>
 </head>
 <body>
 
-	<form action="/login" method="post">
+	<form action="/login" method="post" onsubmit="return check()">
 		<table>
 			<tr>
 				<td><input type="text" id="username" name="username"
@@ -28,6 +26,6 @@
 			</tr>
 		</table>
 	</form>
-	<div><a href="/joinSelect">회원 가입</a> 아이디 찾기 비밀번호 찾기</div>
+	<div><a href="/joinSelect">회원 가입</a> <a href="/lostPassword">비밀번호 재설정</a></div>
 </body>
 </html>
