@@ -10,7 +10,7 @@ import com.example.InsideOut.model.StaffMypageModel;
 public interface StaffMypageDao {
 
 	//public List<StaffMypageModel> staffBookingList();
-	public ArrayList<StaffMypageModel> staffBookingList();
+	public ArrayList<StaffMypageModel> staffBookingList(String staff_no);
 
 	public int confirmUpdate(StaffMypageModel smm);
 
