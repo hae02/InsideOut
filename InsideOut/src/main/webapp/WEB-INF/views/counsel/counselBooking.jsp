@@ -152,7 +152,7 @@
 					<label class="btn" for="staff_no_${s.staff_no}">
 						<div class="row">
 							<div class="col">
-								<img src="images/6735382.png" width="100px">
+								<img src="/images/6735382.png" width="100px">
 							</div>
 							<div class="col-8">
 								<input class="btn" type="radio" id="staff_no_${s.staff_no}"
@@ -177,10 +177,10 @@
 					<table>
 						<thead>
 							<tr>
-								<th class="prev"><img src="images/caret-left-fill.svg"
+								<th class="prev"><img src="/images/caret-left-fill.svg"
 									width="30px"></th>
 								<th colspan="5" class="month-year"></th>
-								<th class="next"><img src="images/caret-right-fill.svg"
+								<th class="next"><img src="/images/caret-right-fill.svg"
 									width="30px"></th>
 							</tr>
 							<tr class="day">

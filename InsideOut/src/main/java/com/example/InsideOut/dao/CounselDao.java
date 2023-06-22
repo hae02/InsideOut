@@ -23,13 +23,16 @@ public interface CounselDao {
 
 	public int insertRecord(CounselRecordBean counselRecordBean) throws Exception;
 
-	public List<CounselRecordBean> getRecordList(CounselRecordBean counselRecordBean) throws Exception;
 
 	public CounselRecordBean getDetail(String booking_no) throws Exception;
 
 	public int updateRecord(CounselRecordBean counselRecordBean) throws Exception;
 
 	public int recordDelete(String booking_no) throws Exception;
+
+	public int getListCount() throws Exception;
+
+	public List<CounselRecordBean> getRecordList(int start);
 
 
 }

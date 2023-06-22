@@ -44,7 +44,7 @@ table, td, th {
 <!-- 			<input type="hidden" name="booking_no" value="목록"> -->
 			<input type="button" class="btn btn-success" onclick="location.href='counselRecordList?page=${page}'" value="목록">
 			<input type="button" class="btn btn-success" onclick="location.href='counselRecordUpdate?booking_no=${record.booking_no}&page=${page}'" value="수정">
-			<input type="button" class="btn btn-success" onclick="location.href='counselRecordDelete?booking_no=${record.booking_no}'" value="삭제">
+			<input type="button" class="btn btn-success" onclick="location.href='counselRecordDelete?booking_no=${record.booking_no}&page=${page}'" value="삭제">
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 </body>

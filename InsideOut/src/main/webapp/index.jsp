@@ -10,7 +10,7 @@
 	index.jsp
 	
 	<a href="counselType">상담예약</a>
-	<a href="loginform">로그인</a>
+	<a href="loginForm">로그인</a>
 	<a href="counselRecord">상담기록</a>
 	<a href="counselRecordList">상담기록 리스트</a>
 </body>

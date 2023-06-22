@@ -35,8 +35,10 @@
 		values (#{student_no}, #{booking_no}, #{counsel_content}, sysdate())
 	</insert>
 	
-	<select id="getRecordList" parameterType="String" resultType="com.example.InsideOut.model.CounselRecordBean">
-		select * from counsel_record
+	<!-- 게시판 목록  -->
+	<select id="getRecordList" parameterType="int" resultType="com.example.InsideOut.model.CounselRecordBean">
+	    SELECT * FROM counsel_record ORDER BY booking_no LIMIT #{start}, 10;
+
 	</select>
 	
 	<select id="getDetail" parameterType="String" resultType="com.example.InsideOut.model.CounselRecordBean">
@@ -53,5 +55,10 @@
 	<delete id="recordDelete" parameterType="int">
 		delete from counsel_record where booking_no = ${booking_no}
 	</delete>
+	
+	<!-- 게시판 총게시물 수 -->
+	<select id="getListCount" resultType="int">
+		select count(*) from counsel_record
+	</select>
 	
 </mapper>

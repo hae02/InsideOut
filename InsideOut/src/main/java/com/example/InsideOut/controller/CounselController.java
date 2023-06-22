@@ -1,6 +1,9 @@
 package com.example.InsideOut.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +21,7 @@ import com.example.InsideOut.service.CounselService;
 import com.example.InsideOut.service.StaffService;
 
 
-//@RequestMapping("api/v1/user/")
+@RequestMapping("api/v1/student/")
 @Controller
 public class CounselController {
 
@@ -130,22 +133,53 @@ public class CounselController {
 		if(result == 1) System.out.println("입력성공");
 		model.addAttribute("result", result);
 		
-		return "counsel/counselRecordList";
+		return "redirect:counselRecordList";
 	}
 	
 	// 상담기록 리스트
 	@RequestMapping("counselRecordList")
-	public String counselRecordList(CounselRecordBean counselRecordBean, 
-			Model model) throws Exception {
+	public String counselRecordList(HttpServletRequest request, Model model) throws Exception {
 		
-		model.addAttribute("recordList", counselService.getRecordList(counselRecordBean));
+		List<CounselRecordBean> recordList = new ArrayList<CounselRecordBean>();
+		
+		int page = 1;
+		int limit = 10; // 한 화면에 출력할 레코드수
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+
+		// 게시물 갯수
+		int listcount = counselService.getListCount();
+		System.out.println("listcount:"+ listcount);
+
+		int start = (page - 1) * 10;  // limit로 추출하기 위한 시작번호 : 0, 10, 20...
+		
+		recordList = counselService.getRecordList(start); 
+		System.out.println("recordList:"+ recordList);
+
+		// 총 페이지
+		int maxpage = listcount / limit + ((listcount % limit == 0) ? 0 : 1);
+
+		int startpage = ((page - 1) / 10) * limit + 1; 		// 1, 11, 21..
+		int endpage = startpage + 10 - 1; 			   		// 10, 20, 30..
+
+		if (endpage > maxpage)
+			endpage = maxpage;
+
+		model.addAttribute("page", page);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("listcount", listcount);
+		model.addAttribute("recordList", recordList);
 		
 		return "counsel/counselRecordList";
 	}
 	
 	// 상담기록 상세페이지
 	@RequestMapping("counselRecordDetail")
-	public String counselRecordDetail(String booking_no, int page, Model model) throws Exception {
+	public String counselRecordDetail(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
 		
 		CounselRecordBean cRecordBean = counselService.getDetail(booking_no);
 		model.addAttribute("record", cRecordBean);
@@ -156,7 +190,7 @@ public class CounselController {
 	
 	// 상담기록 수정
 	@RequestMapping("counselRecordUpdate")
-	public String counselRecordUpdate(String booking_no, int page, Model model) throws Exception {
+	public String counselRecordUpdate(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
 		
 		CounselRecordBean cRecordBean = counselService.getDetail(booking_no);
 		model.addAttribute("record", cRecordBean);
@@ -167,23 +201,25 @@ public class CounselController {
 	
 	// 상담기록 수정 저장
 	@RequestMapping("counselRecordUpdateOk")
-	public String counselRecordUpdateOk(@ModelAttribute CounselRecordBean counselRecordBean, 
+	public String counselRecordUpdateOk(@ModelAttribute CounselRecordBean counselRecordBean, @RequestParam("page") int page,
 									   Model model) throws Exception {
 			
 			int result = counselService.updateRecord(counselRecordBean);
 			if(result == 1) System.out.println("입력성공");
 			model.addAttribute("result", result);
+			model.addAttribute("page", page);
 			
-			return "counsel/counselRecordList";
+			return "redirect:counselRecordList?page=" + page;
 		}
 		
-		// 상담기록 삭제
-		@RequestMapping("counselRecordDelete")
-		public String counselRecordDelete(String booking_no, Model model) throws Exception {
+	// 상담기록 삭제
+	@RequestMapping("counselRecordDelete")
+	public String counselRecordDelete(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
 			
-			int result = counselService.recordDelete(booking_no);
-			model.addAttribute("result", result);
+		int result = counselService.recordDelete(booking_no);
+		model.addAttribute("result", result);
+		model.addAttribute("page", page);
 			
-			return "counsel/counselRecordList";
-		}	
+		return "redirect:counselRecordList?page=" + page;
+	}
 }

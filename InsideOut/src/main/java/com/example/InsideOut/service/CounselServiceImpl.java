@@ -10,6 +10,7 @@ import com.example.InsideOut.model.CounselBookingBean;
 import com.example.InsideOut.model.CounselRecordBean;
 import com.example.InsideOut.model.CounselTypeBean;
 
+
 @Service
 public class CounselServiceImpl implements CounselService {
 	
@@ -52,11 +53,11 @@ public class CounselServiceImpl implements CounselService {
 		return counselDao.insertRecord(counselRecordBean);
 	}
 
-	@Override
-	public List<CounselRecordBean> getRecordList(CounselRecordBean counselRecordBean) throws Exception {
-		// TODO Auto-generated method stub
-		return counselDao.getRecordList(counselRecordBean);
-	}
+//	@Override
+//	public List<CounselRecordBean> getRecordList(CounselRecordBean counselRecordBean) throws Exception {
+//		// TODO Auto-generated method stub
+//		return counselDao.getRecordList(counselRecordBean);
+//	}
 
 	@Override
 	public CounselRecordBean getDetail(String booking_no) throws Exception {
@@ -76,4 +77,15 @@ public class CounselServiceImpl implements CounselService {
 		return counselDao.recordDelete(booking_no);
 	}
 
+	@Override
+	public int getListCount() throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.getListCount();
+	}
+
+	@Override
+	public List<CounselRecordBean> getRecordList(int start) throws Exception {
+		// TODO Auto-generated method stub
+		return counselDao.getRecordList(start);
+	}	
 }
