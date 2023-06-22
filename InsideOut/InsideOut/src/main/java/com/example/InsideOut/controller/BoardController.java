@@ -64,31 +64,34 @@ public class BoardController {
 		String file[] = new String[2];
 		int result=0;
 		
+		board.setBoard_no(400);
 		
-		if(filename != "") {
-			String extension = filename.substring(filename.lastIndexOf("."), filename.length());
-			UUID uuid = UUID.randomUUID();
-			newfilename = uuid.toString() + extension;	
+		
+		if(size > 0) {
+			
+			String extension = filename.substring(filename.lastIndexOf("."),
+			filename.length()); UUID uuid = UUID.randomUUID(); newfilename =
+			uuid.toString() + extension;
+			 
 			
 			// 전달확인
 			System.out.println("FileName=" + filename); 
 			System.out.println("FileSize=" + size);
 			System.out.println("Path=" + path);
-		}
 		
-		if(size > 0) {
 			mf.transferTo(new File(path + "/" + newfilename));
 			board.setReal_file_nm(filename);
 			board.setSave_file_nm(newfilename);
 			board.setFile_size(size);
 			board.setFile_path(path);
 			
-		board.setBoard_no(400);
-			
-		boardService.insertBoard(board); 
-		
-		
+			boardService.insertFile(board); 
+			boardService.insertFileboard(board); 
+		}else {
+			boardService.insertBoard(board); 
 		}
+		
+		
 		return "redirect:/notice_list.do";
 		
 	}
@@ -154,65 +157,157 @@ public class BoardController {
 	   
 	   }
 	  
+	  // 교직원 게시글 상세페이지 
+	  @RequestMapping(value = "/board_cont.do")
+	  public String notice_cont(@RequestParam("post_no") int post_no,
+	                            @RequestParam("page") String page,
+	                            @RequestParam("state") String state,
+	                            @RequestParam("board_name") String board_name,
+	                            Model model) throws Exception {
+	      System.out.println("매퍼로 이동");
+	      if (state.equals("cont")) { // 내용 보기
+	          boardService.hit(post_no); // 조회수 증가
+	      }
+	      
+	      System.out.println("조회수 증가 완");
+	      BoardBean board = boardService.board_cont(post_no);
+	      System.out.println("content sql완료"+board);
 
-	  
-	 // 공지 상세페이지 - 모두 
-	 @RequestMapping(value = "/board_cont.do")
-	 public String notice_cont(@RequestParam("post_no") int post_no,
-			 				 @RequestParam("page") String page,
-			 				 @RequestParam("state") String state,
-			 				@RequestParam("board_name") String board_name,
-			 				 Model model)throws Exception {
-		 	if (state.equals("cont")) {			// 내용 보기
-		 		boardService.hit(post_no); 		// 조회수 증가
-		 	}
-		 	BoardBean board = boardService.board_cont(post_no);
-		 	
-		 	model.addAttribute("bcont", board);
-		 	model.addAttribute("page", page);
-		 	
-		 	if ( state.contentEquals("cont")) {		// 내용보기
-		 		// 글내용중 엔터키 친 부분을 웹상에 보이게 할 때 다음줄로 개행
-		 		String post_cont = board.getPost_content().replace("\n", "<br>");
-		 		model.addAttribute("post_cont",post_cont);
-		 		
-		 		if (board_name.equals("notice")) {
-					return "notice/notice_cont";}
-				else if (board_name.equals("job")) {		
-					return "job/job_cont";}
-				else if (board_name.equals("QnA")) {		
-					return "QnA/QnA_cont";}
-				return null;
-		 	} //else if (state.equals("edit")) {		// 수정폼
-			//	return "notice/notice_edit";
-			//}
-	 			else if (state.equals("del")) {		// 삭제폼
-	 				if (board_name.equals("notice")) {
-						return "notice/notice_del";}
-					else if (board_name.equals("job")) {		
-						return "job/job_del";}
-					else if (board_name.equals("QnA")) {		
-						return "QnA/QnA_del";}
-					return null;
-		 	}
-			return null;
-	 }
+	      model.addAttribute("bcont", board);
+	      model.addAttribute("page", page);
+
+	          String post_cont = board.getPost_content().replace("\n", "<br>");
+	          model.addAttribute("post_cont", post_cont);
+
+	          switch (board_name) {
+	              case "notice":
+	                  return "notice/notice_cont";
+	              case "job":
+	                  return "job/job_cont";
+	              case "QnA":
+	                  return "QnA/QnA_cont";
+	        }
+	          return null;
+	  }
+	      
+	  // 교직원 게시글 상세페이지  -> 수정 삭제 폼 이동 ( 교직원 용이라 쪼개지는 거)
+	  @RequestMapping(value = "/staff/board_cont.do")
+	  public String notice_contStaff(@RequestParam("post_no") int post_no,
+	                            @RequestParam("page") String page,
+	                            @RequestParam("state") String state,
+	                            @RequestParam("board_name") String board_name,
+	                            Model model) throws Exception {
+		  
+	      BoardBean board = boardService.board_cont(post_no);
+	      model.addAttribute("bcont", board);
+	      model.addAttribute("page", page);
+	      switch (state) {
+	      case "edit": // 수정폼
+
+	          switch (board_name) {
+	              case "notice":
+	                  return "notice/notice_edit";
+	              case "job":
+	                  return "job/job_edit";
+	              case "QnA":
+	                  return "QnA/QnA_edit";
+	          }
+	          break;
+	      case "del": // 삭제폼
+	    	  
+	          switch (board_name) {
+	              case "notice":
+	                  return "notice/notice_del";
+	              case "job":
+	                  return "job/job_del";
+	              case "QnA":
+	                  return "QnA/QnA_del";
+	          }
+	          break;
+	      }
+	      return null;
+	  }
 	 
-	 // 공지사항 삭제 - 교직원 -> redirect 이후를 게시반 별 목록으로 바꿀 수 있다면 함가지로 모든 게시글 삭제 가능
+	// 게시글 수정 - 교직원 
+	  
+		 @RequestMapping(value = "/staff/board_edit_ok.do", method = RequestMethod.POST)
+		 public String edit_ok(@RequestParam("post_no") int post_no,
+				 					  @RequestParam("page") int page,
+				 					  @RequestParam("board_name") String board_name,
+				 					  @RequestParam("nFile") MultipartFile mf,
+									  HttpServletRequest request,
+									  @ModelAttribute BoardBean board, Model model) throws Exception{
+		
+			System.out.println("board_name:"+board_name);	 
+
+			 BoardBean b = boardService.board_cont(post_no);
+			 String oldFileName = b.getReal_file_nm();
+			 String filename = mf.getOriginalFilename();
+			 int size = (int)mf.getSize();
+			 
+			 if(size > 0) {
+					String path = request.getRealPath("upload");
+					System.out.println(path);
+					String newfilename = "";
+					String file[] = new String[2];
+					
+					String extension = filename.substring(filename.lastIndexOf("."),
+					filename.length()); UUID uuid = UUID.randomUUID(); 
+					newfilename =uuid.toString() + extension;
+					 
+					
+					// 전달확인
+					System.out.println("FileName=" + filename); 
+					System.out.println("FileSize=" + size);
+					System.out.println("Path=" + path);
+				
+					mf.transferTo(new File(path + "/" + newfilename));
+					board.setReal_file_nm(filename);
+					board.setSave_file_nm(newfilename);
+					board.setFile_size(size);
+					board.setFile_path(path);
+					
+					boardService.editFile(board); 
+					boardService.edit_fileBoard(board); 
+			}else {
+					boardService.edit(board);
+			}
+			 
+			 		 
+			 switch (board_name) {
+			    case "notice":
+			        return "redirect:/notice_list.do?page=" + page;
+			    case "job":
+			        return "redirect:/job_list.do?page=" + page;
+			    case "QnA":
+			        return "redirect:/QnA_list.do?page=" + page;
+			}
+			return null;
+			 
+		 } 
+	  
+	 // 게시글 삭제 - 교직원 
 	 @RequestMapping(value = "/staff/board_del_ok.do", method = RequestMethod.POST)
 	 public String notice_del_ok(@RequestParam("post_no") int post_no,
 			 					 @RequestParam("page") int page,
 			 					@RequestParam("board_name") String board_name,
 			 					 Model model) throws Exception{
 		 BoardBean board = boardService.board_cont(post_no);
+		 
+		 
+		 
+		 
 		 boardService.del_ok(post_no);
-		 if (board_name.equals("notice")) {
-			 	return "redirect:/notice_list.do?page="+page;}
-			else if (board_name.equals("job")) {		
-				return "redirect:/job_list.do?page="+page;}
-			else if (board_name.equals("QnA")) {		
-				return "redirect:/QnA_list.do?page="+page;}
-			return null;
+		 switch (board_name) {
+		    case "notice":
+		    	return "redirect:/notice_list.do?page=" + page;
+		    	// return "redirect:/"+board_name+"_list.do?page=" + page;
+		    case "job":
+		        return "redirect:/job_list.do?page=" + page;
+		    case "QnA":
+		        return "redirect:/QnA_list.do?page=" + page;
+		}
+		return null;
 		 
 	 }
 	 

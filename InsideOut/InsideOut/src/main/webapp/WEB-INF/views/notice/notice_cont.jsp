@@ -26,13 +26,15 @@
 				<td>${bcont.post_readcount}</td>
 			</tr>
 			<br>
+				<c:if test="${!empty bcont.save_file_nm }">
 			<tr>
 				<th>첨부파일</th>
-				<td><c:if test="${!empty bcont.save_file_nm}">
+				<td>
 						<img src="./upload/${bcont.save_file_nm }" width="200"
 							height="100">
-					</c:if></td>
+				</td> 
 			</tr>
+					</c:if>
 			<tr>
 				<th>글내용</th>
 				<td>${bcont.htmlPost_content}</td>
@@ -42,8 +44,12 @@
 		<div id="boardcont_menu">
 			<input type="button" value="목록" class="input_button"
 				onclick="location='notice_list.do?page=${page}&board_name=notice'" />
+			<!-- 권한 <sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')"> -->
+			<input type="button" value="수정" class="input_button"
+				onclick="location='staff/board_cont.do?post_no=${bcont.post_no}&page=${page}&state=edit&board_name=notice'" />	
 			<input type="button" value="삭제" class="input_button"
-				onclick="location='board_cont.do?post_no=${bcont.post_no}&page=${page}&state=del&board_name=notice'" />
+				onclick="location='staff/board_cont.do?post_no=${bcont.post_no}&page=${page}&state=del&board_name=notice'" />
+			<!-- </sec:authorize> -->
 		</div>
 	</div>
 
