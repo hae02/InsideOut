@@ -102,13 +102,15 @@
 								form.submit();
 							});
 
-							// 에디터에서 입력되는 내용을 Markdown 형식으로 받아오기
-							editor.on('change', function() {
-								const markdownValue = editor.getMarkdown();
-								console.log(markdownValue); // Markdown 형식의 입력 내용 출력
-							});
-						});
-			</script>
+
+				// 에디터에서 입력되는 내용을 Markdown 형식으로 받아오기
+				editor.on('change', function() {
+					const markdownValue = editor.getMarkdown();
+					console.log(markdownValue); // Markdown 형식의 입력 내용 출력
+				});
+				editor.removeToolbarItem('image');
+			});
+		</script>
 
 
 			<div id="postwrite_menu">

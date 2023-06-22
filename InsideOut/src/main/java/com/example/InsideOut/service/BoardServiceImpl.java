@@ -14,11 +14,23 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDAOImpl boardDao;
 
-	// 게시판 저장 
+	// 첨부파일 없는 게시판 저장 
 	public void insertBoard(BoardBean b) throws Exception {
 		boardDao.insertBoard(b);
 	}
 	
+	// 첨부파일 저장 
+	public void insertFile(BoardBean board) throws Exception {
+		boardDao.insertFile(board);
+		
+	}
+	
+	// 첨부파일 있는 게시판 저장
+
+	 public void insertFileboard(BoardBean board) {
+		 boardDao.insertFileboard(board);
+	}
+
 	
 	 // 게시글 갯수
 	  
@@ -47,19 +59,34 @@ public class BoardServiceImpl implements BoardService {
 	  
 	  return board; }
 	  
-	 /* // 게시글 수정
+	  
+	  // 게시글 수정
 	  
 	  @Override 
 	  public void edit(BoardBean b) throws Exception {
-	  boardDao.boardEdit(b);
+		  boardDao.boardEdit(b);
 	  
-	  }*/
+	  }
+	  
+	  // 게시글 수정
+	  @Override
+	  public void editFile(BoardBean board) throws Exception {
+	  boardDao.editFile(board);	
+		}
+	  
+	  public void edit_fileBoard(BoardBean board) throws Exception {
+		 boardDao.editFileBoard(board);	
+		  
+	  }
 	  
 	  // 게시글 삭제
 	  
 	  @Override 
 	  public void del_ok(int post_no) throws Exception {
 	  boardDao.boardDelete(post_no); }
+
+
+	
 
 	  
 	/*  //게시판 댓글 달기 

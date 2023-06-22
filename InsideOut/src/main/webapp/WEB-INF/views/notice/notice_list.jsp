@@ -49,6 +49,27 @@
 
 			<!-- 반복문 시작 -->
 			<c:forEach var="b" items="${noticelist}">
+			
+			<tr align="center" valign="middle" bordercolor="#333333"
+				onmouseover="this.style.backgroundColor='F8F8F8'"
+				onmouseout="this.style.backgroundColor=''">
+				<td height="23" style="font-family: Tahoma; font-size: 10pt;">					
+ 					<!-- 번호 출력 부분 -->	
+ 					<c:out value="${num}"/>			
+					<c:set var="num" value="${num-1}"/>	 
+				</td>
+				
+				<td style="font-family: Tahoma; font-size: 10pt;">
+					<div align="left">								
+						
+					<!-- 제목 출력 부분 -->	
+					<a href="board_cont.do?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice"> ${b.post_title}
+					</a>
+					<%-- 시큐리티 머지하고 쓸것
+					<a href="<sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')">staff/</sec:authorize>board_cont.do?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice">
+							 --%>
+					</div>
+				</td>
 
 				<tr align="center" valign="middle" bordercolor="#333333"
 					onmouseover="this.style.backgroundColor='F8F8F8'"
