@@ -37,12 +37,43 @@ public class BoardDAOImpl implements BoardDao {
 
 		return list;
 	}
+	
+	@Override
+	public List<BoardBean> getJobList(int page) throws Exception {
+		List<BoardBean> list = session.selectList("boardns.job_list", page);
+
+		return list;
+	}
+
+	@Override
+	public List<BoardBean> getQnAList(int page) throws Exception {
+		List<BoardBean> list = session.selectList("boardns.QnA_list", page);
+
+		return list;
+	}
+
 
 	// 공지게시판 총갯수
 	@Override
-	public int getListCount() throws Exception {
+	public int getNoticeCount() throws Exception {
 		int count = 0;
 		count = ((Integer) session.selectOne("boardns.notice_count")).intValue();
+
+		return count;
+	}
+	
+	@Override
+	public int getJobCount() throws Exception {
+		int count = 0;
+		count = ((Integer) session.selectOne("boardns.job_count")).intValue();
+
+		return count;
+	}
+	
+	@Override
+	public int getQnACount() throws Exception {
+		int count = 0;
+		count = ((Integer) session.selectOne("boardns.QnA_count")).intValue();
 
 		return count;
 	}

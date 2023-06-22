@@ -35,14 +35,30 @@ public class BoardServiceImpl implements BoardService {
 	 // 게시글 갯수
 	  
 	  @Override 
-	  public int getListCount() throws Exception { return
-	  boardDao.getListCount(); }
+	  public int getNoticeCount() throws Exception { return
+	  boardDao.getNoticeCount(); }
+	  
+	  @Override 
+	  public int getJobCount() throws Exception { return
+	  boardDao.getJobCount(); }
+	  
+	  @Override 
+	  public int getQnACount() throws Exception { return
+	  boardDao.getQnACount(); }
 	  
 	  // 공지게시판 목록
 	  
 	  @Override 
 	  public List getNoticeList(int page) throws Exception { return
 	  boardDao.getNoticeList(page); }
+	  
+	  @Override 
+	  public List getJobList(int page) throws Exception { return
+	  boardDao.getJobList(page); }
+	  
+	  @Override 
+	  public List getQnAList(int page) throws Exception { return
+	  boardDao.getQnAList(page); }
 	  
 	  // 조회수 증가
 	  

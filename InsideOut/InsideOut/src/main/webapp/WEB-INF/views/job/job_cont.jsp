@@ -5,14 +5,14 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>공지사항 내용</title>
+<title>취업 내용</title>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-	<div id="noticecont_wrap">
-		<h2 class="noticecont_title">게시물 내용보기</h2>
-		<table id="noticecont_t">
+	<div id="jobcont_wrap">
+		<h2 class="jobcont_title">게시물 내용보기</h2>
+		<table id="jobcont_t">
 			<tr>
 				<th>제목</th>
 				<td>${bcont.post_title}</td>
@@ -43,12 +43,12 @@
 		<br>
 		<div id="boardcont_menu">
 			<input type="button" value="목록" class="input_button"
-				onclick="location='notice_list?page=${page}&board_name=notice'" />
+				onclick="location='job_list?page=${page}&board_name=job'" />
 			<!-- 권한 <sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')"> -->
 			<input type="button" value="수정" class="input_button"
-				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=edit&board_name=notice'" />	
+				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=edit&board_name=job'" />	
 			<input type="button" value="삭제" class="input_button"
-				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=del&board_name=notice'" />
+				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=del&board_name=job'" />
 			<!-- </sec:authorize> -->
 		</div>
 	</div>

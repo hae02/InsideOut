@@ -8,15 +8,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>공지 게시판 목록</title>
+<title>취업 게시판 목록</title>
 <link rel="stylesheet" href="./css/bbs.css" type="text/css">
 </head>
 <body>
-<div id="noticelist_wrap">
-		<h2 class="noticelist_title"> <공지사항> </h2>
-		<div id="noticelist_c">글 개수 : ${noticelistcount}</div>
+<div id="joblist_wrap">
+		<h2 class="joblist_title"> <취업> </h2>
+		<div id="joblist_c">글 개수 : ${joblistcount}</div>
 
-		<table class = "table" id="noticelist_t">
+		<table class = "table" id="joblist_t">
 			<tr align="center" valign="middle" bordercolor="#333333">
 				<td style="font-family: Tahoma; font-size: 11pt;" width="8%"
 					height="26">
@@ -37,10 +37,10 @@
 			</tr>
 
 			<!-- 화면 출력 번호  변수 정의 -->		
-			<c:set var="num" value="${noticelistcount-(page-1)*10}"/> 	
+			<c:set var="num" value="${joblistcount-(page-1)*10}"/> 	
 	
 			<!-- 반복문 시작 -->
-			<c:forEach var="b" items="${noticelist}">
+			<c:forEach var="b" items="${joblist}">
 			
 			<tr align="center" valign="middle" bordercolor="#333333"
 				onmouseover="this.style.backgroundColor='F8F8F8'"
@@ -55,10 +55,10 @@
 					<div align="left">								
 						
 					<!-- 제목 출력 부분 -->	
-					<a href="board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice"> ${b.post_title}
+					<a href="board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=job"> ${b.post_title}
 					</a>
 					<%-- 시큐리티 머지하고 쓸것
-					<a href="<sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')">staff/</sec:authorize>board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice">
+					<a href="<sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')">staff/</sec:authorize>board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=job">
 							 --%>
 					</div>
 				</td>
@@ -81,13 +81,13 @@
 		</table>
 		
 
-		<div id="noticelist_paging">			
+		<div id="joblist_paging">			
 			<c:if test="${page <=1 }">
 				[이전]&nbsp;
 			</c:if>
 			
 			<c:if test="${page > 1 }">
-				<a href="notice_list?page=${page-1}">[이전]</a>&nbsp;
+				<a href="job_list?page=${page-1}">[이전]</a>&nbsp;
 			</c:if>			
 
 			<c:forEach var="a" begin="${startpage}" end="${endpage}">
@@ -95,7 +95,7 @@
 					[${a}]
 				</c:if>
 				<c:if test="${a != page }">
-					<a href="notice_list?page=${a}">[${a}]</a>&nbsp;
+					<a href="job_list?page=${a}">[${a}]</a>&nbsp;
 				</c:if>
 			</c:forEach>			
 			
@@ -103,13 +103,13 @@
 				[다음] 
 			</c:if>
 			<c:if test="${page < maxpage }">
-				<a href="notice_list?page=${page+1}">[다음]</a>
+				<a href="job_list?page=${page+1}">[다음]</a>
 			</c:if>			
 			
 		</div>
-		<div id="noticelist_w">
+		<div id="joblist_w">
 			<input type="button" value="글쓰기" class="input_button"
-				onclick="location='staff/board_write?page=${page}&board_name=notice'">
+				onclick="location='staff/board_write?page=${page}&board_name=job'">
 				
 		</div>
 		

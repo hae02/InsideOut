@@ -5,7 +5,7 @@
 <head>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<title>공지사항</title>
+<title>취업</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 <!-- 보기 편하게 CSS 추가해주었습니다. -->
@@ -39,10 +39,10 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 </head>
 <body>
-	<h1>공지사항 입력</h1>
+	<h1>취업 입력</h1>
 	<form method="post" action="board_write_ok" enctype="multipart/form-data">
-	<input Type = hidden name= board_name value="notice"/>
-	<input Type = hidden name= board_no value="400"/>
+	<input Type = hidden name= board_name value="job"/>
+	<input Type = hidden name= board_no value="200"/>
 		<div class="formgroup">
 			<label for="post_title">글제목: &nbsp;&nbsp;</label> <input
 				name="post_title" id="post_title" size="60" class="input_box" />
