@@ -1,6 +1,8 @@
 package com.example.InsideOut.configuration;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,15 +18,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
+import com.example.InsideOut.auth.PrincipalDetails;
 import com.example.InsideOut.configuration.jwt.JwtAuthenticationFilter;
 import com.example.InsideOut.configuration.jwt.JwtAuthorizationFilter;
 import com.example.InsideOut.configuration.jwt.JwtProperties;
 import com.example.InsideOut.dao.UserRepository;
-
-import lombok.extern.log4j.Log4j;
+import com.example.InsideOut.model.LoginRequestDto;
+import com.example.InsideOut.model.MemberBean;
 
 @Configuration
 @EnableWebSecurity
@@ -35,34 +40,31 @@ public class SecurityConfig {
 
 	@Autowired
 	private CorsConfig corsConfig;
-
+	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		return http
 				.logout()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/main")
+				.logoutSuccessUrl("/loginForm")
 				.invalidateHttpSession(true)
 				.deleteCookies(JwtProperties.HEADER_STRING)
 				.deleteCookies("JSESSIONID")
 				.permitAll()
 				.and()
 				.csrf().disable()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.formLogin().disable()
 				.httpBasic().disable()
-				.apply(new MyCustomDsl()) // 커스텀 필터 등록
+				.apply(new MyCustomDsl())
 				.and()
 				.authorizeRequests(authroize -> authroize.antMatchers("/api/v1/user/**")
 						.access("hasRole('ROLE_STUDENT') or hasRole('ROLE_STAFF') or hasRole('ROLE_ADMIN')")
-						.antMatchers("/api/v1/student/**")
-						.access("hasRole('ROLE_STUDENT') or hasRole('ROLE_ADMIN')")
-						.antMatchers("/api/v1/staff/**")
-						.access("hasRole('ROLE_STAFF') or hasRole('ROLE_ADMIN')")
-						.antMatchers("/api/v1/admin/**")
-						.access("hasRole('ROLE_ADMIN')")
-						.anyRequest().permitAll())
+						.antMatchers("/api/v1/student/**").access("hasRole('ROLE_STUDENT') or hasRole('ROLE_ADMIN')")
+						.antMatchers("/api/v1/staff/**").access("hasRole('ROLE_STAFF') or hasRole('ROLE_ADMIN')")
+						.antMatchers("/api/v1/admin/**").access("hasRole('ROLE_ADMIN')").anyRequest().permitAll())
 				.build();
 	}
 
@@ -70,28 +72,12 @@ public class SecurityConfig {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-			http
-					.addFilter(corsConfig.corsFilter())
-					.addFilter(new JwtAuthenticationFilter(authenticationManager))
+			http.addFilter(corsConfig.corsFilter()).addFilter(new JwtAuthenticationFilter(authenticationManager))
 					.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
 		}
 	}
-	
-    @Bean
-    public AuthenticationSuccessHandler loginSuccessHandler() {
-        return new CostomLoginSuccessHandler();
-    }
-	
-	public class CostomLoginSuccessHandler implements AuthenticationSuccessHandler{
 
-		@Override
-		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-				Authentication authentication) throws IOException, ServletException {
-	        
-	        // 리다이렉트 수행
-	        response.sendRedirect("/home");
-			
-		}
-		
+
+	
 	}
-}
+

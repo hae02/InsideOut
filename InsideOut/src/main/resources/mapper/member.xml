@@ -28,7 +28,16 @@
 	<insert id="deptInsert" parameterType="dept">
 		insert into dept (dept_cd,
 		dept_type, dept_name)
-		values ("00001", #{dept_type}, #{dept_name})
+		values ("3", #{dept_type}, #{dept_name})
 	</insert>
+	
+	<select id="getPasswd" parameterType="String" resultType="String">
+		select password from member where username = #{username}
+	</select>
+	
+	<select id="getUsername" parameterType="String" resultType="String">
+		select username from member where username = #{username}
+	</select>
+	
 
 </mapper>

@@ -12,8 +12,9 @@ import lombok.Data;
 @Data
 @Alias("member")
 public class MemberBean {
-	private String mem_no;
-	private String username;
+
+	private String mem_no; 
+	private String username; 
 	private String password;
 	private String pw_lock;
 	private String pw_reset;
@@ -30,4 +31,5 @@ public class MemberBean {
 		}
 		return new ArrayList<>();
 	}
+
 }

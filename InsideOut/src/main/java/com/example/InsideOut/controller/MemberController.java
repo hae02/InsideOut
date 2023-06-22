@@ -1,13 +1,25 @@
 package com.example.InsideOut.controller;
 
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
 import com.example.InsideOut.dao.UserRepository;
 import com.example.InsideOut.model.DeptBean;
+import com.example.InsideOut.model.LoginRequestDto;
 import com.example.InsideOut.model.MemberBean;
 import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.model.StudentBean;
@@ -20,18 +32,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
 	
-	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	private final MemberServiceImpl memberService;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@GetMapping({"/joinSelect",""})
-	public String sssss() {
+	@GetMapping({"/",""})
+	public String start() {
+		return "member/loginForm";
+	}
+	
+	@GetMapping("/loginForm")
+	public String loginForm() {
+		return "member/loginForm";
+	}
+	
+	@GetMapping("/joinSelect")
+	public String joinSelect() {
 		return "member/joinSelect";
 	}
 	
 	@GetMapping("/joinForm")
 	public String joinForm(Model model, String mem_type) {
-		System.out.println("mem_type: " + mem_type);
 		model.addAttribute("mem_type", mem_type);
 		
 		return "member/joinForm";
@@ -56,18 +77,14 @@ public class MemberController {
 		
 		System.out.println("member: "+member);
 		
-		return "redirect:/loginform";
-	}
-	
-	@GetMapping("loginform")
-	public String loginform() {
-		
 		return "member/loginForm";
 	}
-	
-	@GetMapping("login")
-	public String login() {
-		System.out.println("login");
-		return "api/v1/user/counsel_Type";
+
+	@GetMapping("/loginResult")
+	public String loginResult(Model model) {
+		
+		model.addAttribute("result", 2);
+		
+		return "/member/loginResult";
 	}
 }
