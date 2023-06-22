@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.SetFactoryBean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,54 +32,51 @@ import com.example.InsideOut.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
+public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private final AuthenticationManager authenticationManager;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private MemberServiceImpl memberService;
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
 		logger.info("JwtAuthenticationFilter : 로그인시도");
-		
+		System.out.println("JwtAuthenticationFilter : 로그인시도");
+
 		LoginRequestDto loginRequestDto = new LoginRequestDto();
 		loginRequestDto.setUsername(request.getParameter("username"));
 		loginRequestDto.setPassword(request.getParameter("password"));
+		
+		System.out.println("loginRequestDto:"+loginRequestDto);
 
-		UsernamePasswordAuthenticationToken authenticationToken = 
-				new UsernamePasswordAuthenticationToken(
-						loginRequestDto.getUsername(), 
-						loginRequestDto.getPassword());
-		
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				loginRequestDto.getUsername(), loginRequestDto.getPassword());
+
 		// 인증에 관련된 객체 생성
-		Authentication authentication = 
-				authenticationManager.authenticate(authenticationToken);
-		
+		Authentication authentication = authenticationManager.authenticate(authenticationToken);
+		System.out.println("authentication:"+authentication);
+
 		// principal에 username을 담고, password는 보안상 비워둠
 		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
-		System.out.println("Authentication : "+principalDetailis.getUser().getUsername());
-		
-		return authentication;	
+		System.out.println("Authentication : " + principalDetailis.getUser().getUsername());
 
-		
+		return authentication;
+
 	}
-	
+
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		logger.info("successfulAuthentication 실행: 인증 완료");
 		
+
 		PrincipalDetails principalDetailis = (PrincipalDetails) authResult.getPrincipal();
-		
-		String jwtToken = JWT.create()
-				.withSubject(principalDetailis.getUsername())
-				.withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME))
+
+		String jwtToken = JWT.create().withSubject(principalDetailis.getUsername())
+				.withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
 				.withClaim("id", principalDetailis.getUser().getMem_no())
 				.withClaim("username", principalDetailis.getUser().getUsername())
 				.sign(Algorithm.HMAC512(JwtProperties.SECRET));
@@ -86,9 +84,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		Cookie cookie = new Cookie(JwtProperties.HEADER_STRING, jwtToken);
 		cookie.setMaxAge(JwtProperties.EXPIRATION_TIME);
 		cookie.setPath("/");
-		
+
 		response.addCookie(cookie);
-		response.sendRedirect("/api/v1/user/home");
+		response.sendRedirect("/select/role");
+
 	}
 	
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException failed) throws IOException, ServletException {
+		logger.info("JwtAuthenticationFilter : 인증 실패");
+
+		// 응답 초기화 시켜 이동
+		response.reset();
+
+		response.sendRedirect("/loginResult");
+	}
+
 }

@@ -27,7 +27,7 @@ import com.example.InsideOut.service.NoteService;
 
 //@RequestMapping("/mypage")
 @Controller
- @RequestMapping("api/vi/user") 
+ @RequestMapping("api/v1/user") 
 public class NoteController {
 
 	@Autowired
