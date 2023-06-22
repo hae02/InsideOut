@@ -9,7 +9,7 @@
 	
 	<insert id="insertCounsel" parameterType="booking">
 		insert into counsel_booking (student_no, counsel_typeno, counsel_request_content, booking_dt, booking_time, staff_no)
-		values ('0', #{counsel_typeno}, #{counsel_request_content}, #{booking_dt}, #{booking_time}, #{staff_no})
+		values (#{student_no}, #{counsel_typeno}, #{counsel_request_content}, #{booking_dt}, #{booking_time}, #{staff_no})
 	</insert>
 	
 	<select id="getDt" parameterType="String" resultType="com.example.InsideOut.model.CounselBookingBean">

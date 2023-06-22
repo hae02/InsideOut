@@ -14,7 +14,7 @@
 	<c:if test="${result == 1}">
 		<script>
 			alert("예약성공");
-			location.href = "counselType";
+			location.href = "/api/v1/student/StudentList";
 		</script>
 	</c:if>
 

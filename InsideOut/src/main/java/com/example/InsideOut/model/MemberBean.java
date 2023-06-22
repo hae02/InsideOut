@@ -1,5 +1,6 @@
 package com.example.InsideOut.model;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -24,12 +25,13 @@ public class MemberBean {
 	private String mem_type;
 	private String mem_state;
 	private String role;
-
-	public List<String> getRoleList() {
-		if (this.role.length() > 0) {
-			return Arrays.asList(this.role.split(","));
-		}
-		return new ArrayList<>();
-	}
-
+	
+	private String dept_name;
+	
+    public List<String> getRoleList() {
+        if (this.role.length() > 0) {
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
+    }
 }

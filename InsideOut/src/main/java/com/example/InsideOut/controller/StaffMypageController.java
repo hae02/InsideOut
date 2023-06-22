@@ -12,7 +12,7 @@ import com.example.InsideOut.model.StaffMypageModel;
 import com.example.InsideOut.service.StaffMypageService;
 
 @Controller
-@RequestMapping("/StaffCalendar")
+@RequestMapping("api/v1/student")
 public class StaffMypageController {
 	@Autowired
 	private StaffMypageService SMS;

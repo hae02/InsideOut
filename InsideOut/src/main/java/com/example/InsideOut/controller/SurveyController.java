@@ -43,7 +43,7 @@ public class SurveyController {
 		model.addAttribute("question", question);
 		model.addAttribute("booking_no", booking_no);
 
-		return "survey/survey_form";
+		return "survey/surveyForm";
 	}
 
 	// 만족도 조사 제출
@@ -53,9 +53,7 @@ public class SurveyController {
 			HttpServletRequest request, Model model) {
 		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
 		
-		// username = 학번/교직원번호
 		String student_no = principalDetailis.getUser().getUsername();
-		
 		
 		int[] answer = new int[6];
 		for (int i = 1; i <= 5; i++) {
@@ -99,7 +97,7 @@ public class SurveyController {
 		ssb.setAnswer_subj(answer6);
 		service.insertStatic(ssb);
 
-		return "survey/survey_submitResult";
+		return "survey/surveySubmitResult";
 	}
 
 	// 만족도 조사 리스트
@@ -141,7 +139,7 @@ public class SurveyController {
 		model.addAttribute("surveyList", surveyList);
 		model.addAttribute("no", no);
 
-		return "survey/survey_list";
+		return "survey/surveyList";
 	}
 
 	@RequestMapping("staff/surveyList")
@@ -182,6 +180,6 @@ public class SurveyController {
 		model.addAttribute("staticList", staticList);
 		model.addAttribute("no", no);
 		
-		return "survey/survey_staff";
+		return "survey/surveyStaff";
 	}
 }

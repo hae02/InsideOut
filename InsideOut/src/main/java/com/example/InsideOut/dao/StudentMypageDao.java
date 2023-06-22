@@ -9,6 +9,6 @@ import com.example.InsideOut.model.StudentMypageModel;
 @Mapper
 public interface StudentMypageDao {
 
-	public List<StudentMypageModel> studentBookingList();
+	public List<StudentMypageModel> studentBookingList(String student_no);
 
 }

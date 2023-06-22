@@ -27,13 +27,11 @@ import com.example.InsideOut.service.NoteService;
 
 //@RequestMapping("/mypage")
 @Controller
- @RequestMapping("api/v1/user") 
+@RequestMapping("api/v1/user")
 public class NoteController {
 
 	@Autowired
 	private NoteService noteService;
-
-			
 
 	// 쪽지 작성창으로
 //	 @GetMapping("/writenote") 
@@ -54,55 +52,50 @@ public class NoteController {
 	 * 
 	 * return "note/writenote"; }
 	 */
-	 
-	 
+
 	@GetMapping("/writenote")
 	public String writenote(Authentication authentication, Model model) {
-	    if (authentication != null) {
-	        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		if (authentication != null) {
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 
-	        String username = principalDetails.getUser().getUsername();
-	        return "note/writenote";
-	        
-	    } else {
-	        throw new NullPointerException("authentication is null");
-	    }
+			String username = principalDetails.getUser().getUsername();
+			return "note/writenote";
+
+		} else {
+			throw new NullPointerException("authentication is null");
+		}
 	}
-
 
 	@PostMapping("/sendnote")
 	public String sendnote(Authentication authentication, @ModelAttribute NoteBean note, Model model) {
-	    if (authentication != null) {
-	    	
-	        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-	        String username = principalDetails.getUser().getUsername();
-	        
-	        note.setSend_id(username);
-	        
-	        int result1 = noteService.sendNote(note);
-	        System.out.println("쪽지1 보내기 성공");
-	        
-	        int note_no = noteService.getNoteno();
-	        System.out.println("note_no:" + note_no);
-	        note.setNote_no(note_no);
-	        
-	        model.addAttribute("note", note);
-	        
+		if (authentication != null) {
+
+			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+			String username = principalDetails.getUser().getUsername();
+
+			note.setSend_id(username);
+
+			int result1 = noteService.sendNote(note);
+			System.out.println("쪽지1 보내기 성공");
+
+			int note_no = noteService.getNoteno();
+			System.out.println("note_no:" + note_no);
+			note.setNote_no(note_no);
+
+			model.addAttribute("note", note);
+
 //	        int result2 = noteService.usersendNote(note); // user_note테이블에 쪽지 저장
 //			if (result2 == 1)
 //				System.out.println("쪽지2 보내기 성공");
 
 			model.addAttribute("recv_id", note.getRecv_id());
 			model.addAttribute("result", result1);
-	        
-	        return "note/noteresult";
-	    } else {
-	        throw new NullPointerException("authentication is null");
-	    }
-	}
 
-	 
-	 
+			return "note/noteresult";
+		} else {
+			throw new NullPointerException("authentication is null");
+		}
+	}
 
 	// 쪽지 전송
 //	 @PostMapping("/sendnote") 
@@ -146,15 +139,17 @@ public class NoteController {
 
 	// 받은 쪽지함
 //	 @GetMapping("/recvlist") 
-	 @RequestMapping("/recvlist") 
-	public String recvlist(Authentication authentication,
-			@RequestParam("recv_id") String recv_id, 
-			/*@RequestParam(value = "page", defaultValue = "1") int page, HttpSession session, Model model) {*/
+	@RequestMapping("/recvlist")
+	public String recvlist(Authentication authentication, @RequestParam("recv_id") String recv_id,
+			/*
+			 * @RequestParam(value = "page", defaultValue = "1") int page, HttpSession
+			 * session, Model model) {
+			 */
 			HttpSession session, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
 
-		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-	     recv_id = principalDetails.getUser().getUsername();
-		 
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		recv_id = principalDetails.getUser().getUsername();
+
 //		 String recv_id = (String) session.getAttribute("recv_id");
 //		 
 //		System.out.println("recv_id:" + recv_id);
@@ -198,16 +193,20 @@ public class NoteController {
 
 	// 보낸 쪽지함
 	/* @GetMapping("/sendlist") */
-	 @RequestMapping("/sendlist") 
-	public String sendlist(/*@RequestParam("send_id") String send_id,
-			@RequestParam(value = "page", defaultValue = "1") int page, HttpSession session, Model model) {*/
-			Authentication authentication,
-			HttpSession session, @RequestParam(value = "page", defaultValue = "1") int page, Model model) {
-		
-		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-	     String send_id = principalDetails.getUser().getUsername();
-		 System.out.println("username:"+ send_id);
-		 
+	@RequestMapping("/sendlist")
+	public String sendlist(/*
+							 * @RequestParam("send_id") String send_id,
+							 * 
+							 * @RequestParam(value = "page", defaultValue = "1") int page, HttpSession
+							 * session, Model model) {
+							 */
+			Authentication authentication, HttpSession session,
+			@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
+
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String send_id = principalDetails.getUser().getUsername();
+		System.out.println("username:" + send_id);
+
 //		String send_id = (String) session.getAttribute("send_id");
 //			
 //		System.out.println("sendlist controller in");
@@ -217,7 +216,7 @@ public class NoteController {
 //			send_id = (String) session.getAttribute("sender");
 //			System.out.println("send_id1:" + send_id);
 //		}
-		
+
 		int startRow = (page - 1) * 10;
 		int endRow = 10;
 
@@ -250,26 +249,25 @@ public class NoteController {
 
 	// 쪽지 답장 작성 폼
 	/* @GetMapping("notereplyform") */
-	 @RequestMapping("/notereplyform") 
-	public String notereplyform(@RequestParam String send_id, @RequestParam String recv_id,
-			NoteBean note, Model model,
+	@RequestMapping("/notereplyform")
+	public String notereplyform(@RequestParam String send_id, @RequestParam String recv_id, NoteBean note, Model model,
 			HttpSession session) {
-		 
-	//  session.setAttribute("send_id", "username"); 
-	//  session.setAttribute("recv_id", "username"); 
-		 
-		 session.setAttribute("send_id", send_id);
-		 session.setAttribute("recv_id", recv_id);
-	
-		 model.addAttribute("send_id", send_id);
-		 model.addAttribute("recv_id", recv_id);
+
+		// session.setAttribute("send_id", "username");
+		// session.setAttribute("recv_id", "username");
+
+		session.setAttribute("send_id", send_id);
+		session.setAttribute("recv_id", recv_id);
+
+		model.addAttribute("send_id", send_id);
+		model.addAttribute("recv_id", recv_id);
 
 		return "note/notereplyform";
 	}
 
 	// 쪽지 답장 작성
 	/* @PostMapping("notereply") */
-	 @RequestMapping("/notereply") 
+	@RequestMapping("/notereply")
 	public String notereply(@RequestParam String send_id, @RequestParam String recv_id, HttpSession session,
 			@ModelAttribute("note") NoteBean note, Model model) {
 
@@ -286,20 +284,20 @@ public class NoteController {
 		return "note/notereply";
 	}
 
-	// 보낸 쪽지 상세 페이지(안됨) 
+	// 보낸 쪽지 상세 페이지(안됨)
 	/* @GetMapping("notesendview") */
-	 @RequestMapping("/notesendview") 
+	@RequestMapping("/notesendview")
 	/* public String notesendview(int cnt, Model model) */
-	public String notesendview(Authentication authentication,@RequestParam("send_id") String send_id, @RequestParam("cnt") int cnt,
-			@RequestParam(defaultValue = "1") int page, Model model) {
-		 
-		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-	     send_id = principalDetails.getUser().getUsername();
+	public String notesendview(Authentication authentication, @RequestParam("send_id") String send_id,
+			@RequestParam("cnt") int cnt, @RequestParam(defaultValue = "1") int page, Model model) {
+
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		send_id = principalDetails.getUser().getUsername();
 
 		NoteBean note = noteService.getSentNoteDetail(cnt);
 		model.addAttribute("note", note);
-		  model.addAttribute("send_id", send_id); // send_id 값을 모델에 추가
-		  model.addAttribute("message", note.getMessage()); // message 값을 모델에 추가
+		model.addAttribute("send_id", send_id); // send_id 값을 모델에 추가
+		model.addAttribute("message", note.getMessage()); // message 값을 모델에 추가
 		// model.addAttribute("note", cnt)
 
 		return "note/notesendview";
@@ -307,35 +305,34 @@ public class NoteController {
 
 	// 받은 쪽지 상세 페이지
 	/* @GetMapping("notercvview") */
-	 @RequestMapping("/notercvview") 
-	public String notercvview(Authentication authentication,@RequestParam("recv_id") String recv_id, @RequestParam("cnt") int cnt,
-			@RequestParam(defaultValue = "1") int page, Model model) {
-		 
+	@RequestMapping("/notercvview")
+	public String notercvview(Authentication authentication, @RequestParam("recv_id") String recv_id,
+			@RequestParam("cnt") int cnt, @RequestParam(defaultValue = "1") int page, Model model) {
 
-		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-		 recv_id = principalDetails.getUser().getUsername();
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		recv_id = principalDetails.getUser().getUsername();
 
 		NoteBean note = noteService.getReceivedNoteDetail(cnt);
-		System.out.println("받은 쪽지함  DTO:"+ note);
-		
+		System.out.println("받은 쪽지함  DTO:" + note);
+
 		model.addAttribute("note", note);
-		 model.addAttribute("recv_id", recv_id); 
-		  model.addAttribute("message", note.getMessage()); // message 값을 모델에 추가
+		model.addAttribute("recv_id", recv_id);
+		model.addAttribute("message", note.getMessage()); // message 값을 모델에 추가
 
 		return "note/notercvview";
 	}
 
 	// 쪽지 삭제
 	/* @GetMapping("notedelete") */
-	 @RequestMapping("/notedelete") 
-	public String notedelete(Authentication authentication,int note_No, String page, Model model, HttpSession session) {
-		
-		 PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-	     String recv_id = principalDetails.getUser().getUsername();
-	     String send_id = principalDetails.getUser().getUsername();
-		 
-		 
-		 int result = noteService.deleteNoteById(note_No);
+	@RequestMapping("/notedelete")
+	public String notedelete(Authentication authentication, int note_No, String page, Model model,
+			HttpSession session) {
+
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String recv_id = principalDetails.getUser().getUsername();
+		String send_id = principalDetails.getUser().getUsername();
+
+		int result = noteService.deleteNoteById(note_No);
 
 //		String recv_id = (String) session.getAttribute("send_id");
 

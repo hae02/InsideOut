@@ -55,11 +55,12 @@
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
-					<li><a href="StudentList">상담 내역</a></li>
-					<li><a href="surveyList">만족도 조사</a></li>
+					<li><a href="/api/v1/student/StudentList">상담 내역</a></li>
+					<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
-					<li><a href="#">보낸 쪽지함</a></li>
-					<li><a href="#">받은 쪽지함</a></li>
+					<li><a href="/api/v1/user/recvlist?recv_id=${student_no}">받은쪽지함</a></li>
+                    <li><a href="/api/v1/user/sendlist?send_id=${student_no}">보낸쪽지함</a></li>
+                    <li><a href="/api/v1/user/writenote?send_id=${student_no}">쪽지작성</a></li>
 					<li><a href="#">회원정보 수정</a></li>
 				</ul>
 				<br>
