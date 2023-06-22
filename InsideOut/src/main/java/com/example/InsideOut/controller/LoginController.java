@@ -52,4 +52,3 @@ public class LoginController {
 		return "member/lostPassword";
 	}
 }
->>>>>>> InsideOut/sunk
