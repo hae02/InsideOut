@@ -21,7 +21,6 @@ public class BoardBean {
 	private Timestamp post_dt; // 작성일자
 	private int post_readcount; // 조회수
 	private int file_no; //첨부파일
-	private String serial_number; //첨부파일
 	private String real_file_nm; //첨부파일
 	private String save_file_nm; //첨부파일
 	private String file_path; //첨부파일

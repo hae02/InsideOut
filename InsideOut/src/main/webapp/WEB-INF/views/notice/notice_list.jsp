@@ -60,9 +60,11 @@
 					<div align="left">								
 						
 					<!-- 제목 출력 부분 -->	
-					<a href="board_cont.do?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice">
-							${b.post_title}
+					<a href="board_cont.do?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice"> ${b.post_title}
 					</a>
+					<%-- 시큐리티 머지하고 쓸것
+					<a href="<sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')">staff/</sec:authorize>board_cont.do?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice">
+							 --%>
 					</div>
 				</td>
 
