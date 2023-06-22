@@ -19,7 +19,9 @@ public interface MemberDao {
 
 	void deptInsert(DeptBean dept);
 
-	String getPasswd(String username);
-	
-	String getUsername(String username);
+	void advisor(DeptBean dept);
+
+	int usernameCheck(String username);
+
+	String getUserRole(String username);
 }

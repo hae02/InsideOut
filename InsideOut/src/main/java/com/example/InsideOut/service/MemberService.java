@@ -15,8 +15,10 @@ public interface MemberService {
 	void memInsert(MemberBean member);
 	
 	void deptInsert(DeptBean dept);
+
+	void advisor(DeptBean dept);
 	
-	String getPasswd(String username);
+	int usernameCheck(String username);
 	
-	String getUsername(String username);
+	void phoneNumber(String phone, int randomNum);
 }
