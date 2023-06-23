@@ -17,7 +17,9 @@
 
 <!-- // <form action="api/v1/student/PasswordUpdate" method="post"> -->
 <form action="./PasswordUpdate" method="post">
+
     <!-- 비밀번호 입력 필드 -->
+    <input type="password" name="oldPassword" placeholder="기존 비밀번호 입력" required>
     <input type="password" name="newPassword" placeholder="새로운 비밀번호 입력" required>
     <!-- 비밀번호 업데이트 버튼 -->
     <button type="submit">비밀번호 업데이트</button>

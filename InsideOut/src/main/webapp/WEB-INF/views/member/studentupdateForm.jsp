@@ -10,9 +10,11 @@
 <body>
     <h1>학생 정보 수정</h1>
     <form action="/api/v1/student/updateStudent" method="POST">
-    <input type="hidden" name="student_no" value="${student.student_no}"> <!-- 추가 -->
+      <label for="student_no">ID:</label>
+    <input type="text" name="student_no" value="${student.student_no}" readonly> <!-- 추가 -->
+    
     <label for="studentName">이름:</label>
-    <input type="text" id="studentName" name="student_name" value="${student.student_name}" required><br>
+    <input type="text" id="studentName" name="student_name" value="${student.student_name}" required readonly><br>
 
     <label for="studentTel">전화번호:</label>
     <input type="text" id="studentTel" name="student_tel" value="${student.student_tel}" required><br>

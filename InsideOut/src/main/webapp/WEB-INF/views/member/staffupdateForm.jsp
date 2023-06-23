@@ -10,9 +10,11 @@
 <body>
     <h1>교직원 정보 수정</h1>
     <form action="/api/v1/staff/updateStaff" method="POST">
-    <input type="hidden" name="staff_no" value="${staff.staff_no}"> <!-- 추가 -->
+      <label for="staff_no">ID:</label>
+    <input type="text" name="staff_no" value="${staff.staff_no}" readonly> <!-- 추가 -->
+    
     <label for="staffName">이름:</label>
-    <input type="text" id="staffName" name="staff_name" value="${staff.staff_name}" required><br>
+    <input type="text" id="staffName" name="staff_name" value="${staff.staff_name}" required readonly><br>
 
     <label for="staffTel">전화번호:</label>
     <input type="text" id="staffTel" name="staff_tel" value="${staff.staff_tel}" required><br>
