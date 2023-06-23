@@ -26,6 +26,6 @@
 			</tr>
 		</table>
 	</form>
-	<div><a href="/joinSelect">회원 가입</a> <a href="/lostPassword">비밀번호 재설정</a></div>
+	<div><a href="/joinSelect">회원 가입</a> <a href="/lostSelect">비밀번호 재설정</a></div>
 </body>
 </html>

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.example.InsideOut.dao.MemberDao;
 import com.example.InsideOut.dao.UserRepository;
 import com.example.InsideOut.model.DeptBean;
+import com.example.InsideOut.model.LoginRequestDto;
 import com.example.InsideOut.model.MemberBean;
+import com.example.InsideOut.model.NameBean;
 import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.model.StudentBean;
 
@@ -94,4 +96,15 @@ public class MemberServiceImpl implements MemberService{
 	public String getUserRole(String username) {
 		return memberDao.getUserRole(username);
 	}
+	
+	public int getName(NameBean name) {
+		return memberDao.getName(name);
+	}
+
+	public int updatePass(LoginRequestDto user) {
+		return memberDao.updatePass(user);
+	}
+
+	
+	
 }
