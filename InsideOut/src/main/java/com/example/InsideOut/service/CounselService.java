@@ -20,7 +20,7 @@ public interface CounselService {
 
 	public int insertRecord(CounselRecordBean counselRecordBean) throws Exception;
 
-	public List<CounselRecordBean> getRecordList(CounselRecordBean counselRecordBean) throws Exception;
+//	public List<CounselRecordBean> getRecordList(CounselRecordBean counselRecordBean) throws Exception;
 
 	public CounselRecordBean getDetail(String booking_no) throws Exception;
 
@@ -28,4 +28,7 @@ public interface CounselService {
 
 	public int recordDelete(String booking_no) throws Exception;
 
+	public int getListCount() throws Exception;
+
+	public List<CounselRecordBean> getRecordList(int start) throws Exception;
 }

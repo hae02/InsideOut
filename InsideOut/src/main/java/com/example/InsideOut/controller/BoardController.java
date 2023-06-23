@@ -31,7 +31,7 @@ public class BoardController {
 
 	@Autowired
 	private BoardServiceImpl boardService;
-	
+
 	@Autowired
 	private MemberServiceImpl memberService;
 
@@ -192,7 +192,7 @@ public class BoardController {
 
 		String username = principalDetails.getUser().getUsername();
 		String role = memberService.getUserRole(username);
-		
+
 		List<BoardBean> noticelist = new ArrayList<BoardBean>();
 
 		int page = 1;
@@ -241,7 +241,7 @@ public class BoardController {
 
 		String username = principalDetails.getUser().getUsername();
 		String role = memberService.getUserRole(username);
-		
+
 		List<BoardBean> joblist = new ArrayList<BoardBean>();
 
 		int page = 1;
@@ -289,7 +289,7 @@ public class BoardController {
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		String username = principalDetails.getUser().getUsername();
 		String role = memberService.getUserRole(username);
-		
+
 		List<BoardBean> QnAlist = new ArrayList<BoardBean>();
 
 		int page = 1;
@@ -328,5 +328,51 @@ public class BoardController {
 
 		return "QnA/QnA_list";
 
+	}
+
+	// 문의게시판 목록 조회
+	@RequestMapping("/adminAskList")
+	public String getAskBoardList(Model model) throws Exception {
+
+		List<BoardBean> askBoardList = boardService.getAskBoardList();
+		model.addAttribute("askBoardList", askBoardList);
+
+		return "ask/adminAskList";
+	}
+
+	// 문의 상세페이지
+	@RequestMapping("/askView")
+	public String getAskView(Model model, int post_no) {
+		BoardBean askBoard = boardService.getAskView(post_no);
+
+		model.addAttribute("askBoard", askBoard);
+		return "ask/askView";
+	}
+
+	// 문의 답변페이지로 이동
+	@RequestMapping("/replyAsk")
+	public String getReplyAsk(Model model, int post_no) {
+		BoardBean askBoard = boardService.getReplyAsk(post_no);
+
+		model.addAttribute("askBoard", askBoard);
+		return "ask/askReply";
+	}
+
+	// 문의 상세페이지 삭제
+	@RequestMapping("deleteAskView")
+	public String deleteAskView(int post_no) {
+
+		boardService.deleteAskView(post_no);
+
+		return "redirect:adminAskList";
+	}
+
+	// 문의 답변
+	@RequestMapping("askViewReply")
+	public String askViewReply(BoardBean BoardBean) {
+
+		boardService.askViewReply(BoardBean);
+
+		return "redirect:adminAskList";
 	}
 }

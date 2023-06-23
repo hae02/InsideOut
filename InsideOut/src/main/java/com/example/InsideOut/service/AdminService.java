@@ -12,7 +12,7 @@ import com.example.InsideOut.model.MemberBean;
 public class AdminService {
 	
 	@Autowired
-	private AdminDao dao;
+  private AdminDao dao;
 
 	public List<MemberBean> getAllMembers(int pageNum) {
 		// TODO Auto-generated method stub
@@ -27,13 +27,7 @@ public class AdminService {
 		// TODO Auto-generated method stub
 		dao.deleteMembers(mem_no);
 	}
-
-	//안됨
-	public MemberBean updateMembers(int mem_no) {
-		// TODO Auto-generated method stub
-		return dao.updateMembers(mem_no);
-	}
-
+	
 	public int getTotal() {
 		// TODO Auto-generated method stub
 		return dao.getTotal();
@@ -42,6 +36,7 @@ public class AdminService {
 	public int getSearchTotal(String keyword) {
 		return dao.getSearchTotal(keyword);
 	}
+
 	
 
 	 

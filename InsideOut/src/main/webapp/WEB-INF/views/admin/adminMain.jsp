@@ -8,7 +8,7 @@
 </head>
 <body>
 <div><a href="adminMember">회원목록</a></div>
-<div><a href="adminMessage">문의답변</a></div>
+<div><a href="adminAskList">문의답변</a></div>
 
 </body>
 </html>

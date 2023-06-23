@@ -13,7 +13,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-
+<c:import url="../staffHeader.jsp" />
 	<div class="container">
 		<form method="post" action="counselRecordOk">
 

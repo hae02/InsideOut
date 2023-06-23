@@ -13,17 +13,14 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
+<c:import url="../staffHeader.jsp" />
 	<div class="container">
 		<form method="post" action="counselRecordUpdateOk">
 
-			<input type="hidden" id="booking_no" name="booking_no"
-				value="${record.booking_no}">
-			<input type="hidden" id="student_no" name="student_no"
-				value="${record.student_no}">
-
-			<%-- <input type="hidden" id="counsel_record_dt" name="counsel_record_dt" value="${counsel_record_dt}"> --%>
-
-			<input type="hidden" id="student_no" name="student_no" value="${record.student_no}">
+			<input type="hidden" id="booking_no" name="booking_no" value="${record.booking_no}">
+			<input type="hidden" name="page" value="${page}">
+			<%-- <input type="hidden" id="counsel_record_dt" name="counsel_record_dt" value="${record.counsel_record_dt}"> --%>
+			<%-- <input type="hidden" id="student_no" name="student_no" value="${record.student_no}"> --%>
 
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">상담기록</label>

@@ -19,10 +19,11 @@ table, td, th {
 ;
 </style>
 <body>
+<c:import url="../staffHeader.jsp" />
 	<div class="container">
 	<h3>상담기록</h3>
 	
-		<table>
+		<table class="table table-bordered">
 			<tr>
 				<th>학생번호</th>
 				<td>${record.student_no}</td>
@@ -44,7 +45,7 @@ table, td, th {
 <!-- 			<input type="hidden" name="booking_no" value="목록"> -->
 			<input type="button" class="btn btn-success" onclick="location.href='counselRecordList?page=${page}'" value="목록">
 			<input type="button" class="btn btn-success" onclick="location.href='counselRecordUpdate?booking_no=${record.booking_no}&page=${page}'" value="수정">
-			<input type="button" class="btn btn-success" onclick="location.href='counselRecordDelete?booking_no=${record.booking_no}'" value="삭제">
+			<input type="button" class="btn btn-success" onclick="location.href='counselRecordDelete?booking_no=${record.booking_no}&page=${page}'" value="삭제">
 	</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 </body>

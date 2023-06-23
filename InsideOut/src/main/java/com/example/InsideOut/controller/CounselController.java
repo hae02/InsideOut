@@ -1,6 +1,9 @@
 package com.example.InsideOut.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -87,12 +90,11 @@ public class CounselController {
 
 	// 상담 내용 작성 저장
 	@RequestMapping("student/counselContentOk")
-	public String counselContentOk(@ModelAttribute CounselBookingBean counselBookingBean, 
-			Authentication authentication, Model model)
-			throws Exception {
+	public String counselContentOk(@ModelAttribute CounselBookingBean counselBookingBean, Authentication authentication,
+			Model model) throws Exception {
 		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
 		String student_no = principalDetailis.getUser().getUsername();
-		
+
 		counselBookingBean.setStudent_no(student_no);
 		int result = counselService.insertCounsel(counselBookingBean);
 		if (result == 1)
@@ -136,10 +138,42 @@ public class CounselController {
 	}
 
 	// 상담기록 리스트
-	@RequestMapping("staff/counselRecordList")
-	public String counselRecordList(CounselRecordBean counselRecordBean, Model model) throws Exception {
+	@RequestMapping("counselRecordList")
+	public String counselRecordList(HttpServletRequest request, Model model) throws Exception {
 
-		model.addAttribute("recordList", counselService.getRecordList(counselRecordBean));
+		List<CounselRecordBean> recordList = new ArrayList<CounselRecordBean>();
+
+		int page = 1;
+		int limit = 10; // 한 화면에 출력할 레코드수
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+
+		// 게시물 갯수
+		int listcount = counselService.getListCount();
+		System.out.println("listcount:" + listcount);
+
+		int start = (page - 1) * 10; // limit로 추출하기 위한 시작번호 : 0, 10, 20...
+
+		recordList = counselService.getRecordList(start);
+		System.out.println("recordList:" + recordList);
+
+		// 총 페이지
+		int maxpage = listcount / limit + ((listcount % limit == 0) ? 0 : 1);
+
+		int startpage = ((page - 1) / 10) * limit + 1; // 1, 11, 21..
+		int endpage = startpage + 10 - 1; // 10, 20, 30..
+
+		if (endpage > maxpage)
+			endpage = maxpage;
+
+		model.addAttribute("page", page);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("listcount", listcount);
+		model.addAttribute("recordList", recordList);
 
 		return "counsel/counselRecordList";
 	}
@@ -167,25 +201,29 @@ public class CounselController {
 	}
 
 	// 상담기록 수정 저장
-	@RequestMapping("staff/counselRecordUpdateOk")
-	public String counselRecordUpdateOk(@ModelAttribute CounselRecordBean counselRecordBean, Model model)
-			throws Exception {
+	@RequestMapping("counselRecordUpdateOk")
+	public String counselRecordUpdateOk(@ModelAttribute CounselRecordBean counselRecordBean,
+			@RequestParam("page") int page, @RequestParam("booking_no") int booking_no, Model model) throws Exception {
+
+		System.out.println("counselRecordUpdateOk");
 
 		int result = counselService.updateRecord(counselRecordBean);
 		if (result == 1)
 			System.out.println("입력성공");
 		model.addAttribute("result", result);
+		model.addAttribute("page", page);
 
-		return "counsel/counselRecordList";
+		return "counsel/counselRecordUpdateOk";
 	}
 
 	// 상담기록 삭제
-	@RequestMapping("staff/counselRecordDelete")
-	public String counselRecordDelete(String booking_no, Model model) throws Exception {
+	@RequestMapping("counselRecordDelete")
+	public String counselRecordDelete(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
 
 		int result = counselService.recordDelete(booking_no);
 		model.addAttribute("result", result);
+		model.addAttribute("page", page);
 
-		return "counsel/counselRecordList";
+		return "redirect:counselRecordList?page=" + page;
 	}
 }

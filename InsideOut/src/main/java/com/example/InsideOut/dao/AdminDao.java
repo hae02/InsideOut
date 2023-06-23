@@ -9,17 +9,15 @@ import com.example.InsideOut.model.MemberBean;
 @Mapper
 public interface AdminDao {
 
-	public List<MemberBean> getAllMembers(int pageNum);
+	public List<MemberBean> getAllMembers(int pageNum);	
 	
 	public List<MemberBean> getSearchMembers(String keyword);
 	
 	public void deleteMembers(int mem_no);
 
-	// 안됨
-	public MemberBean updateMembers(int mem_no);
-
 	public int getTotal();
 	
 	public int getSearchTotal(String keyword);
+
 	
 }

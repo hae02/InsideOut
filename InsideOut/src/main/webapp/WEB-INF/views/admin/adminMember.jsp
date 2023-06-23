@@ -13,10 +13,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 
 <script>
-	function updateMember(mem_no) {
-		alert(mem_no);
-		location.href = "updateMember?mem_no=" + mem_no;
-	}
 
 	function deleteMember(mem_no) {
 		alert(mem_no);
@@ -35,35 +31,15 @@
 			<div align="center">
 				<table class="table" id="table2">
 					<tr>
-						<td>번호</td>
 						<td>아이디</td>
-						<td>비밀번호</td>
-						<td>비밀번호 잠김 여부</td>
-						<td>비밀번호 초기화 여부</td>
-						<td>비밀번호 변경일시</td>
-						<td>최근로그인</td>
-						<td>비밀번호 오류 횟수</td>
 						<td>회원구분</td>
-						<td>회원상태</td>
-						<td>비밀번호 잠금 초기화</td>
 						<td>회원 삭제</td>
 					</tr>
 
 					<c:forEach var="list" items="${memberlist }">
 						<tr>
-							<td>${list.mem_no }</td>
 							<td>${list.username }</td>
-							<td>${list.password }></td>
-							<td>${list.pw_lock }</td>
-							<td>${list.pw_reset }</td>
-							<td><fmt:formatDate value="${list.pw_redt }"
-									pattern="yyyy-MM-dd" /></td>
-							<td>${list.recent_login }</td>
-							<td>${list.pw_errorcount }</td>
 							<td>${list.role }</td>
-							<td>${list.mem_state}</td>
-							<td><input type="button" value="잠금 해제"
-								onClick="updateMember('${b.mem_no }')"></td>
 							<td><input type="button" value="회원 삭제"
 								onClick="deleteMember('${b.mem_no }')"></td>
 						</tr>

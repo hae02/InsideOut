@@ -30,14 +30,15 @@ public class BoardDAOImpl implements BoardDao {
 		session.insert("boardns.file_insert", board);
 	}
 
-	// 공지 게시물 목록
+	// 공지 리스트
 	@Override
 	public List<BoardBean> getNoticeList(int page) throws Exception {
 		List<BoardBean> list = session.selectList("boardns.notice_list", page);
 
 		return list;
 	}
-	
+
+	// 취업 리스트
 	@Override
 	public List<BoardBean> getJobList(int page) throws Exception {
 		List<BoardBean> list = session.selectList("boardns.job_list", page);
@@ -45,13 +46,13 @@ public class BoardDAOImpl implements BoardDao {
 		return list;
 	}
 
+	// QnA 리스트
 	@Override
 	public List<BoardBean> getQnAList(int page) throws Exception {
 		List<BoardBean> list = session.selectList("boardns.QnA_list", page);
 
 		return list;
 	}
-
 
 	// 공지게시판 총갯수
 	@Override
@@ -61,7 +62,8 @@ public class BoardDAOImpl implements BoardDao {
 
 		return count;
 	}
-	
+
+	// 취업게시판 총갯수
 	@Override
 	public int getJobCount() throws Exception {
 		int count = 0;
@@ -69,7 +71,8 @@ public class BoardDAOImpl implements BoardDao {
 
 		return count;
 	}
-	
+
+	// QnA게시판 총갯수
 	@Override
 	public int getQnACount() throws Exception {
 		int count = 0;
@@ -107,23 +110,42 @@ public class BoardDAOImpl implements BoardDao {
 	public void editFileBoard(BoardBean board) throws Exception {
 		session.update("boardns.fileboard_edit", board);
 
-		}
-	
+	}
+
 	// 게시물 삭제
 	@Override
 	public void boardDelete(int post_no) throws Exception {
 		session.delete("boardns.board_del", post_no);
 
 	}
-	/*
-	 * // 1:1 질문 게시판 답변글 레벨 증가 public void refEdit(BoardBean b) throws Exception {
-	 * session.update("boardns.board_Level", b); }
-	 * 
-	 * // 1:1 질문 게시판 답변글 저장 public void boardReplyOk(BoardBean b) throws Exception {
-	 * session.insert("boardns.board_reply", b); }
-	 * 
-	 */
 
+	@Override
+	public List<BoardBean> getAskBoardList() {
+		List<BoardBean> list = session.selectList("boardns.getAskBoardList");
 
+		return list;
+	}
+
+	@Override
+	public BoardBean getAskView(int post_no) {
+		return (BoardBean) session.selectOne("boardns.getAskView", post_no);
+	}
+
+	@Override
+	public void deleteAskView(int post_no) {
+		session.delete("boardns.deleteAskView", post_no);
+
+	}
+
+	@Override
+	public BoardBean getReplyAsk(int post_no) {
+		return (BoardBean) session.selectOne("boardns.getReplyAsk", post_no);
+	}
+
+	@Override
+	public void askViewReply(BoardBean board) {
+		session.insert("boardns.askViewReply", board);
+
+	}
 
 }

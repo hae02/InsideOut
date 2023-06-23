@@ -25,10 +25,10 @@
 }
 </style>
 <body>
+<c:import url="../studentHeader.jsp" />
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-	<c:import url="../header.jsp" />
-	<div class="container">
+	<div class="containe">
 		<button class="btn btn-outline-success" type="button"
 			name="counsel_typeno"
 			onclick="location.href='counselBooking?counsel_typeno=0101'">
@@ -47,6 +47,7 @@
 			<img src="/images/mortarboard-fill.svg" width="40%">
 			<h3>학사</h3>
 		</button>
+
 		<button class="btn btn-outline-success" type="button"
 			name="counsel_typeno"
 			onclick="location.href='counselBooking?counsel_typeno=0104'">
@@ -54,5 +55,6 @@
 			<h3>개인고민</h3>
 		</button>
 	</div>
+
 </body>
 </html>
