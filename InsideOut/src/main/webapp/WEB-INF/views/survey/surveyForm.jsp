@@ -62,7 +62,7 @@
 </style>
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../studentHeader.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">

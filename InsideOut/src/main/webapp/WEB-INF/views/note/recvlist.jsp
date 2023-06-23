@@ -87,18 +87,35 @@
 </script>
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:if test="${role == 'ROLE_STUDENT'}">
+		<c:import url="../studentHeader.jsp" />
+	</c:if>
+	<c:if test="${role == 'ROLE_STAFF'}">
+		<c:import url="../staffHeader.jsp" />
+	</c:if>
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
-					<li><a href="/api/v1/student/StudentList">상담 내역</a></li>
-					<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
+					<c:if test="${role == 'ROLE_STUDENT'}">
+						<li><a href="/api/v1/student/StudentList">상담 내역</a></li>
+						<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
+					</c:if>
+					<c:if test="${role == 'ROLE_STAFF'}">
+						<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
+						<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
+					</c:if>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${recv_id}">받은쪽지함</a></li>
 					<li><a href="/api/v1/user/sendlist?send_id=${recv_id}">보낸쪽지함</a></li>
 					<li><a href="/api/v1/user/writenote?send_id=${recv_id}">쪽지작성</a></li>
-					<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
+					<c:if test="${role == 'ROLE_STUDENT'}">
+						<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
+					</c:if>
+					<c:if test="${role == 'ROLE_STAFF'}">
+						<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
+					</c:if>
+					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
 				</ul>
 			</div>
 			<div class="col-9" style="margin-top: 20px;">
@@ -116,17 +133,41 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${noteList}" var="note">
+							<c:forEach items="${noteList}" var="note" varStatus="vs">
 								<tr>
 									<td style="width: 6%; text-align: center;">${note.note_no}</td>
 									<td style="width: 15%; text-align: center;">${note.send_id}</td>
 									<td style="width: 15%; text-align: center;">${note.recv_id}</td>
-									<td style="width: 30%; text-align: center;"><a
-										href="notercvview?cnt=${note.note_no}&amp;recv_id=${note.recv_id}">${note.message}</a></td>
+									<td style="width: 30%; text-align: center;"><a href=""
+										id="message" data-bs-toggle="modal"
+										data-bs-target="#noteModal${vs.index}">${note.message}</a></td>
 									<td style="width: 16%; text-align: center;"><fmt:formatDate
 											value="${note.rcv_dt}" pattern="yyyy.MM.dd" /></td>
 									<%--                                     <td style="width: 6%; text-align: center;"><input type="checkbox" id="checked" name="checked" value="${note.note_no}" style="width: 20px; height: 20px;"></td> --%>
 								</tr>
+
+								<!-- Modal -->
+								<div class="modal fade" id="noteModal${vs.index}" tabindex="-1"
+									aria-labelledby="resultModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5>보낸이 ${note.send_id}</h5>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<p>${note.message}</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-outline-primary"
+													onClick="location.href='notereplyform?send_id=${note.send_id}&recv_id=${note.recv_id}&note_No=${note.note_no}'">답장</button>
+												<button type="button" class="btn btn-outline-danger"
+													onClick="location.href='notedelete?note_No=${note.note_no}'">삭제</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</c:forEach>
 						</tbody>
 					</table>

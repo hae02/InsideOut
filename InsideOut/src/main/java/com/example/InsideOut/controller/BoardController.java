@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.InsideOut.auth.PrincipalDetails;
 import com.example.InsideOut.model.BoardBean;
 import com.example.InsideOut.service.BoardServiceImpl;
+import com.example.InsideOut.service.MemberServiceImpl;
 
 @Controller
 @RequestMapping(value = "api/v1")
@@ -28,6 +31,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardServiceImpl boardService;
+	
+	@Autowired
+	private MemberServiceImpl memberService;
 
 	@RequestMapping("test")
 	public String test() {
@@ -180,8 +186,13 @@ public class BoardController {
 
 	// 공지사항 목록- 모두
 	@RequestMapping(value = "/user/notice_list")
-	public String Nooticelist(HttpServletRequest request, Model model) throws Exception {
+	public String Nooticelist(Authentication authentication, HttpServletRequest request, Model model) throws Exception {
 
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
+		String username = principalDetails.getUser().getUsername();
+		String role = memberService.getUserRole(username);
+		
 		List<BoardBean> noticelist = new ArrayList<BoardBean>();
 
 		int page = 1;
@@ -210,6 +221,7 @@ public class BoardController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 
+		model.addAttribute("role", role);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
@@ -223,8 +235,13 @@ public class BoardController {
 
 	// 취업게시판 목록- 모두
 	@RequestMapping(value = "/user/job_list")
-	public String Joblist(HttpServletRequest request, Model model) throws Exception {
+	public String Joblist(Authentication authentication, HttpServletRequest request, Model model) throws Exception {
 
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
+		String username = principalDetails.getUser().getUsername();
+		String role = memberService.getUserRole(username);
+		
 		List<BoardBean> joblist = new ArrayList<BoardBean>();
 
 		int page = 1;
@@ -253,6 +270,7 @@ public class BoardController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 
+		model.addAttribute("role", role);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
@@ -266,8 +284,12 @@ public class BoardController {
 
 	// QnA 목록- 모두
 	@RequestMapping(value = "/user/QnA_list")
-	public String list(HttpServletRequest request, Model model) throws Exception {
+	public String list(Authentication authentication, HttpServletRequest request, Model model) throws Exception {
 
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String username = principalDetails.getUser().getUsername();
+		String role = memberService.getUserRole(username);
+		
 		List<BoardBean> QnAlist = new ArrayList<BoardBean>();
 
 		int page = 1;
@@ -296,6 +318,7 @@ public class BoardController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 
+		model.addAttribute("role", role);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);

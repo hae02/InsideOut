@@ -63,18 +63,35 @@
 
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:if test="${role == 'ROLE_STUDENT'}">
+		<c:import url="../studentHeader.jsp" />
+	</c:if>
+	<c:if test="${role == 'ROLE_STAFF'}">
+		<c:import url="../staffHeader.jsp" />
+	</c:if>
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
-					<li><a href="/api/v1/student/StudentList">상담 내역</a></li>
-					<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
+					<c:if test="${role == 'ROLE_STUDENT'}">
+						<li><a href="/api/v1/student/StudentList">상담 내역</a></li>
+						<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
+					</c:if>
+					<c:if test="${role == 'ROLE_STAFF'}">
+						<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
+						<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
+					</c:if>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${send_id}">받은쪽지함</a></li>
 					<li><a href="/api/v1/user/sendlist?send_id=${send_id}">보낸쪽지함</a></li>
 					<li><a href="/api/v1/user/writenote?send_id=${send_id}">쪽지작성</a></li>
-					<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
+					<c:if test="${role == 'ROLE_STUDENT'}">
+						<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
+					</c:if>
+					<c:if test="${role == 'ROLE_STAFF'}">
+						<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
+					</c:if>
+					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
 				</ul>
 			</div>
 

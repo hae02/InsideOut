@@ -51,7 +51,7 @@
 </style>
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../studentHeader.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
@@ -63,6 +63,7 @@
                     <li><a href="/api/v1/user/sendlist?send_id=${student_no}">보낸쪽지함</a></li>
                     <li><a href="/api/v1/user/writenote?send_id=${student_no}">쪽지작성</a></li>
 					<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
+					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
 				</ul>
 				<br>
 			</div>

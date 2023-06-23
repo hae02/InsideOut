@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.InsideOut.auth.PrincipalDetails;
 import com.example.InsideOut.model.MemberBean;
 import com.example.InsideOut.model.NoteBean;
-import com.example.InsideOut.service.MemberService;
+import com.example.InsideOut.service.MemberServiceImpl;
 import com.example.InsideOut.service.NoteService;
 
 //@RequestMapping("/mypage")
@@ -32,6 +32,9 @@ public class NoteController {
 
 	@Autowired
 	private NoteService noteService;
+	
+	@Autowired
+	private MemberServiceImpl memberService;
 
 	// 쪽지 작성창으로
 //	 @GetMapping("/writenote") 
@@ -59,6 +62,10 @@ public class NoteController {
 			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 
 			String username = principalDetails.getUser().getUsername();
+			String role = memberService.getUserRole(username);
+			
+			model.addAttribute("role", role);
+			
 			return "note/writenote";
 
 		} else {
@@ -72,7 +79,7 @@ public class NoteController {
 
 			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 			String username = principalDetails.getUser().getUsername();
-
+			
 			note.setSend_id(username);
 
 			int result1 = noteService.sendNote(note);
@@ -149,7 +156,8 @@ public class NoteController {
 
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		recv_id = principalDetails.getUser().getUsername();
-
+		String role = memberService.getUserRole(recv_id);
+		
 //		 String recv_id = (String) session.getAttribute("recv_id");
 //		 
 //		System.out.println("recv_id:" + recv_id);
@@ -179,6 +187,7 @@ public class NoteController {
 		if (endPage > pageCount)
 			endPage = pageCount;
 
+		model.addAttribute("role", role);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
@@ -207,6 +216,8 @@ public class NoteController {
 		String send_id = principalDetails.getUser().getUsername();
 		System.out.println("username:" + send_id);
 
+		String role = memberService.getUserRole(send_id);
+		
 //		String send_id = (String) session.getAttribute("send_id");
 //			
 //		System.out.println("sendlist controller in");
@@ -236,6 +247,7 @@ public class NoteController {
 		if (endPage > pageCount)
 			endPage = pageCount;
 
+		model.addAttribute("role", role);
 		model.addAttribute("pageCount", pageCount);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);

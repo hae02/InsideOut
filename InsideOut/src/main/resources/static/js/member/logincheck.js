@@ -1,12 +1,12 @@
 function check(){
-	 if($.trim($("#id").val())==""){
+	 if($.trim($("#username").val())==""){
 		 alert("아이디를 입력하세요");
-		 $("#id").focus();
+		 $("#username").focus();
 		 return false;
 	 }
-	 if($.trim($("#passwd").val())==""){
+	 if($.trim($("#password").val())==""){
 		 alert("비밀번호를 입력하세요");
-		 $("#passwd").focus();
+		 $("#password").focus();
 		 return false;
 	 }
 }
