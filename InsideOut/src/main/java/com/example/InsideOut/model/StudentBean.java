@@ -5,7 +5,7 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("studentPage")
+@Alias("student")
 public class StudentBean {
 	private String student_no; 
 	private String student_name; 
@@ -18,3 +18,4 @@ public class StudentBean {
 	private String username; 
 	private String dept_name; 
 }
+

@@ -3,6 +3,7 @@ package com.example.InsideOut.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,7 +26,7 @@ public class LoginController {
        
        if(role.equals("ROLE_STUDENT")) {
     	   return "redirect:/api/v1/student/StudentList";
-       }else if(role.equals("ROLE_STUDENT")) {
+       }else if(role.equals("ROLE_STAFF")) {
     	   return "redirect:/api/v1/staff/StaffList";
        }else if(role.equals("ROLE_ADMIN")) {
     	   return "redirect:/api/v1/admin/adminMain";
@@ -34,4 +35,20 @@ public class LoginController {
        }
     }
 
+
+	@GetMapping("/loginResult")
+	public String loginResult(Model model) {
+		
+		model.addAttribute("result", 2);
+		
+		return "/member/loginResult";
+	}
+	
+//	@GetMapping("")
+//	public String lostSelect
+	
+	@GetMapping("/lostPassword")
+	public String lostPassword() {
+		return "member/lostPassword";
+	}
 }

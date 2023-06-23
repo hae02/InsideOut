@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.InsideOut.auth.PrincipalDetails;
 import com.example.InsideOut.model.CounselBookingBean;
 import com.example.InsideOut.model.CounselRecordBean;
 import com.example.InsideOut.model.CounselTypeBean;
@@ -21,7 +23,7 @@ import com.example.InsideOut.service.CounselService;
 import com.example.InsideOut.service.StaffService;
 
 
-@RequestMapping("api/v1/user/")
+@RequestMapping("api/v1")
 @Controller
 public class CounselController {
 
@@ -31,7 +33,7 @@ public class CounselController {
 	private StaffService staffService;
 	
 	// 상담 종류 선택
-	@RequestMapping("counselType")
+	@RequestMapping("student/counselType")
 	public String counselType() throws Exception {
 		
 		System.out.println("counselType");
@@ -40,7 +42,7 @@ public class CounselController {
 	}
 	
 	// 상담사 및 일정 선택
-	@RequestMapping("counselBooking")
+	@RequestMapping("student/counselBooking")
 	public String counselBooking(@RequestParam("counsel_typeno") String counsel_typeno,
 								CounselBookingBean cBookingBean,
 								StaffBean staff, Model model) throws Exception {
@@ -62,7 +64,7 @@ public class CounselController {
 
 	
 	// 상담 내용 작성 폼
-	@RequestMapping("counselContent")
+	@RequestMapping("student/counselContent")
 	public String counselContent(@RequestParam("counsel_typeno") String counsel_typeno, 
 								  @RequestParam("booking_dt") String booking_dt, 
 								  @RequestParam("booking_time") String booking_time, 
@@ -92,7 +94,7 @@ public class CounselController {
 	}
 	
 	// 상담 내용 작성 저장
-	@RequestMapping("counselContentOk")
+	@RequestMapping("student/counselContentOk")
 	public String counselContentOk(@ModelAttribute CounselBookingBean counselBookingBean, 
 									Model model) throws Exception {
 		
@@ -105,40 +107,50 @@ public class CounselController {
 	
 	// 확정 시간 처리
 	@ResponseBody
-	@RequestMapping("getDt")
+	@RequestMapping("student/getDt")
 	public List<CounselBookingBean> getDt(String booking_dt, String staff_no) throws Exception {
 		
 		return counselService.getDt(staff_no, booking_dt);
 	}
 	
 	// 상담기록 작성
-	@RequestMapping("counselRecord")
-	//public String counselRecode(String student_no, String booking_no, Model model) throws Exception {
-	public String counselRecord(@ModelAttribute CounselBookingBean counselBookingBean, 
+	@RequestMapping("staff/counselRecord")
+	public String counselRecord(@ModelAttribute CounselBookingBean counselBookingBean, Authentication authentication,
 								Model model) throws Exception {
 			
-		//model.addAttribute("student_no", student_no);
-		CounselBookingBean cBookingBean = counselService.getCounsel(counselBookingBean);
-		model.addAttribute("cBookingBean", cBookingBean);
-			
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String staff_no = principalDetailis.getUser().getUsername();
+		
+		model.addAttribute("counselBookingBean", counselBookingBean);
+		model.addAttribute("staff_no", staff_no);
+		
 		return "counsel/counselRecord";
 	}
 	
 	// 상담기록 저장
-	@RequestMapping("counselRecordOk")
-	public String counselRecordOk(@ModelAttribute CounselRecordBean counselRecordBean, 
+	@RequestMapping("staff/counselRecordOk")
+	public String counselRecordOk(@ModelAttribute CounselRecordBean counselRecordBean, Authentication authentication,
 								  Model model) throws Exception {
+		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String staff_no = principalDetailis.getUser().getUsername();
 		
 		int result = counselService.insertRecord(counselRecordBean);
 		if(result == 1) System.out.println("입력성공");
 		model.addAttribute("result", result);
+		model.addAttribute("staff_no", staff_no);
 		
 		return "redirect:counselRecordList";
 	}
 	
 	// 상담기록 리스트
-	@RequestMapping("counselRecordList")
-	public String counselRecordList(HttpServletRequest request, Model model) throws Exception {
+	@RequestMapping("staff/counselRecordList")
+	public String counselRecordList(HttpServletRequest request, Authentication authentication, Model model) throws Exception {
+//		public String counselRecordList(HttpServletRequest request, Authentication authentication, Model model) throws Exception {
+		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String staff_no = principalDetailis.getUser().getUsername();
+		System.out.println("staff_no: "+staff_no);
 		
 		List<CounselRecordBean> recordList = new ArrayList<CounselRecordBean>();
 		
@@ -155,7 +167,8 @@ public class CounselController {
 
 		int start = (page - 1) * 10;  // limit로 추출하기 위한 시작번호 : 0, 10, 20...
 		
-		recordList = counselService.getRecordList(start); 
+		
+		recordList = counselService.getRecordList(staff_no); 
 		System.out.println("recordList:"+ recordList);
 
 		// 총 페이지
@@ -173,52 +186,73 @@ public class CounselController {
 		model.addAttribute("maxpage", maxpage);
 		model.addAttribute("listcount", listcount);
 		model.addAttribute("recordList", recordList);
+		model.addAttribute("staff_no", staff_no);
 		
 		return "counsel/counselRecordList";
 	}
 	
 	// 상담기록 상세페이지
-	@RequestMapping("counselRecordDetail")
-	public String counselRecordDetail(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
+	@RequestMapping("staff/counselRecordDetail")
+	public String counselRecordDetail(String booking_no, @RequestParam("page") int page, Authentication authentication, Model model) throws Exception {
+		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String staff_no = principalDetailis.getUser().getUsername();
+		System.out.println("staff_no: "+staff_no);
 		
 		CounselRecordBean cRecordBean = counselService.getDetail(booking_no);
 		model.addAttribute("record", cRecordBean);
 		model.addAttribute("page", page);
+		model.addAttribute("staff_no", staff_no);
+		
 		
 		return "counsel/counselRecordDetail";
 	}
 	
 	// 상담기록 수정 폼
-	@RequestMapping("counselRecordUpdate")
-	public String counselRecordUpdate(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
+	@RequestMapping("staff/counselRecordUpdate")
+	public String counselRecordUpdate(String booking_no, @RequestParam("page") int page, Authentication authentication, Model model) throws Exception {
+		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String staff_no = principalDetailis.getUser().getUsername();
+		System.out.println("staff_no: "+staff_no);
 		
 		CounselRecordBean cRecordBean = counselService.getDetail(booking_no);
 		model.addAttribute("record", cRecordBean);
 		model.addAttribute("page", page);
+		model.addAttribute("staff_no", staff_no);
 		
 		return "counsel/counselRecordUpdate";
 	}
 	
 	// 상담기록 수정 저장
-	@RequestMapping("counselRecordUpdateOk")
-	public String counselRecordUpdateOk(@ModelAttribute CounselRecordBean counselRecordBean, @RequestParam("page") int page,
-										@RequestParam("booking_no") int booking_no,
+	@RequestMapping("staff/counselRecordUpdateOk")
+	public String counselRecordUpdateOk(@ModelAttribute CounselRecordBean counselRecordBean, Authentication authentication, @RequestParam("page") int page,
+										@RequestParam("booking_no") String booking_no,
 									   Model model) throws Exception {
 			
 			System.out.println("counselRecordUpdateOk");
+			
+			PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+			String staff_no = principalDetailis.getUser().getUsername();
+			System.out.println("staff_no: "+staff_no);
 		
 			int result = counselService.updateRecord(counselRecordBean);
 			if(result == 1) System.out.println("입력성공");
 			model.addAttribute("result", result);
 			model.addAttribute("page", page);
+			model.addAttribute("staff_no", staff_no);
 			
 			return "counsel/counselRecordUpdateOk";
 		}
 		
 	// 상담기록 삭제
-	@RequestMapping("counselRecordDelete")
-	public String counselRecordDelete(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
-			
+	@RequestMapping("staff/counselRecordDelete")
+	public String counselRecordDelete(String booking_no, @RequestParam("page") int page, Authentication authentication, Model model) throws Exception {
+		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String staff_no = principalDetailis.getUser().getUsername();
+		System.out.println("staff_no: "+staff_no);
+		
 		int result = counselService.recordDelete(booking_no);
 		model.addAttribute("result", result);
 		model.addAttribute("page", page);

@@ -5,7 +5,7 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("staffPage")
+@Alias("staffpage")
 public class StaffMypageModel {
 	
 	private int booking_No;

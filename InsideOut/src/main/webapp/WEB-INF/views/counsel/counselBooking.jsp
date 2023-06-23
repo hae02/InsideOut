@@ -412,7 +412,7 @@
  	function getConfirmTime(booking_dt, staff_no){ 		
 		// jQuery를 이용한 AJAX 요청
 		$.ajax({
-		  url: "/getDt",
+		  url: "getDt",
 		  method: "GET",
 		  dataType: "json",
 		  data: { 

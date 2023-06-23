@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-<%@ include file="/WEB-INF/header.jsp"%>
+
 	<div class="container">
 		<div class="square" align="center"
 			onclick="window.location.href='/joinForm?mem_type=0100';">

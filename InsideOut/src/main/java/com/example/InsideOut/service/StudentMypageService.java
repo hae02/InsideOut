@@ -18,9 +18,9 @@ public class StudentMypageService {
 //		this.staffMypageDao = staffMypageDao;
 //	}
 
-	public List<StudentMypageModel> studentBookingList() {
+	public List<StudentMypageModel> studentBookingList(String student_no) {
 
-		List<StudentMypageModel> list = studentMypageDao.studentBookingList();
+		List<StudentMypageModel> list = studentMypageDao.studentBookingList(student_no);
 		System.out.println("service list:" + list);
 
 		return list;

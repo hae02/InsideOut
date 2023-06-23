@@ -102,58 +102,58 @@
 
 </head>
 <body>
-	<%@ include file="/WEB-INF/header.jsp"%>
+	<c:import url="../header.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
-					<li><a href="StaffList">상담 내역</a></li>
-					<li><a href="surveyList">만족도 조사</a></li>
+					<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
+					<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
+					<li><a href="#">내가 쓴 글</a></li>
 					<li><a href="#">1:1 문의</a></li>
-					<li><a href="#">보낸 쪽지함</a></li>
-					<li><a href="#">받은 쪽지함</a></li>
-					<li><a href="#">회원정보 수정</a></li>
+					<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
+					<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
 				</ul>
 				<br>
 			</div>
 
 			<div class="col-9">
 
+				<div id="list"></div>
+				<nav class="nav">
+					<a class="nav-link active" aria-current="page" href="StaffList">상담관리</a>
+					<a class="nav-link" href="ConfirmList">상담내역</a>
+					<a class="nav-link" href="counselRecordList">상담기록</a>
 
+				</nav>
 
-				</head>
-				<body>
-					<div id="list"></div>
-					<nav class="nav">
-						<a class="nav-link active" aria-current="page" href="StaffList">상담관리</a>
-						<a class="nav-link" href="ConfirmList">상담내역</a>
+				<table class="table table-bordered">
+					<!-- <table border=1 width=1000px align=center> -->
+					<tr>
+						<td>이름</td>
+						<td>상담 내용</td>
+						<td>날짜</td>
+						<td>시간</td>
+						<td>상담완료</td>
+					</tr>
 
-					</nav>
-
-					<table class="table table-bordered">
-						<!-- <table border=1 width=1000px align=center> -->
+					<c:forEach var="booking" items="${bookings}">
 						<tr>
-							<td>이름</td>
-							<td>상담 내용</td>
-							<td>날짜</td>
-							<td>시간</td>
-							
-							<td>상담완료</td>
+							<td>${booking.student_name}</td>
+							<td>${booking.counsel_Request_Content}</td>
+							<td>${booking.confirm_Dt}</td>
+							<td>${booking.cd_nm}</td>
+							<td>
+							 <input type="button" onclick="location.href='counselRecord?booking_no=${booking.booking_No}&student_no=${booking.student_No}'" class="btn btn-outline-dark" value="상담완료"> 
+							</td>
 						</tr>
-
-						<c:forEach var="booking" items="${bookings}">
-							<tr>
-								<td>${booking.student_name}</td>
-								<td>${booking.counsel_Request_Content}</td>
-								<td>${booking.confirm_Dt}</td>
-								<td>${booking.cd_nm}</td>
-								
-								<!-- onclick="confirmButton('${booking.booking_No}')" -->
-								<td><input type="button" onclick="completeButton()"
-									class="btn btn-outline-dark" value="상담완료"></td>
-							</tr>
-						</c:forEach>
-					</table>
+						<input type="hidden" name="confirm_dt"
+							value="${booking.confirm_Dt}">
+						<input type="hidden" name="cd_nm" value="${booking.cd_nm}">
+					</c:forEach>
+				</table>
 			</div>
 		</div>
 	</div>

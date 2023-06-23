@@ -84,8 +84,8 @@ public class CounselServiceImpl implements CounselService {
 	}
 
 	@Override
-	public List<CounselRecordBean> getRecordList(int start) throws Exception {
+	public List<CounselRecordBean> getRecordList(String staff_no) throws Exception {
 		// TODO Auto-generated method stub
-		return counselDao.getRecordList(start);
+		return counselDao.getRecordList(staff_no);
 	}	
 }

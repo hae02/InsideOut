@@ -28,8 +28,8 @@ public class StaffMypageService {
 	 * 
 	 * return list; // return staffMypageDao.getBookingList(); }
 	 */
-	public ArrayList<StaffMypageModel> staffBookingList(){
-		return staffMypageDao.staffBookingList();
+	public ArrayList<StaffMypageModel> staffBookingList(String staff_no){
+		return staffMypageDao.staffBookingList(staff_no);
 	}
 
 	public int confirmUpdate(StaffMypageModel smm) {
