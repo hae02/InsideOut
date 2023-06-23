@@ -129,7 +129,7 @@
 </style>
 
 <body>
-
+<%@ include file="/WEB-INF/header.jsp"%>
 	<div class="container">
 		<form method="post" action="counselContent">
 			<input type="hidden" id="counsel_typeno" name="counsel_typeno"

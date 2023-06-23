@@ -8,6 +8,7 @@
 <title>회원 가입</title>
 </head>
 <body>
+<%@ include file="/WEB-INF/header.jsp"%>
 	<form action="/join" method="post">
 		<input type="hidden" name="mem_type" value="${mem_type }">
 		<c:if test="${mem_type == '0100'}'">

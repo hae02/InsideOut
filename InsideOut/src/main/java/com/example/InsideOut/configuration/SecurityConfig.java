@@ -1,5 +1,13 @@
 package com.example.InsideOut.configuration;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,12 +17,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
+import com.example.InsideOut.auth.PrincipalDetails;
 import com.example.InsideOut.configuration.jwt.JwtAuthenticationFilter;
 import com.example.InsideOut.configuration.jwt.JwtAuthorizationFilter;
 import com.example.InsideOut.configuration.jwt.JwtProperties;
 import com.example.InsideOut.dao.UserRepository;
+import com.example.InsideOut.model.LoginRequestDto;
+import com.example.InsideOut.model.MemberBean;
 
 @Configuration
 @EnableWebSecurity
@@ -25,13 +40,26 @@ public class SecurityConfig {
 
 	@Autowired
 	private CorsConfig corsConfig;
-
+	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		return http.logout().logoutUrl("/logout").logoutSuccessUrl("/loginForm").invalidateHttpSession(true)
-				.deleteCookies(JwtProperties.HEADER_STRING).deleteCookies("JSESSIONID").permitAll().and().csrf()
-				.disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().formLogin()
-				.disable().httpBasic().disable().apply(new MyCustomDsl()).and()
+		return http
+				.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/loginForm")
+				.invalidateHttpSession(true)
+				.deleteCookies(JwtProperties.HEADER_STRING)
+				.deleteCookies("JSESSIONID")
+				.permitAll()
+				.and()
+				.csrf().disable()
+				.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+				.formLogin().disable()
+				.httpBasic().disable()
+				.apply(new MyCustomDsl())
+				.and()
 				.authorizeRequests(authroize -> authroize.antMatchers("/api/v1/user/**")
 						.access("hasRole('ROLE_STUDENT') or hasRole('ROLE_STAFF') or hasRole('ROLE_ADMIN')")
 						.antMatchers("/api/v1/student/**").access("hasRole('ROLE_STUDENT') or hasRole('ROLE_ADMIN')")
@@ -44,8 +72,13 @@ public class SecurityConfig {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-			http.addFilter(corsConfig.corsFilter()).addFilter(new JwtAuthenticationFilter(authenticationManager))
-					.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
+			http.addFilter(corsConfig.corsFilter())
+				.addFilter(new JwtAuthenticationFilter(authenticationManager))
+				.addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository));
 		}
 	}
-}
+
+
+	
+	}
+

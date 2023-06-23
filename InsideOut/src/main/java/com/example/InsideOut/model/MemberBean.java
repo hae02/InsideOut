@@ -13,6 +13,7 @@ import lombok.Data;
 @Data
 @Alias("member")
 public class MemberBean {
+
 	private String mem_no; 
 	private String username; 
 	private String password;
@@ -24,6 +25,8 @@ public class MemberBean {
 	private String mem_type;
 	private String mem_state;
 	private String role;
+	
+	private String dept_name;
 	
     public List<String> getRoleList() {
         if (this.role.length() > 0) {

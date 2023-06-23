@@ -10,4 +10,6 @@ public class DeptBean {
 	private String dept_no;
 	private String dept_type;
 	private String dept_name;
+	
+	private String username;
 }

@@ -19,10 +19,11 @@ table, td, th {
 ;
 </style>
 <body>
+<%@ include file="/WEB-INF/header.jsp"%>
 	<div class="container">
 	<h3>상담기록</h3>
 	
-		<table>
+		<table class="table table-bordered">
 			<tr>
 				<th>학생번호</th>
 				<td>${record.student_no}</td>

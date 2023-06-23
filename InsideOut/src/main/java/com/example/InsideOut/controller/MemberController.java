@@ -1,14 +1,25 @@
 package com.example.InsideOut.controller;
 
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 
+import com.example.InsideOut.dao.UserRepository;
 import com.example.InsideOut.model.DeptBean;
+import com.example.InsideOut.model.LoginRequestDto;
 import com.example.InsideOut.model.MemberBean;
 import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.model.StudentBean;

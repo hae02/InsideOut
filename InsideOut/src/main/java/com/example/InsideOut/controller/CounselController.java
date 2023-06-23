@@ -21,7 +21,7 @@ import com.example.InsideOut.service.CounselService;
 import com.example.InsideOut.service.StaffService;
 
 
-@RequestMapping("api/v1/student/")
+@RequestMapping("api/v1/user/")
 @Controller
 public class CounselController {
 
@@ -188,7 +188,7 @@ public class CounselController {
 		return "counsel/counselRecordDetail";
 	}
 	
-	// 상담기록 수정
+	// 상담기록 수정 폼
 	@RequestMapping("counselRecordUpdate")
 	public String counselRecordUpdate(String booking_no, @RequestParam("page") int page, Model model) throws Exception {
 		
@@ -202,14 +202,17 @@ public class CounselController {
 	// 상담기록 수정 저장
 	@RequestMapping("counselRecordUpdateOk")
 	public String counselRecordUpdateOk(@ModelAttribute CounselRecordBean counselRecordBean, @RequestParam("page") int page,
+										@RequestParam("booking_no") int booking_no,
 									   Model model) throws Exception {
 			
+			System.out.println("counselRecordUpdateOk");
+		
 			int result = counselService.updateRecord(counselRecordBean);
 			if(result == 1) System.out.println("입력성공");
 			model.addAttribute("result", result);
 			model.addAttribute("page", page);
 			
-			return "redirect:counselRecordList?page=" + page;
+			return "counsel/counselRecordUpdateOk";
 		}
 		
 	// 상담기록 삭제

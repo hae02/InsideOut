@@ -32,17 +32,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("권한이나 인증이 필요한 특정 주소를 요청");
-
-		// header 확인
-//		if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
-//			chain.doFilter(request, response);
-//			return;
-//		}
 
 		Cookie[] cookies = request.getCookies();
 
-		// 쿠키 확인
 		if (cookies == null) {
 			chain.doFilter(request, response);
 			return;
@@ -50,7 +42,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 		String token = null;
 
-		// 쿠키에서 JWT 토큰 추출
 		for (Cookie cookie : cookies) {
 			if (cookie.getName().equals(JwtProperties.HEADER_STRING)) {
 				token = cookie.getValue();
@@ -58,15 +49,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			}
 		}
 
-		// JWT 토큰 확인
 		if (token == null) {
 			chain.doFilter(request, response);
 			return;
 		}
-
-//		System.out.println("header : " + header);
-
-//		String token = request.getHeader(JwtProperties.HEADER_STRING).replace(JwtProperties.TOKEN_PREFIX, "");
 
 		String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
 				.getClaim("username").asString();
@@ -76,11 +62,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
 			PrincipalDetails principalDetails = new PrincipalDetails(member);
 
-			// 토큰이 정상이면 authentication 객체 생성
 			Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null,
 					principalDetails.getAuthorities());
 
-			// 강제로 시큐리티의 세션에 접근하여 값 저장
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
 

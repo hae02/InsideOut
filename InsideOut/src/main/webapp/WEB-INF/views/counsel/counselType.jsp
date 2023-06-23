@@ -25,6 +25,7 @@
 }
 </style>
 <body>
+<%@ include file="/WEB-INF/header.jsp"%>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 	<div class="containe">

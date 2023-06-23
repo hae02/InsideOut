@@ -3,6 +3,7 @@ package com.example.InsideOut.dao;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.InsideOut.model.DeptBean;
+import com.example.InsideOut.model.LoginRequestDto;
 import com.example.InsideOut.model.MemberBean;
 import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.model.StudentBean;
@@ -18,4 +19,9 @@ public interface MemberDao {
 
 	void deptInsert(DeptBean dept);
 
+	void advisor(DeptBean dept);
+
+	int usernameCheck(String username);
+
+	String getUserRole(String username);
 }
