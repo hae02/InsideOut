@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.InsideOut.auth.PrincipalDetails;
+import com.example.InsideOut.dao.MemberDao;
 import com.example.InsideOut.model.LoginRequestDto;
 import com.example.InsideOut.service.MemberServiceImpl;
 

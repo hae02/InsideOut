@@ -5,10 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <script src="/js/member/logincheck.js"></script>
 </head>
 <body>
-
+<div>
 	<form action="/login" method="post" onsubmit="return check()">
 		<table>
 			<tr>
@@ -26,6 +28,7 @@
 			</tr>
 		</table>
 	</form>
-	<div><a href="/joinSelect">회원 가입</a> <a href="/lostPassword">비밀번호 재설정</a></div>
+</div>
+	<div><a href="/joinSelect">회원 가입</a> <a href="/lostSelect">비밀번호 재설정</a></div>
 </body>
 </html>

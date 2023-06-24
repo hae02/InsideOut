@@ -1,6 +1,7 @@
 package com.example.InsideOut.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,28 +9,14 @@ import org.springframework.stereotype.Service;
 import com.example.InsideOut.dao.StaffMypageDao;
 import com.example.InsideOut.model.StaffMypageModel;
 
-//@Service("staffMypageService")
 @Service
 public class StaffMypageService {
 	
 	@Autowired
 	private  StaffMypageDao staffMypageDao;
 
-//	public StaffMypageService(StaffMypageDao staffMypageDao) {
-//		this.staffMypageDao = staffMypageDao;
-//	}
-
-	/*
-	 * public List<StaffMypageModel> staffBookingList() {
-	 * 
-	 * 
-	 * List<StaffMypageModel> list = staffMypageDao.staffBookingList();
-	 * System.out.println("service list:"+ list);
-	 * 
-	 * return list; // return staffMypageDao.getBookingList(); }
-	 */
-	public ArrayList<StaffMypageModel> staffBookingList(String staff_no){
-		return staffMypageDao.staffBookingList(staff_no);
+	public ArrayList<StaffMypageModel> staffBookingList(StaffMypageModel staff){
+		return staffMypageDao.staffBookingList(staff);
 	}
 
 	public int confirmUpdate(StaffMypageModel smm) {
@@ -37,5 +24,11 @@ public class StaffMypageService {
 		return staffMypageDao.confirmUpdate(smm);
 	}
 
-	
+	public int StaffListCount() {
+		return staffMypageDao.StaffListCount();
+	}
+
+	public List<StaffMypageModel> staffBookingList(int start) {
+		return staffMypageDao.staffBookingList(start);
+	}
 }

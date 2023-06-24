@@ -15,6 +15,5 @@ public class CounselRecordBean {
 	private String counsel_content;
 	private Date counsel_record_dt;
 	private String staff_no;
-	
 	private String student_name;
 }

@@ -19,9 +19,10 @@ import com.example.InsideOut.model.CounselBookingBean;
 import com.example.InsideOut.model.CounselRecordBean;
 import com.example.InsideOut.model.CounselTypeBean;
 import com.example.InsideOut.model.StaffBean;
+import com.example.InsideOut.model.SurveyBean;
 import com.example.InsideOut.service.CounselService;
 import com.example.InsideOut.service.StaffService;
-
+import com.example.InsideOut.service.SurveyService;
 
 @RequestMapping("api/v1")
 @Controller
@@ -31,6 +32,8 @@ public class CounselController {
 	private CounselService counselService;
 	@Autowired
 	private StaffService staffService;
+	@Autowired
+	private SurveyService surveyService;
 	
 	// 상담 종류 선택
 	@RequestMapping("student/counselType")
@@ -121,7 +124,7 @@ public class CounselController {
 		
 		model.addAttribute("student_no", student_no);
 		
-		return "counsel/counselType";
+		return "counsel/counselContentOk";
 	}
 	
 	// 확정 시간 처리
@@ -154,11 +157,16 @@ public class CounselController {
 	
 	// 상담기록 저장
 	@RequestMapping("staff/counselRecordOk")
-	public String counselRecordOk(@ModelAttribute CounselRecordBean counselRecordBean, Authentication authentication,
-								  Model model) throws Exception {
+	public String counselRecordOk(@ModelAttribute CounselRecordBean counselRecordBean, @ModelAttribute SurveyBean surveyBean,
+			Authentication authentication, HttpServletRequest request, Model model) throws Exception {
 		
 		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
 		String staff_no = principalDetailis.getUser().getUsername();
+		
+		// 만족도조사 생성
+		String student_no = request.getParameter("student_no");
+		String booking_no = request.getParameter("booking_no");
+		surveyService.insertSurvey(student_no, booking_no);
 		
 		int result = counselService.insertRecord(counselRecordBean);
 		if(result == 1) System.out.println("입력성공");

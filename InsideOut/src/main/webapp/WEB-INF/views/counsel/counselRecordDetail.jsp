@@ -55,55 +55,59 @@ table, td, th {
 }
 </style>
 <body>
-<%@ include file="/WEB-INF/header.jsp"%>
+	<c:import url="../staffHeader.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
 					<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
 					<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
-					<li><a href="#">내가 쓴 글</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
-                    <li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
-                    <li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
 					<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
+					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
 				</ul>
 				<br>
 			</div>
 			<form>
-	<input type="hidden" id="staff_no" name="staff_no" value="${staff_no}">
-	
-	<h3>상담기록</h3>
-		
-		<table class="table table-bordered">
-			<tr>
-				<th>이름</th>
-				<td>${record.student_name}</td>
-				<th>학번</th>
-				<td>${record.student_no}</td>
-				<th>상담번호</th>
-				<td>${record.booking_no}</td>
-			</tr>
-			<tr>
-				<th>상담기록일</th>
-				<td colspan="3">${record.counsel_record_dt}</td>
-			</tr>
-			<tr>
-				<th>상담내용</th>
-				<td colspan="3">${record.counsel_content}</td>
+				<input type="hidden" id="staff_no" name="staff_no"
+					value="${staff_no}">
 
-			</tr>
-			<!-- 기록일자 -->
-		</table>
-		<br>
-			<input type="button" class="btn btn-success" onclick="location.href='counselRecordList?page=${page}'" value="목록">
-			<input type="button" class="btn btn-success" onclick="location.href='counselRecordUpdate?booking_no=${record.booking_no}&page=${page}'" value="수정">
-			<input type="button" class="btn btn-success" onclick="location.href='counselRecordDelete?booking_no=${record.booking_no}&page=${page}'" value="삭제">
+				<h3>상담기록</h3>
+
+				<table class="table table-bordered">
+					<tr>
+						<th>이름</th>
+						<td>${record.student_name}</td>
+						<th>학번</th>
+						<td>${record.student_no}</td>
+						<th>상담번호</th>
+						<td>${record.booking_no}</td>
+					</tr>
+					<tr>
+						<th>상담기록일</th>
+						<td colspan="3">${record.counsel_record_dt}</td>
+					</tr>
+					<tr>
+						<th>상담내용</th>
+						<td colspan="3">${record.counsel_content}</td>
+
+					</tr>
+					<!-- 기록일자 -->
+				</table>
+				<br> <input type="button" class="btn btn-success"
+					onclick="location.href='counselRecordList?page=${page}'" value="목록">
+				<input type="button" class="btn btn-success"
+					onclick="location.href='counselRecordUpdate?booking_no=${record.booking_no}&page=${page}'"
+					value="수정"> <input type="button" class="btn btn-success"
+					onclick="location.href='counselRecordDelete?booking_no=${record.booking_no}&page=${page}'"
+					value="삭제">
 			</form>
-<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	</div>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		</div>
 	</div>
 </body>
 </html>

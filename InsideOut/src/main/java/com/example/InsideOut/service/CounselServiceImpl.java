@@ -10,7 +10,6 @@ import com.example.InsideOut.model.CounselBookingBean;
 import com.example.InsideOut.model.CounselRecordBean;
 import com.example.InsideOut.model.CounselTypeBean;
 
-
 @Service
 public class CounselServiceImpl implements CounselService {
 	

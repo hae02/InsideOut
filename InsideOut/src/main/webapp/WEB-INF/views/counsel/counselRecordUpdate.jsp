@@ -55,40 +55,41 @@ table, td, th {
 }
 </style>
 <body>
-<%@ include file="/WEB-INF/header.jsp"%>
+	<c:import url="../staffHeader.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
 					<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
 					<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
-					<li><a href="#">내가 쓴 글</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
-                    <li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
-                    <li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
 					<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
+					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
 				</ul>
 				<br>
 			</div>
-		<form method="post" action="counselRecordUpdateOk">
+			<form method="post" action="counselRecordUpdateOk">
 
-			<input type="hidden" id="booking_no" name="booking_no" value="${record.booking_no}">
-			<input type="hidden" name="page" value="${page}">
-			<input type="hidden" id="staff_no" name="staff_no" value="${staff_no}">
+				<input type="hidden" id="booking_no" name="booking_no"
+					value="${record.booking_no}"> <input type="hidden"
+					name="page" value="${page}"> <input type="hidden"
+					id="staff_no" name="staff_no" value="${staff_no}">
 
-			<div class="form-group">
-				<label for="exampleFormControlTextarea1">상담기록</label>
-				<textarea class="form-control" id="counsel_content"
-					name="counsel_content" placeholder="상담내용을 입력해주세요." rows="20">${record.counsel_content}</textarea>
-			</div>
+				<div class="form-group">
+					<label for="exampleFormControlTextarea1">상담기록</label>
+					<textarea class="form-control" id="counsel_content"
+						name="counsel_content" placeholder="상담내용을 입력해주세요." rows="20">${record.counsel_content}</textarea>
+				</div>
 
-			<button type="reset" class="btn btn-success">취소</button>
-			<button type="submit" class="btn btn-success">수정</button>
-		</form>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-	</div>
+				<button type="reset" class="btn btn-success">취소</button>
+				<button type="submit" class="btn btn-success">수정</button>
+			</form>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+		</div>
 	</div>
 </body>
 </html>

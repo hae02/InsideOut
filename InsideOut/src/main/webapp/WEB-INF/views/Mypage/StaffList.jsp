@@ -8,13 +8,17 @@
 <head>
 
 <meta charset="UTF-8">
-<title>List</title>
+<title>Staff List</title>
 <!-- 부트스트랩 -->
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>  -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
+	crossorigin="anonymous">
 
 <style>
 .bd-navbar {
@@ -50,29 +54,8 @@
 	font-weight: bold;
 }
 </style>
-
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
 <script>
-	/* function confirmButton(booking_No) {
-		alert(booking_No);
-		alert($("#date_" + booking_No));
-
-		var date_id = "date_" + booking_No;
-		var time_id = "time_" + booking_No;
-
-			alert("date:"+$("#date_"+booking_No).val()); 
-		 alert("time:"+$("#time_"+booking_No).val());  
-
-		console.log("booking_No:" + booking_No);
-		console.log("date_booking_No:" + $("#date_" + booking_No));
-		console.log("time_booking_No:" + $("#time_" + booking_No));
-		console.log("date:" + $("#date_" + booking_No).val());
-		console.log("time:" + $("#time_" + booking_No).val());
-
-			location.href="";
-	} */
-
 	$(document).ready(
 			function() {
 
@@ -94,15 +77,11 @@
 									+ time1;
 
 						});
-
 			});
 </script>
-
-
-
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../staffHeader.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
@@ -124,12 +103,12 @@
 				<div id="list"></div>
 				<nav class="nav">
 					<a class="nav-link active" aria-current="page" href="StaffList">상담관리</a>
-					<a class="nav-link" href="ConfirmList">상담내역</a> <a class="nav-link"
-						href="counselRecordList">상담기록</a>
+					<a class="nav-link" href="ConfirmList">상담내역</a>
+					<a class="nav-link" href="counselRecordList">상담기록</a>
 				</nav>
 
-				<table class="table table-bordered">
-					<!-- <table border=1 width=1000px align=center> -->
+				<!-- <table class="table table-bordered"> -->
+				<table class="table table-hover">
 					<tr>
 						<td>이름</td>
 						<td>상담 내용</td>
@@ -170,13 +149,40 @@
 							</td>
 							<td>
 								<button type="button" id="${booking.booking_No}"
-									class="btn btn-outline-success">확정</button>
+									class="btn btn-outline-secondary">확정</button>
 							</td>
 							<!-- onclick="confirmButton('${booking.booking_No}')" -->
 
 						</tr>
 					</c:forEach>
 				</table>
+				<!-- 페이징 처리 -->
+				<div class="page d-flex justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<c:if test="${StaffListCount > 0}">
+								<c:if test="${startpage > 10}">
+									<li class="page-item"><a class="page-link"
+										href="StaffList?page=${startpage-10}" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+									</a></li>
+								</c:if>
+
+								<c:forEach var="a" begin="${startpage}" end="${endpage}">
+									<li class="page-item"><a class="page-link"
+										href="StaffList?page=${a}">${a}</a></li>
+								</c:forEach>
+
+								<c:if test="${endpage < maxpage}">
+									<li class="page-item"><a class="page-link"
+										href="StaffList?page=${startpage+10}" aria-label="Next"> <span
+											aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:if>
+							</c:if>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>

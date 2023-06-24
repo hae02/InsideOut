@@ -50,7 +50,7 @@
 </style>
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../studentHeader.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
@@ -59,8 +59,8 @@
 					<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${student_no}">받은쪽지함</a></li>
-                    <li><a href="/api/v1/user/sendlist?send_id=${student_no}">보낸쪽지함</a></li>
-                    <li><a href="/api/v1/user/writenote?send_id=${student_no}">쪽지작성</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${student_no}">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${student_no}">쪽지작성</a></li>
 					<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
 				</ul>
 				<br>
@@ -84,6 +84,33 @@
 						</tr>
 					</c:forEach>
 				</table>
+				<!-- 페이징 처리 -->
+				<div class="page d-flex justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<c:if test="${StudentListCount > 0}">
+								<c:if test="${startpage > 10}">
+									<li class="page-item"><a class="page-link"
+										href="StudentList?page=${startpage-10}" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+									</a></li>
+								</c:if>
+
+								<c:forEach var="a" begin="${startpage}" end="${endpage}">
+									<li class="page-item"><a class="page-link"
+										href="StudentList?page=${a}">${a}</a></li>
+								</c:forEach>
+
+								<c:if test="${endpage < maxpage}">
+									<li class="page-item"><a class="page-link"
+										href="StudentList?page=${startpage+10}" aria-label="Next"> <span
+											aria-hidden="true">&raquo;</span>
+									</a></li>
+								</c:if>
+							</c:if>
+						</ul>
+					</nav>
+				</div>
 			</div>
 		</div>
 	</div>

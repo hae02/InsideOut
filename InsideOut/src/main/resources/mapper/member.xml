@@ -66,5 +66,22 @@
 		select role from member where username = #{username}
 	</select>
 
+	<select id="getName" parameterType="name" resultType="int">
+		select count(*) from 
+		<if test='mem_type == "0100"'>
+		student where student_name = #{student_name}
+		</if>
+		<if test='mem_type == "0200"'>
+		staff where staff_name = #{staff_name}
+		</if>
+	</select>
+	
+	<select id="getId" parameterType="String" resultType="String">
+		select username from member where username = #{username} 
+	</select>
+	
+	<update id="updatePass" parameterType="loginRequestDto">
+		update member set password = #{password} where username = #{username}
+	</update>
 	
 </mapper>

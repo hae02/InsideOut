@@ -1,6 +1,6 @@
 package com.example.InsideOut.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +14,12 @@ public class StudentMypageService {
 	@Autowired
 	private StudentMypageDao studentMypageDao;
 
-//	public StaffMypageService(StaffMypageDao staffMypageDao) {
-//		this.staffMypageDao = staffMypageDao;
-//	}
+	public ArrayList<StudentMypageModel> studentBookingList(StudentMypageModel student) {
 
-	public List<StudentMypageModel> studentBookingList(String student_no) {
-
-		List<StudentMypageModel> list = studentMypageDao.studentBookingList(student_no);
-		System.out.println("service list:" + list);
-
-		return list;
-//		return staffMypageDao.getBookingList();
+		return studentMypageDao.studentBookingList(student);
 	}
 
-	
-
+	public int StudentListCount() {
+		return studentMypageDao.StudentListCount();
+	}
 }

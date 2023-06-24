@@ -24,5 +24,6 @@ public class StaffMypageModel {
     private String cd;
     private String cd_nm;
     
+    private int start;
 
 }

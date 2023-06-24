@@ -34,4 +34,5 @@ public interface CounselDao {
 
 	public List<CounselRecordBean> getRecordList(String staff_no);
 
+
 }

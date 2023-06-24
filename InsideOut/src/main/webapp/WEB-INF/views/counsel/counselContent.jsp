@@ -13,7 +13,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-<%@ include file="/WEB-INF/header.jsp"%>
+<c:import url="../studentHeader.jsp" />
 	<div class="container">
 		<form method="post" action="counselContentOk">
 			<input type="hidden" id="student_no" name="student_no" value="${student_no}">

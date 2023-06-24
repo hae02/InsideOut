@@ -12,7 +12,7 @@
 <body>
 	<form action="/join" method="post" onsubmit="return check();">
 		<input type="hidden" name="mem_type" id="mem_type" value="${mem_type}">
-		<c:if test="${mem_type == '0100'}'">
+		<c:if test="${mem_type == '0100'}">
 			<input type="hidden" name="dept_type" value="학과">
 		</c:if>
 		<c:if test="${mem_type == '0200'}">

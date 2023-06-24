@@ -94,7 +94,6 @@
 									+ time1;
 
 						});
-
 			});
 </script>
 
@@ -102,19 +101,19 @@
 
 </head>
 <body>
-	<c:import url="../header.jsp" />
+	<c:import url="../staffHeader.jsp" />
 	<div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
 					<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
 					<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
-					<li><a href="#">내가 쓴 글</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
 					<li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
 					<li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
 					<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
+					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
 				</ul>
 				<br>
 			</div>
@@ -126,7 +125,6 @@
 					<a class="nav-link active" aria-current="page" href="StaffList">상담관리</a>
 					<a class="nav-link" href="ConfirmList">상담내역</a>
 					<a class="nav-link" href="counselRecordList">상담기록</a>
-
 				</nav>
 
 				<table class="table table-bordered">
@@ -145,9 +143,9 @@
 							<td>${booking.counsel_Request_Content}</td>
 							<td>${booking.confirm_Dt}</td>
 							<td>${booking.cd_nm}</td>
-							<td>
-							 <input type="button" onclick="location.href='counselRecord?booking_no=${booking.booking_No}&student_no=${booking.student_No}'" class="btn btn-outline-dark" value="상담완료"> 
-							</td>
+
+							<!-- onclick="confirmButton('${booking.booking_No}')" -->
+							<td><input type="button" onclick="location.href='counselRecord?booking_no=${booking.booking_No}&student_no=${booking.student_No}'" class="btn btn-outline-dark" value="상담완료"></td>
 						</tr>
 						<input type="hidden" name="confirm_dt"
 							value="${booking.confirm_Dt}">
