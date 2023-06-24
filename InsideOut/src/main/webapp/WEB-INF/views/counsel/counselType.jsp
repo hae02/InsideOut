@@ -25,10 +25,12 @@
 }
 </style>
 <body>
-<c:import url="../studentHeader.jsp" />
+	<c:import url="../studentHeader.jsp" />
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 	<div class="containe">
+		<input type="hidden" id="student_no" name="student_no"
+			value="${student_no}">
 		<button class="btn btn-outline-success" type="button"
 			name="counsel_typeno"
 			onclick="location.href='counselBooking?counsel_typeno=0101'">

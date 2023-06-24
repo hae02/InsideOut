@@ -34,4 +34,6 @@ public interface SurveyDao {
 	public List<SurveyStaticBean> getStaticList(String staff_no, int page);
 	
 	public int getStaticCount(String staff_no);
+	
+	public void insertSurvey(String student_no, String booking_no);
 }

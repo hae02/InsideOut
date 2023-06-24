@@ -61,4 +61,8 @@ public class SurveyService {
 	public int getStaticCount(String staff_no) {
 		return dao.getStaticCount(staff_no);
 	}
+	
+	public void insertSurvey(String student_no, String booking_no) {
+		dao.insertSurvey(student_no, booking_no);
+	}
 }

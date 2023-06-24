@@ -111,8 +111,8 @@
 					<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
 					<li><a href="#">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
-                    <li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
-                    <li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
 					<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
 					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
 				</ul>
@@ -121,67 +121,63 @@
 
 			<div class="col-9">
 
+				<div id="list"></div>
+				<nav class="nav">
+					<a class="nav-link active" aria-current="page" href="StaffList">상담관리</a>
+					<a class="nav-link" href="ConfirmList">상담내역</a> <a class="nav-link"
+						href="counselRecordList">상담기록</a>
+				</nav>
 
+				<table class="table table-bordered">
+					<!-- <table border=1 width=1000px align=center> -->
+					<tr>
+						<td>이름</td>
+						<td>상담 내용</td>
+						<td>날짜</td>
+						<td>시간</td>
+						<td>확정</td>
 
-				</head>
-				<body>
-					<div id="list"></div>
-					<nav class="nav">
-						<a class="nav-link active" aria-current="page" href="StaffList">상담관리</a>
-						<a class="nav-link" href="ConfirmList">상담내역</a> 
-						
-					</nav>
+					</tr>
 
-					<table class="table table-bordered">
-						<!-- <table border=1 width=1000px align=center> -->
+					<c:forEach var="booking" items="${bookings}">
 						<tr>
-							<td>이름</td>
-							<td>상담 내용</td>
-							<td>날짜</td>
-							<td>시간</td>
-							<td>확정</td>
-							
-						</tr>
+							<td>${booking.student_name}</td>
+							<td>${booking.counsel_Request_Content}</td>
+							<td><input type="text" name="booking_Dt"
+								class="form-control" id='date_${booking.booking_No}'
+								value="${booking.booking_Dt}"></td>
+							<td><select class="form-select"
+								id='time_${booking.booking_No}'
+								aria-label="Default select example">
+									<option value="0100"
+										<c:if test="${booking.cd_nm == '9:00'}"> ${"selected"} </c:if>>9:00</option>
+									<option value="0200"
+										<c:if test="${booking.cd_nm == '10:00'}"> ${"selected"} </c:if>>10:00</option>
+									<option value="0300"
+										<c:if test="${booking.cd_nm == '11:00'}"> ${"selected"} </c:if>>11:00</option>
+									<option value="0400"
+										<c:if test="${booking.cd_nm == '12:00'}"> ${"selected"} </c:if>>12:00</option>
+									<option value="0500"
+										<c:if test="${booking.cd_nm == '13:00'}"> ${"selected"} </c:if>>13:00</option>
+									<option value="0600"
+										<c:if test="${booking.cd_nm == '14:00'}"> ${"selected"} </c:if>>14:00</option>
+									<option value="0700"
+										<c:if test="${booking.cd_nm == '15:00'}"> ${"selected"} </c:if>>15:00</option>
+									<option value="0800"
+										<c:if test="${booking.cd_nm == '16:00'}"> ${"selected"} </c:if>>16:00</option>
+									<option value="0900"
+										<c:if test="${booking.cd_nm == '17:00'}"> ${"selected"} </c:if>>17:00</option>
+							</select> <%-- ${booking.cd_nm} --%> <%-- <input type="time" name="booking_Time" value="${booking.booking_Time}"> --%>
+							</td>
+							<td>
+								<button type="button" id="${booking.booking_No}"
+									class="btn btn-outline-success">확정</button>
+							</td>
+							<!-- onclick="confirmButton('${booking.booking_No}')" -->
 
-						<c:forEach var="booking" items="${bookings}">
-							<tr>
-								<td>${booking.student_name}</td>
-								<td>${booking.counsel_Request_Content}</td>
-								<td><input type="text" name="booking_Dt"
-									class="form-control" id='date_${booking.booking_No}'
-									value="${booking.booking_Dt}"></td>
-								<td><select class="form-select"
-									id='time_${booking.booking_No}'
-									aria-label="Default select example">
-										<option value="0100"
-											<c:if test="${booking.cd_nm == '9:00'}"> ${"selected"} </c:if>>9:00</option>
-										<option value="0200"
-											<c:if test="${booking.cd_nm == '10:00'}"> ${"selected"} </c:if>>10:00</option>
-										<option value="0300"
-											<c:if test="${booking.cd_nm == '11:00'}"> ${"selected"} </c:if>>11:00</option>
-										<option value="0400"
-											<c:if test="${booking.cd_nm == '12:00'}"> ${"selected"} </c:if>>12:00</option>
-										<option value="0500"
-											<c:if test="${booking.cd_nm == '13:00'}"> ${"selected"} </c:if>>13:00</option>
-										<option value="0600"
-											<c:if test="${booking.cd_nm == '14:00'}"> ${"selected"} </c:if>>14:00</option>
-										<option value="0700"
-											<c:if test="${booking.cd_nm == '15:00'}"> ${"selected"} </c:if>>15:00</option>
-										<option value="0800"
-											<c:if test="${booking.cd_nm == '16:00'}"> ${"selected"} </c:if>>16:00</option>
-										<option value="0900"
-											<c:if test="${booking.cd_nm == '17:00'}"> ${"selected"} </c:if>>17:00</option>
-								</select> <%-- ${booking.cd_nm} --%> <%-- <input type="time" name="booking_Time" value="${booking.booking_Time}"> --%>
-								</td>
-								<td>
-									<button type="button" id="${booking.booking_No}"
-										class="btn btn-outline-success">확정</button>
-								</td>
-								<!-- onclick="confirmButton('${booking.booking_No}')" -->
-								
-							</tr>
-						</c:forEach>
-					</table>
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
 		</div>
 	</div>

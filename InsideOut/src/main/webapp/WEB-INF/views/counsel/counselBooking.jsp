@@ -86,7 +86,6 @@
 	padding: 10px;
 	width: 250px;
 	margin: 0px 0px 0px;
-	
 }
 
 .booking_time .disabled {
@@ -124,15 +123,15 @@
 .btn-group-toggle.staff { /* 상담사 프로필 */
 	margin-left: 12%;
 }
-
-
 </style>
 
 <body>
-<c:import url="../studentHeader.jsp" />
+	<c:import url="../studentHeader.jsp" />
 	<div class="container">
 		<form method="post" action="counselContent">
-			<input type="hidden" id="counsel_typeno" name="counsel_typeno"
+			<input type="hidden" id="student_no" name="student_no"
+				value="${student_no}"> <input type="hidden"
+				id="counsel_typeno" name="counsel_typeno"
 				value="${counselType.counsel_typeno}"> <input type="hidden"
 				id="booking_dt" name="booking_dt" value=""> <input
 				type="hidden" id="staff_no" name="staff_no" value=""> <input
@@ -147,24 +146,24 @@
 
 			<!-- 교직원 프로필 -->
 			<div class="d-flex justify-content-center">
-			<div class="btn-group-toggle staff" data-toggle="buttons">
-				<c:forEach items="${staffList}" var="s">
-					<label class="btn" for="staff_no_${s.staff_no}">
-						<div class="row">
-							<div class="col">
-								<img src="/images/6735382.png" width="100px">
+				<div class="btn-group-toggle staff" data-toggle="buttons">
+					<c:forEach items="${staffList}" var="s">
+						<label class="btn" for="staff_no_${s.staff_no}">
+							<div class="row">
+								<div class="col">
+									<img src="/images/6735382.png" width="100px">
+								</div>
+								<div class="col-8">
+									<input class="btn" type="radio" id="staff_no_${s.staff_no}"
+										name="staff_no" value="${s.staff_no}">
+									<h5 class="card-title text-dark">${s.staff_name}</h5>
+									<p class="card-text text-dark">${s.staff_tel}</p>
+									<p class="card-text text-dark">${s.staff_email}</p>
+								</div>
 							</div>
-							<div class="col-8">
-								<input class="btn" type="radio" id="staff_no_${s.staff_no}"
-									name="staff_no" value="${s.staff_no}">
-								<h5 class="card-title text-dark">${s.staff_name}</h5>
-								<p class="card-text text-dark">${s.staff_tel}</p>
-								<p class="card-text text-dark">${s.staff_email}</p>
-							</div>
-						</div>
-					</label>
-				</c:forEach>
-			</div>
+						</label>
+					</c:forEach>
+				</div>
 			</div>
 
 			<br> <br> <br> <br>
@@ -412,7 +411,7 @@
  	function getConfirmTime(booking_dt, staff_no){ 		
 		// jQuery를 이용한 AJAX 요청
 		$.ajax({
-		  url: "/getDt",
+		  url: "getDt",
 		  method: "GET",
 		  dataType: "json",
 		  data: { 
@@ -440,6 +439,7 @@
 			<button type="submit" class="btn btn-success">다음</button>
 		</form>
 	</div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -65,4 +65,8 @@
 		select count(*) from survey_static ss join counsel_booking cb on ss.booking_no = cb.booking_no
 		where cb.staff_no = #{staff_no}
 	</select>
+	
+	<insert id="insertSurvey" parameterType="String">
+		insert into survey(student_no, booking_no, survey_state) values(#{student_no}, #{booking_no}, '0100')
+	</insert>
 </mapper>

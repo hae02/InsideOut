@@ -32,7 +32,7 @@ public interface CounselDao {
 
 	public int getListCount() throws Exception;
 
-	public List<CounselRecordBean> getRecordList(int start);
+	public List<CounselRecordBean> getRecordList(String staff_no);
 
 
 }

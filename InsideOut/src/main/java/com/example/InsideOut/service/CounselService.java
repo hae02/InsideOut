@@ -30,5 +30,5 @@ public interface CounselService {
 
 	public int getListCount() throws Exception;
 
-	public List<CounselRecordBean> getRecordList(int start) throws Exception;
+	public List<CounselRecordBean> getRecordList(String staff_no) throws Exception;
 }
