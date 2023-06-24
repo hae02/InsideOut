@@ -33,7 +33,7 @@
 						[ ↳ ]
 					</c:if>					
 				
-					<a href="askView?post_no=${msg.post_no}">${msg.post_title}</a>
+					<a href="/api/v1/user/askView?post_no=${msg.post_no}">${msg.post_title}</a>
 					
 					</td>
 					<td><fmt:formatDate value="${msg.post_dt }" pattern="yyyy-MM-dd"/></td>

@@ -18,7 +18,7 @@ public class BoardBean {
 	private String post_content; // 게시글내용
 	private String htmlPost_content; // html게시글내용
 	private int up_post_no;	// 상위게시글 번호
-	private int board_re_seq; // 답변글 번호
+	private int board_re_ref; // 답변글 번호
 	
 	private Timestamp post_dt; // 작성일자
 	private int post_readcount; // 조회수
