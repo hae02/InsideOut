@@ -34,8 +34,12 @@ public class CounselController {
 	
 	// 상담 종류 선택
 	@RequestMapping("student/counselType")
-	public String counselType() throws Exception {
+	public String counselType(Authentication authentication, Model model) throws Exception {
 		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String student_no = principalDetailis.getUser().getUsername();
+		
+		model.addAttribute("student_no", student_no);
 		System.out.println("counselType");
 		
 		return "counsel/counselType";
@@ -43,13 +47,18 @@ public class CounselController {
 	
 	// 상담사 및 일정 선택
 	@RequestMapping("student/counselBooking")
-	public String counselBooking(@RequestParam("counsel_typeno") String counsel_typeno,
+	public String counselBooking(@RequestParam("counsel_typeno") String counsel_typeno, Authentication authentication, 
 								CounselBookingBean cBookingBean,
 								StaffBean staff, Model model) throws Exception {
 	   
 		System.out.println("counselBooking");
 	    System.out.println("counsel_typeno: " + counsel_typeno);
 
+	    PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String student_no = principalDetailis.getUser().getUsername();
+		
+		model.addAttribute("student_no", student_no);
+	    
 	    // 상담 타입 가져오기
 	    CounselTypeBean counselTypeBean = counselService.getCounselType(counsel_typeno);
 	    model.addAttribute("counselType", counselTypeBean);
@@ -65,7 +74,7 @@ public class CounselController {
 	
 	// 상담 내용 작성 폼
 	@RequestMapping("student/counselContent")
-	public String counselContent(@RequestParam("counsel_typeno") String counsel_typeno, 
+	public String counselContent(@RequestParam("counsel_typeno") String counsel_typeno, Authentication authentication, 
 								  @RequestParam("booking_dt") String booking_dt, 
 								  @RequestParam("booking_time") String booking_time, 
 								  @RequestParam("staff_no") String staff_no, 
@@ -76,6 +85,10 @@ public class CounselController {
 		System.out.println("counsel_Content");
 		System.out.println("booking_dt: "+booking_dt);
 		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String student_no = principalDetailis.getUser().getUsername();
+		
+		
 		StaffBean staff = staffService.getStaff(staff_no);
 		System.out.println("staff: "+staff);
 		
@@ -84,6 +97,7 @@ public class CounselController {
 		
 		CounselTypeBean counselTypeBean = counselService.getCounselType(counsel_typeno);
 		model.addAttribute("counselType", counselTypeBean); // 상담 타입
+		model.addAttribute("student_no", student_no);
 		model.addAttribute("booking_dt", booking_dt); // 예약 날짜
 		model.addAttribute("booking_time", booking_time); // 예약 시간
 		model.addAttribute("staff_no", staff_no); // 상담사
@@ -95,12 +109,17 @@ public class CounselController {
 	
 	// 상담 내용 작성 저장
 	@RequestMapping("student/counselContentOk")
-	public String counselContentOk(@ModelAttribute CounselBookingBean counselBookingBean, 
+	public String counselContentOk(@ModelAttribute CounselBookingBean counselBookingBean, Authentication authentication, 
 									Model model) throws Exception {
 		
 		int result = counselService.insertCounsel(counselBookingBean);
 		if(result == 1) System.out.println("입력성공");
 		model.addAttribute("result", result);
+		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String student_no = principalDetailis.getUser().getUsername();
+		
+		model.addAttribute("student_no", student_no);
 		
 		return "counsel/counselType";
 	}
@@ -108,7 +127,12 @@ public class CounselController {
 	// 확정 시간 처리
 	@ResponseBody
 	@RequestMapping("student/getDt")
-	public List<CounselBookingBean> getDt(String booking_dt, String staff_no) throws Exception {
+	public List<CounselBookingBean> getDt(String booking_dt, String staff_no, Authentication authentication, Model model) throws Exception {
+		
+		PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+		String student_no = principalDetailis.getUser().getUsername();
+		
+		model.addAttribute("student_no", student_no);
 		
 		return counselService.getDt(staff_no, booking_dt);
 	}
@@ -123,6 +147,7 @@ public class CounselController {
 		
 		model.addAttribute("counselBookingBean", counselBookingBean);
 		model.addAttribute("staff_no", staff_no);
+		
 		
 		return "counsel/counselRecord";
 	}

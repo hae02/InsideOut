@@ -16,7 +16,7 @@
 <%@ include file="/WEB-INF/header.jsp"%>
 	<div class="container">
 		<form method="post" action="counselContentOk">
-
+			<input type="hidden" id="student_no" name="student_no" value="${student_no}">
 			<input type="hidden" id="counsel_typeno" name="counsel_typeno"
 				value="${counselType.counsel_typeno}">
 			<!-- 상담종류 번호 -->

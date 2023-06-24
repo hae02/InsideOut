@@ -132,6 +132,7 @@
 <%@ include file="/WEB-INF/header.jsp"%>
 	<div class="container">
 		<form method="post" action="counselContent">
+			<input type="hidden" id="student_no" name="student_no" value="${student_no}">
 			<input type="hidden" id="counsel_typeno" name="counsel_typeno"
 				value="${counselType.counsel_typeno}"> <input type="hidden"
 				id="booking_dt" name="booking_dt" value=""> <input
