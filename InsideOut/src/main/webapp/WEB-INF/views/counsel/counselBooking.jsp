@@ -11,9 +11,9 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- 부트스트랩 -->
 <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
 
 </head>
 <style>
@@ -52,7 +52,7 @@
 }
 
 .calendar .selected {
-	background-color: #E0F5DF;
+	background-color: #fdeaeb;
 }
 
 .calendar .prev, .calendar .next {
@@ -65,17 +65,17 @@
 }
 
 .staff .btn.active {
-	background-color: #E0F5DF;
+	background-color: #fdeaeb;
 	color: #fff;
 }
 
 .booking_time .btn.active {
-	background-color: #E0F5DF;
+	background-color: #fdeaeb;
 	color: black;
 }
 
 .staff .btn[value :"checked"] {
-	background-color: #E0F5DF;
+	background-color: #fdeaeb;
 	color: #fff;
 }
 
@@ -100,12 +100,12 @@
 
 .staff .btn {
 	height: 150px;
-	width: 400px;
-	margin-right: 30px;
+	width: 49%;
+	margin-right: 0.7%;
 	margin-top: 20px;
 	text-align: left;
 	padding: 1.375rem 1rem !important; /* 컨텐트 세로 가운데 정렬 */
-	border: 1px solid #ccc;
+	border: 1px solid #fad5d7;
 }
 
 .day th:first-child {
@@ -120,9 +120,10 @@
 	display: inline-block;
 }
 
-.btn-group-toggle.staff { /* 상담사 프로필 */
+/* .btn-group-toggle.staff { /* 상담사 프로필 */
 	margin-left: 12%;
-}
+} */
+
 </style>
 
 <body>
@@ -137,11 +138,15 @@
 				type="hidden" id="staff_no" name="staff_no" value=""> <input
 				type="hidden" id="staff_name" name="staff_name" value="">
 
-			<h1>${counselType.counsel_typename}</h1>
-			<p>${counselType.counsel_typedetail}</p>
+			<br><br>
+			<div class="card">
+				<div class="card-body">
+					<h2 class="card-title">${counselType.counsel_typename}</h2>
+					<h5 class="card-text">${counselType.counsel_typedetail}</h5>
+				</div>
+			</div>
 			<br>
-			<hr>
-			<br> <br>
+			<br><br>
 			<h3>상담사</h3>
 
 			<!-- 교직원 프로필 -->
@@ -149,16 +154,19 @@
 				<div class="btn-group-toggle staff" data-toggle="buttons">
 					<c:forEach items="${staffList}" var="s">
 						<label class="btn" for="staff_no_${s.staff_no}">
+							
 							<div class="row">
-								<div class="col">
+								<div class="col-3" style="margin-left: 5%;">
 									<img src="/images/6735382.png" width="100px">
 								</div>
-								<div class="col-8">
-									<input class="btn" type="radio" id="staff_no_${s.staff_no}"
-										name="staff_no" value="${s.staff_no}">
+								<div class="col-6">
+									<input class="btn" type="radio" id="staff_no_${s.staff_no}" name="staff_no" value="${s.staff_no}">
 									<h5 class="card-title text-dark">${s.staff_name}</h5>
 									<p class="card-text text-dark">${s.staff_tel}</p>
 									<p class="card-text text-dark">${s.staff_email}</p>
+								</div>
+								<div class="col-2" style="margin-top: 7%;">
+									<img src="/images/hand-index-thumb.svg" width="50%">
 								</div>
 							</div>
 						</label>
@@ -229,6 +237,15 @@
 					</label>
 				</div>
 			</div>
+
+<div class="card mb-3">
+  <h3 class="card-header">Card header</h3>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+</div>
 
 
 			<script>
