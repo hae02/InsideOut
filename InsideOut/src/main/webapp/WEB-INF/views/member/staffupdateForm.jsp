@@ -6,24 +6,64 @@
 <head>
     <meta charset="UTF-8">
     <title>교직원 정보 수정</title>
-</head>
-<body>
-    <h1>교직원 정보 수정</h1>
-    <form action="/api/v1/staff/updateStaff" method="POST">
-      <label for="staff_no">ID:</label>
-    <input type="text" name="staff_no" value="${staff.staff_no}" readonly> <!-- 추가 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" 
+	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
+	 crossorigin="anonymous">
+	 
+	 <style>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+
+
+
+</style>
+	 
     
-    <label for="staffName">이름:</label>
-    <input type="text" id="staffName" name="staff_name" value="${staff.staff_name}" required readonly><br>
+</head>
 
-    <label for="staffTel">전화번호:</label>
-    <input type="text" id="staffTel" name="staff_tel" value="${staff.staff_tel}" required><br>
 
-    <label for="staffEmail">이메일:</label>
-    <input type="email" id="staffEmail" name="staff_email" value="${staff.staff_email}" required><br>
 
-    <input type="submit" name="submit" value="수정">
-</form>
+<body>
+<div class="container">
+
+  <form action="/api/v1/staff/updateStaff" method="POST">
+  <div class="form-group">
+
+   <h1 class="text-primary">교직원 정보 수정</h1>
+    
+    <input type="hidden" name="staff_no" value="${staff.staff_no}"> <!-- 수정이 필요한 부분 -->
+    <div class="form-group">
+    
+      <label for="staffName">이름:</label>
+      <input type="text" id="staffName" name="staff_name" 
+      value="${staff.staff_name}" class="form-control" required><br>
+    </div>
+
+    <div class="form-group">
+      <label for="staffTel">전화번호:</label>
+      <input type="text" id="staffTel" name="staff_tel" 
+      class="form-control" value="${staff.staff_tel}" required><br>
+    </div>
+
+    <div class="form-group">
+      <label for="staffEmail">이메일:</label>
+      <input type="email" id="staffEmail" name="staff_email" 
+      class="form-control" value="${staff.staff_email}" required><br>
+    </div>
+
+
+    <input type="submit" name="submit" class="btn btn-primary" value="수정">
+    
+    
+  </form>
+</div>
+
 
 </body>
 </html>

@@ -25,19 +25,81 @@
 
 
     <!-- 받은 쪽지 리스트 -->
-    <select id="getReceivedList" parameterType="com.example.InsideOut.model.NoteBean" resultType="com.example.InsideOut.model.NoteBean">
-        select * from note
-        where recv_id = #{recv_id}
+ <select id="getReceivedList" parameterType="com.example.InsideOut.model.NoteBean" resultType="com.example.InsideOut.model.NoteBean">
+    SELECT
+    t1.note_no,
+    t1.message,
+    t1.snd_dt,
+    t1.rcv_dt,
+    t1.recv_id,
+    t1.send_id,
+    IF(m1.mem_type = '0100', (SELECT student_name FROM student WHERE student_no = t1.recv_id), (SELECT staff_name FROM staff WHERE staff_no = t1.recv_id)) AS recv_nm,
+    IF(m1.mem_type = '0100', (SELECT student_name FROM student WHERE student_no = t1.send_id), (SELECT staff_name FROM staff WHERE staff_no = t1.send_id)) AS send_nm
+FROM
+    note t1
+    LEFT JOIN member m1 ON (m1.username = t1.recv_id)
+    LEFT JOIN member m2 ON (m2.username = t1.send_id)
+WHERE
+    t1.recv_id = #{recv_id}
+ORDER BY
+    t1.note_no DESC
+    
+  <!--   <select id="getReceivedList" parameterType="com.example.InsideOut.model.NoteBean" resultType="com.example.InsideOut.model.NoteBean">
+            select t1.note_no
+            , t1.message
+            , t1.snd_dt
+            , t1.rcv_dt
+            , t1.recv_id
+            , t1.send_id
+            , t1.recv_nm
+            , t1.send_nm
+            , case 
+                when m1.mem_type = '0100' then (select student_name
+                                                 from student
+                                                 where student_no = t1.recv_id)
+                when m1.mem_type = '0200' then (select staff_name
+                                                  from staff
+                                                where staff_no = t1.recv_id)
+           end AS recv_nm
+            , case 
+                when m1.mem_type = '0100' then (select student_name
+                                                 from student
+                                                 where student_no = t1.send_id)
+                when m1.mem_type = '0200' then (select staff_name
+                                                  from staff
+                                                where staff_no = t1.send_id)
+           end AS send_nm
+                
+            from note t1
+            left join member m1 on (m1.username = t1.recv_id)
+            left join member m2 on (m2.username = t1.send_id)
+        where recv_id =  #{recv_id}
+        where recv_id =  '202301044'
         order by note_no desc
         limit #{startRow}, #{endRow}
+    </select> -->
+    
     </select>
 
     <!-- 보낸 쪽지 리스트 -->
     <select id="getSentList" parameterType="com.example.InsideOut.model.NoteBean"  resultType="com.example.InsideOut.model.NoteBean">
-        select * from note
-        where send_id = #{send_id}
-        order by note_no desc
-        limit #{startRow}, #{endRow}
+               SELECT
+    t1.note_no,
+    t1.message,
+    t1.snd_dt,
+    t1.rcv_dt,
+    t1.recv_id,
+    t1.send_id,
+    IF(m1.mem_type = '0100', (SELECT student_name FROM student WHERE student_no = t1.recv_id), (SELECT staff_name FROM staff WHERE staff_no = t1.recv_id)) AS recv_nm,
+    IF(m1.mem_type = '0100', (SELECT student_name FROM student WHERE student_no = t1.send_id), (SELECT staff_name FROM staff WHERE staff_no = t1.send_id)) AS send_nm
+FROM
+    note t1
+    LEFT JOIN member m1 ON (m1.username = t1.recv_id)
+    LEFT JOIN member m2 ON (m2.username = t1.send_id)
+WHERE
+    t1.send_id = #{send_id}
+ORDER BY
+    t1.note_no DESC
     </select>
 
     <select id="getReceivedCount"  parameterType="String"  resultType="int">

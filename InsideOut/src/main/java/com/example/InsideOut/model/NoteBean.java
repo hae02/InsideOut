@@ -23,5 +23,8 @@ public class NoteBean {
 	    private int startRow;
 		private int endRow;
 		
+		private String recv_nm;
+		private String send_nm;
+		
 		
 }
