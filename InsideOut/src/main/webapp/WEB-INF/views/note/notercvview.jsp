@@ -51,7 +51,8 @@
 					onclick="location.href='notereplyform?note_No=${note.note_no}'">  --%>
 
 				<input type="button" value="답장하기"
-				onclick="location.href='notereplyform?send_id=${note.send_id}&recv_id=${note.recv_id}&note_No=${note.note_no}'">
+				onclick="location.href='notereplyform?send_id=${note.send_id}&recv_id=${note.recv_id}
+				&note_No=${note.note_no}&send_nm=${note.send_nm}&recv_nm=${note.recv_nm}'">
 
 
 				<%-- 		<input type="button" value="삭제하기"

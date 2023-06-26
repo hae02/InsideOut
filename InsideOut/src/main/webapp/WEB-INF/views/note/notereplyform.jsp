@@ -121,13 +121,14 @@ $(function() {
 </script>
 </head>
 <body>
-
+<%-- 
 <c:if test="${role == 'ROLE_STUDENT'}">
     <c:import url="../studentHeader.jsp" />
 </c:if>
-<c:if test="${role == 'ROLE_STAFF'}">
+<c:if test="${role == 'ROLE_STAFF'}"> --%>
     <c:import url="../staffHeader.jsp" />
-</c:if>
+<%-- </c:if> --%>
+
 
 
 <div class="container">
@@ -160,12 +161,14 @@ $(function() {
         
 <div class="container note-form-container" style="width:90%; margin:0 auto;">
 <!--   <form id="snote" method="post"  action="sendnote"> -->
-  <form class="note-form" id="snote" method="post" action="sendnote">
+  <form class="note-form" id="snote" method="post" action="notereply">
   
-                <input type="hidden" name="send_id" value="${sessionScope.send_id}">
-                <input type="hidden" name="send_id" value="${sessionScope.recv_id}">
-                <label for="recv_id">받는 사람:</label>
+                <input type="hidden" name="send_id" value="${note.send_id}">
+                <input type="hidden" name="recv_id" value="${note.recv_id}">
+              <!--   <label for="recv_id">받는 사람:</label>
                 <input type="text" id="recv_id" name="recv_id">
+                    <label for="recv_id">보내는 사람:</label>
+                <input type="text" id="send_id" name="send_id"> -->
                 <br>
                 <div class="form-group">
                     <label for="message">쪽지 내용:</label>

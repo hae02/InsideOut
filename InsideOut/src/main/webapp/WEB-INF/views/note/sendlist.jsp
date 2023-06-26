@@ -263,8 +263,10 @@ style="text-decoration: none">&raquo;</a>
 </button>
 </div>
 
-												<div class="modal-footer">
-													<button type="button" class="btn btn-outline-primary" onClick="location.href='notereplyform?send_id=${note.send_id}&recv_id=${note.recv_id}&note_No=${note.note_no}'">답장</button>
+											<%-- 	<div class="modal-footer">
+													<button type="button" class="btn btn-outline-primary" 
+													onClick="location.href='notereplyform?send_id=${note.send_id}
+													&recv_id=${note.recv_id}&note_No=${note.note_no}'">답장</button> --%>
 													<button type="button" class="btn btn-outline-danger" onClick="location.href='notedelete?note_No=${send.note_no}'">삭제</button>
 												</div>
 											</div>
