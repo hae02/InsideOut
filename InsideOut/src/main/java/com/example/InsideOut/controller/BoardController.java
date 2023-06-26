@@ -94,18 +94,23 @@ public class BoardController {
 
 	// 교직원 게시글 상세페이지
 	@RequestMapping(value = "/user/board_cont")
-	public String notice_cont(@RequestParam("post_no") int post_no, @RequestParam("page") String page,
+	public String notice_cont(Authentication authentication, @RequestParam("post_no") int post_no, @RequestParam("page") String page,
 			@RequestParam("state") String state, @RequestParam("board_name") String board_name, Model model)
 			throws Exception {
 		System.out.println("매퍼로 이동");
 		if (state.equals("cont")) { // 내용 보기
 			boardService.hit(post_no); // 조회수 증가
 		}
+		
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String membertype = principalDetails.getUser().getMem_type();
+		System.out.println("memtype:"+membertype);
 
 		System.out.println("조회수 증가 완");
 		BoardBean board = boardService.board_cont(post_no);
 		System.out.println("content sql완료" + board);
 
+		model.addAttribute("memtype", membertype);
 		model.addAttribute("bcont", board);
 		model.addAttribute("page", page);
 
@@ -192,7 +197,10 @@ public class BoardController {
 
 		String username = principalDetails.getUser().getUsername();
 		String role = memberService.getUserRole(username);
+		String membertype = principalDetails.getUser().getMem_type();
 
+		System.out.println("memtype:"+membertype);
+		
 		List<BoardBean> noticelist = new ArrayList<BoardBean>();
 
 		int page = 1;
@@ -221,6 +229,7 @@ public class BoardController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 
+		model.addAttribute("memtype", membertype);
 		model.addAttribute("role", role);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
@@ -241,6 +250,9 @@ public class BoardController {
 
 		String username = principalDetails.getUser().getUsername();
 		String role = memberService.getUserRole(username);
+		String membertype = principalDetails.getUser().getMem_type();
+
+		System.out.println("memtype:"+membertype);
 
 		List<BoardBean> joblist = new ArrayList<BoardBean>();
 
@@ -270,6 +282,7 @@ public class BoardController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 
+		model.addAttribute("memtype", membertype);
 		model.addAttribute("role", role);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
@@ -289,6 +302,9 @@ public class BoardController {
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		String username = principalDetails.getUser().getUsername();
 		String role = memberService.getUserRole(username);
+		String membertype = principalDetails.getUser().getMem_type();
+
+		System.out.println("memtype:"+membertype);
 
 		List<BoardBean> QnAlist = new ArrayList<BoardBean>();
 
@@ -318,6 +334,7 @@ public class BoardController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 
+		model.addAttribute("memtype", membertype);
 		model.addAttribute("role", role);
 		model.addAttribute("page", page);
 		model.addAttribute("startpage", startpage);
@@ -394,29 +411,44 @@ public class BoardController {
 
 	// 문의 상세페이지
 	@RequestMapping("/user/askView")
-	public String getAskView(Model model, int post_no) {
+	public String getAskView(Authentication authentication, Model model, int post_no) {
+		
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+
+		String username = principalDetails.getUser().getUsername();
+		String membertype = principalDetails.getUser().getMem_type();
+		
 		BoardBean askBoard = boardService.getAskView(post_no);
 
+		model.addAttribute("membertype", membertype);
 		model.addAttribute("askBoard", askBoard);
 		return "ask/askView";
 	}
 
 	// 문의 상세페이지 삭제
 	@RequestMapping("/user/deleteAskView")
-	public String deleteAskView(int post_no) {
-
+	public String deleteAskView(int post_no, Authentication authentication) {
 		boardService.deleteAskView(post_no);
-
-		return "redirect:/api/v1/admin/adminAskList";
+		
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String username = principalDetails.getUser().getUsername();
+		String role = memberService.getUserRole(username);
+		
+		if (role.equals("ROLE_ADMIN")) {
+			return "redirect:/api/v1/admin/adminAskList";			
+		} else {
+			return "redirect:AskList";
+		}
 	}
 
 	// 문의 답변페이지로 이동
 	@RequestMapping("/admin/replyAsk")
-	public String getReplyAsk(Model model, int post_no) {
+	public String getReplyAsk(Model model, int post_no, int board_re_ref) {
 //		BoardBean askBoard = boardService.getReplyAsk(post_no);
 
 //		model.addAttribute("askBoard", askBoard);
 		model.addAttribute("post_no", post_no);
+		model.addAttribute("board_re_ref", board_re_ref);
 		return "ask/askReply";
 	}
 

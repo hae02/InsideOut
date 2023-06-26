@@ -14,8 +14,8 @@
 
 		<form method="post" action="askViewReply">
 			<input type="hidden" name="post_no" value="${post_no}">
-			<%-- <input type="hidden"  name="board_re_ref"  value="${askBoard.board_re_ref}">
-			<input type="hidden"  name="up_post_no"  value="${askBoard.up_post_no}"> --%>
+			<input type="hidden"  name="board_re_ref"  value="${askBoard.board_re_ref}">
+			<%-- <input type="hidden"  name="up_post_no"  value="${askBoard.up_post_no}"> --%>
 
 			<table id=table2 border=1>
 				<tr>

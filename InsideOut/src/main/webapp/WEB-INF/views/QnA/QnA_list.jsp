@@ -115,12 +115,13 @@
 			</c:if>
 
 		</div>
+		<c:if test="${memtype != '0100'}">
 		<div id="QnAlist_w">
 			<input type="button" value="글쓰기" class="input_button"
 				onclick="location='/api/v1/staff/board_write?page=${page}&board_name=QnA'">
 
 		</div>
-
+		</c:if>
 	</div>
 </body>
 </html>

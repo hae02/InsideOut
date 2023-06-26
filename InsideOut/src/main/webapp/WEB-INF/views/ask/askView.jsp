@@ -23,7 +23,7 @@
 <h1 align ="center">문의 답변</h1>
 <div align="center">
 <table id=table2 border=1>
-
+<input type="hidden"  name="board_re_ref"  value="${board_re_ref}">
 		<tr>
 			<td>작성자ID</td>
 			<td>${askBoard.writer_id }</td>
@@ -40,8 +40,10 @@
 		<tr>
 			<td colspan=2 align=center>
 				<input type="button" value="글 삭제" onClick="deleteAskView('${askBoard.post_no }')">
+				<c:if test="${membertype == '0300'}">
 				<input type="button" value="답변" 
-					onClick="location.href='/api/v1/admin/replyAsk?post_no=${askBoard.post_no }' ">
+					onClick="location.href='/api/v1/admin/replyAsk?post_no=${askBoard.post_no }&board_re_ref=${askBoard.board_re_ref}' ">
+				</c:if>
 			</td>
 		</tr>
 	</table>
