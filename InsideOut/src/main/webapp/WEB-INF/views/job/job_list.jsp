@@ -20,9 +20,8 @@
 		<c:import url="../staffHeader.jsp" />
 	</c:if>
 	<div id="joblist_wrap">
-		<h2 class="joblist_title">
-			<취업>
-		</h2>
+		<h2 class="joblist_title"> <취업> </h2>
+		<input Type = hidden name= board_name value="job"/>
 		<div id="joblist_c">글 개수 : ${joblistcount}</div>
 
 		<table class="table" id="joblist_t">
@@ -118,7 +117,7 @@
 		</div>
 		<div id="joblist_w">
 			<input type="button" value="글쓰기" class="input_button"
-				onclick="location='staff/board_write?page=${page}&board_name=job'">
+				onclick="location='/api/v1/staff/board_write?page=${page}&board_name=job'">
 
 		</div>
 

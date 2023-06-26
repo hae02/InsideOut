@@ -88,7 +88,7 @@ public class BoardController {
 			boardService.insertBoard(board);
 		}
 
-		return "redirect:/" + board_name + "_list";
+		return "redirect:/api/v1/user/" + board_name + "_list";
 
 	}
 
@@ -168,7 +168,7 @@ public class BoardController {
 			boardService.edit(board);
 		}
 
-		return "redirect:/" + board_name + "_list?page=" + page;
+		return "redirect:/api/v1/user/" + board_name + "_list?page=" + page;
 
 	}
 
@@ -180,7 +180,7 @@ public class BoardController {
 
 		boardService.del_ok(post_no);
 
-		return "redirect:/" + board_name + "_list?page=" + page;
+		return "redirect:/api/v1/user/" + board_name + "_list?page=" + page;
 
 	}
 

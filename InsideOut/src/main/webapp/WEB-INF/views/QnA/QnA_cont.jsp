@@ -10,9 +10,9 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-	<div id="noticecont_wrap">
-		<h2 class="noticecont_title">게시물 내용보기</h2>
-		<table id="noticecont_t">
+	<div id="QnAcont_wrap">
+		<h2 class="QnAcont_title">게시물 내용보기</h2>
+		<table id="QnAcont_t">
 			<tr>
 				<th>제목</th>
 				<td>${bcont.post_title}</td>
@@ -43,12 +43,12 @@
 		<br>
 		<div id="boardcont_menu">
 			<input type="button" value="목록" class="input_button"
-				onclick="location='notice_list?page=${page}&board_name=notice'" />
+				onclick="location='QnA_list?page=${page}&board_name=QnA'" />
 			<!-- 권한 <sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')"> -->
 			<input type="button" value="수정" class="input_button"
-				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=edit&board_name=notice'" />	
+				onclick="location='/api/v1/staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=edit&board_name=QnA'" />	
 			<input type="button" value="삭제" class="input_button"
-				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=del&board_name=notice'" />
+				onclick="location='/api/v1/staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=del&board_name=QnA'" />
 			<!-- </sec:authorize> -->
 		</div>
 	</div>

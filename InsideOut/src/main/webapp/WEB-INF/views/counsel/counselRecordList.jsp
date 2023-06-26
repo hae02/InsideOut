@@ -99,7 +99,7 @@ table, td, th {
 								value="${r.booking_no}">${r.booking_no}</td>
 							<td><a
 								href="counselRecordDetail?booking_no=${r.booking_no}&page=${page}">${r.counsel_content}</a></td>
-							<td>${r.counsel_record_dt}</td>
+							<td><fmt:formatDate value="${r.counsel_record_dt}" pattern="yyyy-MM-dd" /></td>
 						</tr>
 					</c:forEach>
 				</table>

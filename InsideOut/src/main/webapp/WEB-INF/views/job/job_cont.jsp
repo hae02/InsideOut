@@ -46,9 +46,9 @@
 				onclick="location='job_list?page=${page}&board_name=job'" />
 			<!-- 권한 <sec:authorize access="hasAnyRole('ROLE_STAFF','ROLE_ADMIN')"> -->
 			<input type="button" value="수정" class="input_button"
-				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=edit&board_name=job'" />	
+				onclick="location='/api/v1/staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=edit&board_name=job'" />	
 			<input type="button" value="삭제" class="input_button"
-				onclick="location='staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=del&board_name=job'" />
+				onclick="location='/api/v1/staff/board_cont?post_no=${bcont.post_no}&page=${page}&state=del&board_name=job'" />
 			<!-- </sec:authorize> -->
 		</div>
 	</div>

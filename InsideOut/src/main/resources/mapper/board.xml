@@ -79,7 +79,7 @@
 
 	<!--QnA게시판 목록 -->
 	<select id="getQnAList" parameterType="int" resultType="board">
-		select * from post where board_no = 400 order by post_no desc limit
+		select * from post where board_no = 500 order by post_no desc limit
 		#{start}, 10
 	</select>
 

@@ -43,7 +43,7 @@
 	<form method="post" action="board_edit_ok" enctype="multipart/form-data">
 		<input Type = hidden name= post_no value="${bcont.post_no}"/>
 		<input Type = hidden name= page value="${page}"/>
-		<input Type = hidden name= board_name value="notice"/>
+		<input Type = hidden name= board_name value="QnA"/>
 		<div class="formgroup">
 			<label for="post_title">글제목:  </label> <input
 				name="post_title" id="post_title" size="60" class="input_box" value="${bcont.post_title}" />

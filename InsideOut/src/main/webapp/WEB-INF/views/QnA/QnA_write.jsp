@@ -41,7 +41,7 @@
 <body>
 	<h1>QnA 입력</h1>
 	<form method="post" action="board_write_ok" enctype="multipart/form-data">
-	<input Type = hidden name= board_name value="notice"/>
+	<input Type = hidden name= board_name value="QnA"/>
 	<input Type = hidden name= board_no value="500"/>
 		<div class="formgroup">
 			<label for="post_title">글제목: &nbsp;&nbsp;</label> <input
