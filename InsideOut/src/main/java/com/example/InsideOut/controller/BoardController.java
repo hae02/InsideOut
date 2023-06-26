@@ -402,12 +402,12 @@ public class BoardController {
 	}
 
 	// 문의 상세페이지 삭제
-	@RequestMapping("user/deleteAskView")
+	@RequestMapping("/user/deleteAskView")
 	public String deleteAskView(int post_no) {
 
 		boardService.deleteAskView(post_no);
 
-		return "redirect:adminAskList";
+		return "redirect:/api/v1/admin/adminAskList";
 	}
 
 	// 문의 답변페이지로 이동

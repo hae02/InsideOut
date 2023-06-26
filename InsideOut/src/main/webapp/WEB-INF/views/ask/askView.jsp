@@ -13,7 +13,7 @@
 	function deleteAskView(post_no) {
 		var result = confirm("삭제 하시겠습니까?");
 		if(result){
-			location.href = "user/deleteAskView?post_no=" + post_no;
+			location.href = "/api/v1/user/deleteAskView?post_no=" + post_no;
 		}
 	}
 </script>
@@ -39,7 +39,7 @@
 
 		<tr>
 			<td colspan=2 align=center>
-				<input type="button" value="글 삭제" onClick="user/deleteAskView('${askBoard.post_no }')">
+				<input type="button" value="글 삭제" onClick="deleteAskView('${askBoard.post_no }')">
 				<input type="button" value="답변" 
 					onClick="location.href='/api/v1/admin/replyAsk?post_no=${askBoard.post_no }' ">
 			</td>
