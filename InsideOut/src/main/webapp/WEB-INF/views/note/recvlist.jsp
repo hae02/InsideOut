@@ -189,48 +189,21 @@
 			
 			
  <div class="pg-wrapper">
-  <ul class="pagination pagination-sm">
- <%--    <c:set var="prevPage" value="${page - 1}" />
-    <c:set var="nextPage" value="${page + 1}" /> --%>
-    
-  <%--   <li class="page-item disabled">
-      <a class="page-link" href="recvlist?page=1&recv_id=${recv_id}">&laquo;</a>
-    </li>
-    
-    <li class="page-item active">
-    <c:if test="${startPage !=1 }">
-							<a href="recvlist?page=${page }&recv_id=${recv_id}">&laquo;</a>
-						</c:if>
-						
-						 </li> --%>
-						 
+  <ul class="pagination pagination-sm"> 						 
  <a class="page-link" a href="recvlist?page=1&recv_id=${recv_id}" style="text-decoration: none">&laquo;</a>
 <c:if test="${startPage != 1}">
   <a href="recvlist?page=${page}&recv_id=${recv_id}">&laquo;</a>
-</c:if>
-						 
-    
+</c:if>						     
     <c:forEach var="i" begin="${startPage}" end="${endPage}">
     <li class="page-item active">
       <a class="page-link" href="recvlist?page=${i}&recv_id=${recv_id}">${i}</a>
     </li>
-</c:forEach>
-
- <%-- <li class="page-item active">
-<c:if test="${endPage != pageCount}">
-							<a href="recvlist?page=${page }&recv_id=${recv_id}">다음</a>
-						</c:if>
-						 </li>
-
-    <li class="page-item disabled">
-      <a class="page-link" href="recvlist?page=${pageCount }&recv_id=${recv_id}" 
-      style="text-decoration: none">&raquo;</a>
-    </li> --%>
-    
+</c:forEach>   
    <c:if test="${endPage != pageCount}">
   <a class="page-link" href="recvlist?page=${page}&recv_id=${recv_id}">&raquo;</a>
 </c:if>
-<a class="page-link" href="recvlist?page=${pageCount}&recv_id=${recv_id}" style="text-decoration: none">&raquo;</a>
+<a class="page-link" href="recvlist?page=${pageCount}&recv_id=${recv_id}" 
+style="text-decoration: none">&raquo;</a>
 
     
   </ul>

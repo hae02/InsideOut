@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css" 
 	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
 	 crossorigin="anonymous">
+	 	<link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
 	 
 	 <style>
 .container {
