@@ -17,6 +17,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+	<link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
 	 
 <!-- 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
@@ -189,9 +190,10 @@
 			
  <div class="pg-wrapper">
   <ul class="pagination pagination-sm">
-    <c:set var="prevPage" value="${page - 1}" />
-    <c:set var="nextPage" value="${page + 1}" />
-    <li class="page-item disabled">
+ <%--    <c:set var="prevPage" value="${page - 1}" />
+    <c:set var="nextPage" value="${page + 1}" /> --%>
+    
+  <%--   <li class="page-item disabled">
       <a class="page-link" href="recvlist?page=1&recv_id=${recv_id}">&laquo;</a>
     </li>
     
@@ -199,7 +201,14 @@
     <c:if test="${startPage !=1 }">
 							<a href="recvlist?page=${page }&recv_id=${recv_id}">&laquo;</a>
 						</c:if>
-						 </li>
+						
+						 </li> --%>
+						 
+ <a class="page-link" a href="recvlist?page=1&recv_id=${recv_id}" style="text-decoration: none">&laquo;</a>
+<c:if test="${startPage != 1}">
+  <a href="recvlist?page=${page}&recv_id=${recv_id}">&laquo;</a>
+</c:if>
+						 
     
     <c:forEach var="i" begin="${startPage}" end="${endPage}">
     <li class="page-item active">
@@ -207,7 +216,7 @@
     </li>
 </c:forEach>
 
- <li class="page-item active">
+ <%-- <li class="page-item active">
 <c:if test="${endPage != pageCount}">
 							<a href="recvlist?page=${page }&recv_id=${recv_id}">다음</a>
 						</c:if>
@@ -216,7 +225,14 @@
     <li class="page-item disabled">
       <a class="page-link" href="recvlist?page=${pageCount }&recv_id=${recv_id}" 
       style="text-decoration: none">&raquo;</a>
-    </li>
+    </li> --%>
+    
+   <c:if test="${endPage != pageCount}">
+  <a class="page-link" href="recvlist?page=${page}&recv_id=${recv_id}">&raquo;</a>
+</c:if>
+<a class="page-link" href="recvlist?page=${pageCount}&recv_id=${recv_id}" style="text-decoration: none">&raquo;</a>
+
+    
   </ul>
 </div>
 

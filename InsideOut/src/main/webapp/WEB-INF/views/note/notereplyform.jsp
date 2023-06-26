@@ -10,6 +10,8 @@
 	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
 	 crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
+
 <style>
 .bd-navbar {
     position: sticky;
