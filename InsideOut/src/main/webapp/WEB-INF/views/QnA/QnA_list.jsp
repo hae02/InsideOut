@@ -118,7 +118,7 @@
 		</div>
 		<div id="noticelist_w">
 			<input type="button" value="글쓰기" class="input_button"
-				onclick="location='staff/board_write?page=${page}&board_name=notice'">
+				onclick="location='/api/v1/staff/board_write?page=${page}&board_name=notice'">
 
 		</div>
 

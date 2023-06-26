@@ -21,7 +21,7 @@ import com.example.InsideOut.model.CounselRecordBean;
 import com.example.InsideOut.model.CounselTypeBean;
 import com.example.InsideOut.model.StaffBean;
 import com.example.InsideOut.model.SurveyBean;
-import com.example.InsideOut.service.BoardServiceImpl;
+import com.example.InsideOut.service.BoardService;
 import com.example.InsideOut.service.CounselService;
 import com.example.InsideOut.service.MemberServiceImpl;
 import com.example.InsideOut.service.StaffService;
@@ -38,7 +38,7 @@ public class CounselController {
 	@Autowired
 	private SurveyService surveyService;
 	@Autowired
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
 	@Autowired
 	private MemberServiceImpl memberService;
 

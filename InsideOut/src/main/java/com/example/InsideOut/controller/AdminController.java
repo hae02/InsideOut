@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.InsideOut.model.MemberBean;
 import com.example.InsideOut.service.AdminService;
 
+@RequestMapping("api/v1/admin")
 @Controller
 public class AdminController {
 

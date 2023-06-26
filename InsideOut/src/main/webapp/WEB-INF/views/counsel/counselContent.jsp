@@ -13,20 +13,20 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-<c:import url="../studentHeader.jsp" />
+	<c:import url="../studentHeader.jsp" />
 	<div class="container">
 		<form method="post" action="counselContentOk">
-			<input type="hidden" id="student_no" name="student_no" value="${student_no}">
-			<input type="hidden" id="counsel_typeno" name="counsel_typeno"
+			<input type="hidden" id="student_no" name="student_no"
+				value="${student_no}"> <input type="hidden"
+				id="counsel_typeno" name="counsel_typeno"
 				value="${counselType.counsel_typeno}">
 			<!-- 상담종류 번호 -->
 			<input type="hidden" id="staff_no" name="staff_no"
 				value="${staff.staff_no}">
 			<!-- 상담사번호 -->
 			<input type="hidden" id="booking_time" name="booking_time"
-				value="${booking_time}">
-
-
+				value="${booking_time}"> <br>
+			<br>
 			<div class="form-group row">
 				<label for="counsel_typename" class="col-sm-2 col-form-label">상담종류</label>
 				<div class="col-sm-4">
@@ -67,11 +67,14 @@
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">상담내용</label>
 				<textarea class="form-control" id="counsel_request_content"
-					name="counsel_request_content" placeholder="상담내용을 입력해주세요." rows="20"></textarea>
+					name="counsel_request_content" placeholder="상담내용을 입력해주세요."
+					rows="20"></textarea>
 			</div>
-
-			<button type="reset" class="btn btn-success">취소</button>
-			<button type="submit" class="btn btn-success">예약</button>
+			
+			<div align="center">
+			<button type="reset" class="btn btn-warning">취소</button>
+			<button type="submit" class="btn btn-warning">예약</button>
+			</div>
 		</form>
 
 		<script

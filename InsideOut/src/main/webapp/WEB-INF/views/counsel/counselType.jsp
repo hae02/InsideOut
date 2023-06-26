@@ -15,8 +15,8 @@
 	href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
 	integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm"
 	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css">
+<!-- 부트스트랩 -->
+<link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css" rel="stylesheet">
 <link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
 </head>
 <style>
@@ -49,96 +49,145 @@ td {
 td.title {
 	display: table-cell;
 	vertical-align: inherit;
-	width: 50%;
+	width: 85%;
+}
+
+.container-lg {
+	max-width: 80%;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 로고이미지 */
+.image {
+	position: relative;
+}
+
+/* 로고이미지 내부 글씨 */
+.image .img_text {
+	position: absolute;
+	bottom: 30px;
+	left: 100px;
+	color: #FFF;
+	font-size: 80px;
+}
+
+/* 로고이미지 사이즈 조절 */
+.local {
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+	object-position: left 0px;
+	/* position: relative; */
+}
+
+.text-dark {
+    --bs-text-opacity: 1;
+    color: black;
 }
 </style>
 <body>
 	<c:import url="../studentHeader.jsp" />
-	<br>
-	<br>
-	<div class="container">
-		<input type="hidden" id="student_no" name="student_no"
-			value="${student_no}">
-		<!-- <h3 class="card-header">상담예약</h3> -->
-		<h3>상담예약</h3>
-		<div class="d-grid gap-2">
-			<div class="button" align="center">
-				<button class="btn btn-success" type="button" name="counsel_typeno"
-					onclick="location.href='counselBooking?counsel_typeno=0101'">
-					<img src="/images/people-fill.svg" width="100px">
-					<h3>대학생활</h3>
-				</button>
-				<button class="btn btn-info" type="button" name="counsel_typeno"
-					onclick="location.href='counselBooking?counsel_typeno=0102'">
-					<img src="/images/briefcase-fill.svg" width="100px">
-					<h3>취업/진로</h3>
-				</button>
-				<button class="btn btn-warning" type="button" name="counsel_typeno"
-					onclick="location.href='counselBooking?counsel_typeno=0103'">
-					<img src="/images/mortarboard-fill.svg" width="100px">
-					<h3>학사</h3>
-				</button>
-				<button class="btn btn-danger" type="button" name="counsel_typeno"
-					onclick="location.href='counselBooking?counsel_typeno=0104'">
-					<img src="/images/person-check-fill.svg" width="100px">
-					<h3>개인고민</h3>
-				</button>
-			</div>
+	<!-- <div class="form-group image">
+		<img class="local" id="main_img" src="/images/inside out.png">
+		<div class="img_text container" id="img_text">
+			<span><p align="center">INSIDE OUT</p></span> 
 		</div>
-		<br><br>
+	</div> -->
+	<br>
+	<br>
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-6">
-				<h3 class="card-header">공지사항</h3>
-				<ul class="list-group list-group-flush">
-					<c:forEach var="b" items="${noticelist}" varStatus="loop">
-						<c:if test="${loop.index < 5}">
-							<li class="list-group-item">
-								<table style="margin-bottom: 0;">
-									<tr>
-										<td class="title"><a
-											href="${pageContext.request.contextPath}/api/v1/user/board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice">
-												${b.post_title} </a></td>
-										<%-- <td>
+			<!-- <div class="col-lg-2 container"></div> -->
+			<input type="hidden" id="student_no" name="student_no"
+				value="${student_no}">
+			<!-- <h3 class="card-header">상담예약</h3> -->
+			
+			<div class="col-lg-8 container">
+				<h3>상담예약</h3>
+				<div class="d-grid gap-2">
+					<div class="button" align="center">
+						<button class="btn btn-success" type="button"
+							name="counsel_typeno"
+							onclick="location.href='counselBooking?counsel_typeno=0101'">
+							<img src="/images/people-fill.svg" width="100px">
+							<h3>대학생활</h3>
+						</button>
+						<button class="btn btn-info" type="button" name="counsel_typeno"
+							onclick="location.href='counselBooking?counsel_typeno=0102'">
+							<img src="/images/briefcase-fill.svg" width="100px">
+							<h3>취업/진로</h3>
+						</button>
+						<button class="btn btn-warning" type="button"
+							name="counsel_typeno"
+							onclick="location.href='counselBooking?counsel_typeno=0103'">
+							<img src="/images/mortarboard-fill.svg" width="100px">
+							<h3>학사</h3>
+						</button>
+						<button class="btn btn-danger" type="button" name="counsel_typeno"
+							onclick="location.href='counselBooking?counsel_typeno=0104'">
+							<img src="/images/person-check-fill.svg" width="100px">
+							<h3>개인고민</h3>
+						</button>
+					</div>
+				</div>
+				<br> <br>
+				<div class="row">
+					<div class="col-md-6">
+						<h3 class="card-header">공지사항</h3>
+						<ul class="list-group list-group-flush">
+							<c:forEach var="b" items="${noticelist}" varStatus="loop">
+								<c:if test="${loop.index < 5}">
+									<li class="list-group-item">
+										<table style="margin-bottom: 0;">
+											<tr>
+												<td class="title"><a
+													href="${pageContext.request.contextPath}/api/v1/user/board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=notice">
+														${b.post_title} </a></td>
+												<%-- <td>
 											<div>${b.writer_id}</div>
 										</td> --%>
-										<td>
-											<div>
-												<fmt:formatDate value="${b.post_dt}" pattern="yyyy-MM-dd" />
-											</div>
-										</td>
-									</tr>
-								</table>
-							</li>
-						</c:if>
-					</c:forEach>
-				</ul>
-			</div>
-			<div class="col-md-6">
-				<h3 class="card-header">취업정보</h3>
-				<ul class="list-group list-group-flush">
-					<c:forEach var="b" items="${joblist}" varStatus="loop">
-						<c:if test="${loop.index < 5}">
-							<li class="list-group-item">
-								<table style="margin-bottom: 0;">
-									<tr>
-										<td class="title"><a
-											href="${pageContext.request.contextPath}/api/v1/user/board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=job">
-												${b.post_title} </a></td>
-										<%-- <td>
+												<td>
+													<div>
+														<fmt:formatDate value="${b.post_dt}" pattern="yyyy-MM-dd" />
+													</div>
+												</td>
+											</tr>
+										</table>
+									</li>
+								</c:if>
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="col-md-6">
+						<h3 class="card-header">취업정보</h3>
+						<ul class="list-group list-group-flush">
+							<c:forEach var="b" items="${joblist}" varStatus="loop">
+								<c:if test="${loop.index < 5}">
+									<li class="list-group-item">
+										<table style="margin-bottom: 0;">
+											<tr>
+												<td class="title"><a
+													href="${pageContext.request.contextPath}/api/v1/user/board_cont?post_no=${b.post_no}&page=${page}&state=cont&board_name=job">
+														${b.post_title} </a></td>
+												<%-- <td>
 											<div>${b.writer_id}</div>
 										</td> --%>
-										<td>
-											<div>
-												<fmt:formatDate value="${b.post_dt}" pattern="yyyy-MM-dd" />
-											</div>
-										</td>
-									</tr>
-								</table>
-							</li>
-						</c:if>
-					</c:forEach>
-				</ul>
+												<td>
+													<div>
+														<fmt:formatDate value="${b.post_dt}" pattern="yyyy-MM-dd" />
+													</div>
+												</td>
+											</tr>
+										</table>
+									</li>
+								</c:if>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
 			</div>
+			<!-- <div class="col-lg-2 container"></div> -->
 		</div>
 
 	</div>

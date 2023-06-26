@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -10,13 +11,9 @@
 
 <!-- 보기 편하게 CSS 추가해주었습니다. -->
 <style>
-* {
-	text-align: center;
-}
-
 #formgroup {
-	border: 1px solid;
-	width: 70%;
+	border: none;
+	width: 945px;
 	margin: 0 auto;
 }
 
@@ -25,34 +22,46 @@
 	width: 50%;
 	margin: 0 auto;
 }
-/* !!여기!! 새로운 div태그 스타일 추가해줬습니다. */
-#post_content {
+
+#postwrite_menu {
+	text-align: center;
+}
+
+/* post_container의 너비를 조절합니다. */
+#post_container {
 	width: 50%;
-	height: 100px;
-	margin: 30px auto;
-	border: 1px solid;
+	margin: 0 auto;
 }
 </style>
 
 <!-- TOAST UI Editor CDN URL(CSS)-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
-<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
+	crossorigin="anonymous">
+
 </head>
 <body>
-	<h1>공지사항 입력</h1>
-	<form method="post" action="board_write_ok" enctype="multipart/form-data">
-	<input Type = hidden name= board_name value="notice"/>
-	<input Type = hidden name= board_no value="400"/>
-		<div class="formgroup">
-			<label for="post_title">글제목: &nbsp;&nbsp;</label> <input
-				name="post_title" id="post_title" size="60" class="input_box" />
+	<c:import url="../staffHeader.jsp" />
+	<br>
+	<form method="post" action="board_write_ok"
+		enctype="multipart/form-data">
+		<div class="container" id="post_container">
+			<input Type="hidden" name="board_name" value="notice" /> <input
+				Type="hidden" name="board_no" value="400" />
+
+			<div class="form-group" id="formgroup">
+				<label class="col-form-label mt-4" for="post_title">제목</label> <input
+					name="post_title" id="post_title" class="form-control" type="text"
+					placeholder="제목을 입력하세요"> <label for="formFile"
+					class="form-label mt-4">파일</label> <input name="nFile"
+					id="formFile" class="form-control" type="file">
+			</div>
 		</div>
-		<table border=0 width=400 align=center>
-			<tr>
-				<th>파일</th>
-				<td><input type="file" name="nFile"></td>
-			</tr>
-		</table> 
 		<br>
 		<!-- TOAST UI Editor가 들어갈 div태그 -->
 		<div id="editor" class="editor-container"></div>
@@ -61,7 +70,8 @@
 		<!-- !!여기!! HTML 형식의 내용을 받을 input 태그-->
 		<input type="hidden" name="htmlPost_content" id="htmlPost_content" />
 		<!-- TOAST UI Editor CDN URL(JS) -->
-		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+		<script
+			src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
 		<!-- TOAST UI Editor 생성 JavaScript 코드 -->
 		<script>
@@ -76,7 +86,8 @@
 
 				const form = document.querySelector('form');
 				const postContent = document.querySelector('#post_content');
-				const htmlPostContent = document.querySelector('#htmlPost_content');
+				const htmlPostContent = document
+						.querySelector('#htmlPost_content');
 
 				form.addEventListener('submit', function(event) {
 					event.preventDefault();
@@ -96,12 +107,19 @@
 			});
 		</script>
 
-
 		<div id="postwrite_menu">
-			<input type="submit" value="등록" class="input_button" /> <input
-				type="reset" value="취소" class="input_button"
+			<br> <input type="submit" value="등록"
+				class="input_button btn btn-secondary" /> <span
+				style="margin: 0 40px;"></span>
+			<!-- 간격을 주기 위한 빈 요소 -->
+			<input type="reset" value="취소" class="input_button btn btn-secondary"
 				onclick="$('#post_title').focus();" />
 		</div>
+
 	</form>
+
+	<!-- Bootstrap JS CDN -->
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -17,7 +17,7 @@
 
 </head>
 <style>
-.container {
+.container-fluid {
 	justify-content: center;
 	align-items: center;
 }
@@ -29,13 +29,15 @@
 .calendar th {
 	text-align: center;
 	padding: 15px;
+	font-size: 25px;
+	color: black;
 }
 
 .calendar td {
 	cursor: pointer;
 	text-align: center;
 	padding: 30px;
-	border: 1px solid #ccc;
+	/* border: 1px solid #ccc; */
 }
 
 .calendar td.weekend {
@@ -52,7 +54,8 @@
 }
 
 .calendar .selected {
-	background-color: #fdeaeb;
+	background-color: #CEDEF2;
+	color: black;
 }
 
 .calendar .prev, .calendar .next {
@@ -65,18 +68,18 @@
 }
 
 .staff .btn.active {
-	background-color: #fdeaeb;
-	color: #fff;
+	background-color: #CEDEF2;
+	color: black; 
 }
 
 .booking_time .btn.active {
-	background-color: #fdeaeb;
+	background-color: #CEDEF2;
 	color: black;
 }
 
 .staff .btn[value :"checked"] {
-	background-color: #fdeaeb;
-	color: #fff;
+	background-color: #CEDEF2;
+	color: black;
 }
 
 .booking_time .btn {
@@ -105,7 +108,7 @@
 	margin-top: 20px;
 	text-align: left;
 	padding: 1.375rem 1rem !important; /* 컨텐트 세로 가운데 정렬 */
-	border: 1px solid #fad5d7;
+	border: 1px solid #ccc;
 }
 
 .day th:first-child {
@@ -120,15 +123,59 @@
 	display: inline-block;
 }
 
-/* .btn-group-toggle.staff { /* 상담사 프로필 */
-	margin-left: 12%;
-} */
+.booking_time .btn {
+	text-align: center;
+	padding: 8px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	width: 250px;
+	margin: 0px 0px 0px;
+	color: black;
+}
 
+/* 로고이미지 */
+.image {
+	position: relative;
+}
+
+/* 로고이미지 내부 글씨 */
+.image .img_text {
+	position: absolute;
+	bottom: 30px;
+	left: 100px;
+	color: #FFF;
+	font-size: 80px;
+}
+
+/* 로고이미지 사이즈 조절 */
+.local {
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+	object-position: left 0px;
+	/* position: relative; */
+}
+/* style="font-weight: bold;" */
+.booking_time th {
+	margin-top: 8%;
+	text-align: center;
+}
+
+.container-fluid {
+	width: 1400px !important;
+}
 </style>
 
 <body>
 	<c:import url="../studentHeader.jsp" />
-	<div class="container">
+	<div class="form-group image">
+		<img class="local" id="main_img" src="/images/img_sub01.png">
+		<div class="img_text container" id="img_text">
+			<span><p>${counselType.counsel_typename}</p></span> <span><h5
+					style="color: #fff; font-size: 24px;">${counselType.counsel_typedetail}</h5></span>
+		</div>
+	</div>
+	<div class="container-fluid">
 		<form method="post" action="counselContent">
 			<input type="hidden" id="student_no" name="student_no"
 				value="${student_no}"> <input type="hidden"
@@ -136,17 +183,16 @@
 				value="${counselType.counsel_typeno}"> <input type="hidden"
 				id="booking_dt" name="booking_dt" value=""> <input
 				type="hidden" id="staff_no" name="staff_no" value=""> <input
-				type="hidden" id="staff_name" name="staff_name" value="">
-
-			<br><br>
-			<div class="card">
-				<div class="card-body">
-					<h2 class="card-title">${counselType.counsel_typename}</h2>
-					<h5 class="card-text">${counselType.counsel_typedetail}</h5>
-				</div>
-			</div>
+				type="hidden" id="staff_name" name="staff_name" value=""> <br>
 			<br>
-			<br><br>
+
+			<%-- <div class="card">
+				<div class="card-body">
+					<h2 class="card-title" style="color: black;">${counselType.counsel_typename}</h2>
+					<h5 class="card-text" style="color: black;">${counselType.counsel_typedetail}</h5>
+				</div>
+			</div> --%>
+			<br> <br>
 			<h3>상담사</h3>
 
 			<!-- 교직원 프로필 -->
@@ -154,19 +200,21 @@
 				<div class="btn-group-toggle staff" data-toggle="buttons">
 					<c:forEach items="${staffList}" var="s">
 						<label class="btn" for="staff_no_${s.staff_no}">
-							
+
 							<div class="row">
 								<div class="col-3" style="margin-left: 5%;">
 									<img src="/images/6735382.png" width="100px">
 								</div>
-								<div class="col-6">
-									<input class="btn" type="radio" id="staff_no_${s.staff_no}" name="staff_no" value="${s.staff_no}">
+								<div class="col-6" style="color: black;">
+									<input class="btn" type="radio" id="staff_no_${s.staff_no}"
+										name="staff_no" value="${s.staff_no}">
 									<h5 class="card-title text-dark">${s.staff_name}</h5>
 									<p class="card-text text-dark">${s.staff_tel}</p>
 									<p class="card-text text-dark">${s.staff_email}</p>
 								</div>
-								<div class="col-2" style="margin-top: 7%;">
-									<img src="/images/hand-index-thumb.svg" width="50%">
+								<div class="col-2">
+									<img style="margin-left: 50%; margin-top: 70%;"
+										src="/images/hand-index-thumb.svg" width="40%">
 								</div>
 							</div>
 						</label>
@@ -174,12 +222,10 @@
 				</div>
 			</div>
 
-			<br> <br> <br> <br>
-
+			<br> <br> <br>
 			<!-- Calendar -->
 			<h3>일정선택</h3>
-			<br>
-			<div class="calendar-container">
+			<div class="calendar-container row">
 				<div class="calendar col-9">
 					<table>
 						<thead>
@@ -191,13 +237,13 @@
 									width="30px"></th>
 							</tr>
 							<tr class="day">
-								<th>일</th>
-								<th>월</th>
-								<th>화</th>
-								<th>수</th>
-								<th>목</th>
-								<th>금</th>
-								<th>토</th>
+								<th><h5>일</h5></th>
+								<th><h5>월</h5></th>
+								<th><h5>화</h5></th>
+								<th><h5>수</h5></th>
+								<th><h5>목</h5></th>
+								<th><h5>금</h5></th>
+								<th><h5>토</h5></th>
 							</tr>
 						</thead>
 						<tbody></tbody>
@@ -205,47 +251,40 @@
 				</div>
 
 				<!-- BOOKING_TIME -->
-				<div class="btn-group-vertical booking_time">
+				<div class="btn-group-vertical booking_time col-3">
 					<label class="disabled"> &nbsp; </label> <label class="disabled">
-						예약시간 </label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0100" value="0100">
-						9:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0200" value="0200">
-						10:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0300" value="0300">
-						11:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0400" value="0400">
-						12:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0500" value="0500">
-						13:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0600" value="0600">
-						14:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0700" value="0700">
-						15:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0800" value="0800">
-						16:00
-					</label> <label class="btn"> <input type="radio"
-						name="booking_time" id="booking_time_0900" value="0900">
-						17:00
+						<h5>예약시간</h5>
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0100"
+						value="0100"> 9:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0200"
+						value="0200"> 10:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0300"
+						value="0300"> 11:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0400"
+						value="0400"> 12:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0500"
+						value="0500"> 13:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0600"
+						value="0600"> 14:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0700"
+						value="0700"> 15:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0800"
+						value="0800"> 16:00
+					</label> <label class="btn btn-outline-secondary"> <input
+						type="radio" name="booking_time" id="booking_time_0900"
+						value="0900"> 17:00
 					</label>
 				</div>
 			</div>
 
-<div class="card mb-3">
-  <h3 class="card-header">Card header</h3>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Cras justo odio</li>
-    <li class="list-group-item">Dapibus ac facilisis in</li>
-    <li class="list-group-item">Vestibulum at eros</li>
-  </ul>
-</div>
 
 
 			<script>
@@ -331,7 +370,7 @@
 	  var activeBtns = document.querySelectorAll('.btn.active');
 	  
 	  activeBtns.forEach(function(btn) {
-		  var divs = btn.querySelectorAll('div.col-8');
+		  var divs = btn.querySelectorAll('div.col-6');
 		  if (divs.length > 0) {
 		    divs.forEach(function(div) {
 		      var nameElement = div.querySelector('h5.card-title');
@@ -453,9 +492,12 @@
  	}
 		</script>
 			<br>
-			<button type="submit" class="btn btn-success">다음</button>
+			<div align="center">
+			<button type="submit" class="btn btn-warning" >다음</button>
+			</div>
 		</form>
 	</div>
+			<br>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>

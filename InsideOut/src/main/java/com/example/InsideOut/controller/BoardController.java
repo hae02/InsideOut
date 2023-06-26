@@ -8,21 +8,18 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.InsideOut.auth.PrincipalDetails;
 import com.example.InsideOut.model.BoardBean;
-import com.example.InsideOut.service.BoardServiceImpl;
+import com.example.InsideOut.service.BoardService;
 import com.example.InsideOut.service.MemberServiceImpl;
 
 @Controller
@@ -30,7 +27,7 @@ import com.example.InsideOut.service.MemberServiceImpl;
 public class BoardController {
 
 	@Autowired
-	private BoardServiceImpl boardService;
+	private BoardService boardService;
 
 	@Autowired
 	private MemberServiceImpl memberService;
@@ -330,8 +327,60 @@ public class BoardController {
 
 	}
 
-	// 문의게시판 목록 조회
-	@RequestMapping("/adminAskList")
+	// 질문폼으로 이동 작성
+	@RequestMapping(value = "/user/ask_write")
+	public String ask_write() {
+		return "ask/askWrite";
+	}
+
+	// 문의 질문 작성
+	@RequestMapping("/user/ask_write_ok")
+	public String getAsk(Authentication authentication, Model model, @ModelAttribute BoardBean board) {
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String name = principalDetails.getUser().getUsername();
+		String membertype = principalDetails.getUser().getMem_type();
+		String writer;
+		if (membertype.equals("0100")) {
+			writer = boardService.getStudentName(name);
+		} else {
+			writer = boardService.getStaffName(name);
+		}
+		System.out.println("writer:" + writer);
+		board.setWriter_id(writer);
+
+		boardService.askWrite(board);
+
+//		model.addAttribute("askBoard", askBoard);
+
+		return "ask/askWriteOk";
+	}
+
+	// 회원 문의게시판 목록 조회
+	@RequestMapping("/user/AskList")
+	public String getAskList(Authentication authentication, Model model, @ModelAttribute BoardBean board)
+			throws Exception {
+
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String name = principalDetails.getUser().getUsername();
+		String membertype = principalDetails.getUser().getMem_type();
+		String writer;
+		if (membertype.equals("0100")) {
+			writer = boardService.getStudentName(name);
+		} else {
+			writer = boardService.getStaffName(name);
+		}
+		System.out.println("writer:" + writer);
+		board.setWriter_id(writer);
+
+		List<BoardBean> askList = boardService.getAskList(writer);
+
+		model.addAttribute("askList", askList);
+
+		return "ask/askList";
+	}
+
+	// 관리자 문의게시판 목록 조회
+	@RequestMapping("/admin/adminAskList")
 	public String getAskBoardList(Model model) throws Exception {
 
 		List<BoardBean> askBoardList = boardService.getAskBoardList();
@@ -341,7 +390,7 @@ public class BoardController {
 	}
 
 	// 문의 상세페이지
-	@RequestMapping("/askView")
+	@RequestMapping("/user/askView")
 	public String getAskView(Model model, int post_no) {
 		BoardBean askBoard = boardService.getAskView(post_no);
 
@@ -349,17 +398,8 @@ public class BoardController {
 		return "ask/askView";
 	}
 
-	// 문의 답변페이지로 이동
-	@RequestMapping("/replyAsk")
-	public String getReplyAsk(Model model, int post_no) {
-		BoardBean askBoard = boardService.getReplyAsk(post_no);
-
-		model.addAttribute("askBoard", askBoard);
-		return "ask/askReply";
-	}
-
 	// 문의 상세페이지 삭제
-	@RequestMapping("deleteAskView")
+	@RequestMapping("user/deleteAskView")
 	public String deleteAskView(int post_no) {
 
 		boardService.deleteAskView(post_no);
@@ -367,10 +407,20 @@ public class BoardController {
 		return "redirect:adminAskList";
 	}
 
-	// 문의 답변
-	@RequestMapping("askViewReply")
-	public String askViewReply(BoardBean BoardBean) {
+	// 문의 답변페이지로 이동
+	@RequestMapping("/admin/replyAsk")
+	public String getReplyAsk(Model model, int post_no) {
+//		BoardBean askBoard = boardService.getReplyAsk(post_no);
 
+//		model.addAttribute("askBoard", askBoard);
+		model.addAttribute("post_no", post_no);
+		return "ask/askReply";
+	}
+
+	// 문의 답변
+	@RequestMapping("/admin/askViewReply")
+	public String askViewReply(@ModelAttribute BoardBean BoardBean, int post_no) {
+		
 		boardService.askViewReply(BoardBean);
 
 		return "redirect:adminAskList";

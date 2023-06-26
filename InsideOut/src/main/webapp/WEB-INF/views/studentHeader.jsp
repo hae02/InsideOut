@@ -6,19 +6,17 @@
 <meta charset="UTF-8">
 <title>Student Header</title>
 <!-- 부트스트랩 -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<header class="navbar navbar-expand-lg bg-dark border-bottom">
+	<header class="navbar navbar-expand-lg bg-primary">
 		<ul class="nav col-12 col-md-auto mb-2 justify-content-start mb-md-0"
 			style="color: #F20544; font-size: 35px; font-weight: bold;">
 			<li><img src="/images/floo3.ico" width="50px">INSIDEOUT</li>
 		</ul>
-		<a href="/"
-			class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+		
+		<a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
 		</a>
-
 
 		<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
 			<li><a href="/api/v1/student/StudentList"
