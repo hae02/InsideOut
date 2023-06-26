@@ -13,6 +13,10 @@
 <link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
 
 <style>
+.container-fluid {
+	width: 1000px !important;
+}
+
 .bd-navbar {
     position: sticky;
     top: 0;
@@ -41,7 +45,7 @@
     padding: 1rem 1.5rem;
     font-size: 110%;
     text-decoration: none;
-    color: green;
+    color: navy;
     font-weight: bold;
 }
 </style>
@@ -132,30 +136,30 @@ $(function() {
         <div class="col-3 bd-sidebar">
             <ul class="nav">
                 <c:if test="${role == 'ROLE_STUDENT'}">
-                    <li><a href="/api/v1/student/StudentList">상담 내역</a></li>
-                    <li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
+                    <li><a href="/api/v1/student/StudentList" class="text-info">상담 내역</a></li>
+                    <li><a href="/api/v1/student/surveyList" class="text-info">만족도 조사</a></li>
                 </c:if>
                 <c:if test="${role == 'ROLE_STAFF'}">
-                    <li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
-                    <li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
+                    <li><a href="/api/v1/staff/StaffList" class="text-info">상담 내역</a></li>
+                    <li><a href="/api/v1/staff/surveyList" class="text-info">만족도 조사</a></li>
                 </c:if>
-                <li><a href="#">1:1 문의</a></li>
-                <li><a href="/api/v1/user/recvlist?recv_id=${send_id}">받은쪽지함</a></li>
-                <li><a href="/api/v1/user/sendlist?send_id=${send_id}">보낸쪽지함</a></li>
-                <li><a href="/api/v1/user/writenote?send_id=${send_id}">쪽지작성</a></li>
+                <li><a href="#" class="text-info">1:1 문의</a></li>
+                <li><a href="/api/v1/user/recvlist?recv_id=${send_id}" class="text-info">받은쪽지함</a></li>
+                <li><a href="/api/v1/user/sendlist?send_id=${send_id}" class="text-info">보낸쪽지함</a></li>
+                <li><a href="/api/v1/user/writenote?send_id=${send_id}" class="text-info">쪽지작성</a></li>
                 <c:if test="${role == 'ROLE_STUDENT'}">
-                    <li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
+                    <li><a href="/api/v1/student/studentUpdateForm" class="text-info">회원정보 수정</a></li>
                 </c:if>
                 <c:if test="${role == 'ROLE_STAFF'}">
-                    <li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
+                    <li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보 수정</a></li>
                 </c:if>
-                <li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
+                <li><a href="/api/v1/user/PasswordUpdateForm" class="text-info">비밀번호 수정</a></li>
             </ul>
         </div>
+        
+        <div class="container" style="max-width: 1000px;">
         <div class="container note-form-container">
             <form class="note-form" id="snote" method="post" action="sendnote">
-               <%--  <input type="hidden" name="send_id" value="${sessionScope.send_id}"> --%>
-               <%--  <input type="hidden" name="recv_id" value="${sessionScope.recv_id}"> --%>
                 <label for="recv_id">받는 사람:</label>
                 <input type="text" id="recv_id" name="recv_id">
                 <br>
@@ -163,15 +167,14 @@ $(function() {
                     <label for="message">쪽지 내용:</label>
                     <textarea class="form-control" id="message" cols="100" rows="10" name="message"></textarea>
                 </div>
-             <!--    <button type="submit" id="sendmsg" class="btn btn-info btn-sm">보내기</button> -->
                 
                 <div class="d-grid gap-2">
   <button class="btn btn-lg btn-primary" type="submit" id="sendmsg" class="btn btn-info btn-sm">보내기</button>
 </div>
-                
+               </div> 
             </form>
         </div>
     </div>
-</div>${sessionScope.send_id}-${sessionScope.recv_id}
+</div>
 </body>
 </html>
