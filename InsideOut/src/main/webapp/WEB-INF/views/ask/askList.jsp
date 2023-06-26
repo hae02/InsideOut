@@ -9,7 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<c:if test="${role == 'ROLE_STUDENT'}">
+		<c:import url="../studentHeader.jsp" />
+	</c:if>
+	<c:if test="${role == 'ROLE_STAFF'}">
+		<c:import url="../staffHeader.jsp" />
+	</c:if>
 	<section id=content>
 		<div>&nbsp;</div>
 		<div id=title align="center">
@@ -30,9 +35,7 @@
 						<td>${msg.writer_id }</td>
 						<td><c:if test="${msg.up_post_no != 0 }">
 						[ ↳ ]
-					</c:if> <a href="askView?post_no=${msg.post_no}">${msg.post_title}</a>
-
-						</td>
+					</c:if> <a href="askView?post_no=${msg.post_no}">${msg.post_title}</a></td>
 						<td><fmt:formatDate value="${msg.post_dt }"
 								pattern="yyyy-MM-dd" /></td>
 

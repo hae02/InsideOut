@@ -1,6 +1,7 @@
 var idDuplChk = false; // 아이디 중복 체크 버튼
 var phoneBtnChk = false; // 인증번호 전송 여부 체크 변수
 var certifyBtnChk = false; // 인증하기버튼 안눌렀을 때 막을 변수
+var idRule = /^[0-9]+$/;
 var phoneCertifyChk = false; // 인증번호 일치여부 체크 변수
 
 function check() {
@@ -24,28 +25,6 @@ function check() {
         $("#username").focus();
         return false;
     }
-	if ($.trim($("#passwd").val()) == "") {
-		alert("비밀번호를 입력하세요.");
-		$("#passwd").val("").focus();
-		return false;
-	}
-	if ($.trim($("#passwd2").val()) == "") {
-		alert("비밀번호 확인을 입력하세요.");
-		$("#passwd2").val("").focus();
-		return false;
-	}
-	if (!pwdRule.test($("#passwd").val())) {
-		alert("비밀번호는 영문자, 숫자, 특수문자(~!@#$%\^&*()+=) 포함 8~16자로 설정하세요.");
-		$("#passwd").val("").focus();
-		return false;
-	}
-	if ($.trim($("#passwd").val()) != $.trim($("#passwd2").val())) {
-		alert("비밀번호가 일치하지 않습니다.");
-		$("#passwd").val("");
-		$("#passwd2").val("");
-		$("#passwd").focus();
-		return false;
-	}
     if ($("#mem_type").val() == "0100") {
         // 학생 이름
         if ($.trim($("#student_name").val()) == "") {
@@ -219,14 +198,10 @@ $(document).ready(function() {
 //아이디 중복체크
 function id_check() {
 
+	idDuplChk = true;
+	
 	$("#idcheck").hide();
 	var memid = $("#username").val();
-	
-	if ($.trim($("#username").val()) == "") {
-		alert("학번을 입력하세요.");
-		$("#username").focus();
-		return false;
-	}
 
 	// 1. 입력글자 길이 체크
 	if ($.trim($("#username").val()).length == 10) {

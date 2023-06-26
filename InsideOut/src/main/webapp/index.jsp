@@ -15,7 +15,7 @@
 	<a href="staffList">상담사 리스트</a>
 	<a href="loginform">로그인</a> -->
 	<script>
-		location.href = "loginForm";
+		location.href = "joinSelect";
 	</script>
 </body>
 </html>

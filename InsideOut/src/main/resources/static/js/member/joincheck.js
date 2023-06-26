@@ -7,6 +7,7 @@ var pwdRule = /(?=.*\d{1,16})(?=.*[~`!@#$%\^&*()-+=]{1,16})(?=.*[a-zA-Z]{1,16}).
 // 정규식
 
 function check() {
+	
 	if ($.trim($("#username").val()) == "") {
 		alert("학번을 입력하세요.");
 		$("#username").focus();
@@ -17,7 +18,7 @@ function check() {
 		$("#username").focus();
 		return false;
 	}
-	if ($.trim($("#username").val()).length == 10) {
+	if ($.trim($("#username").val()).length !== 9) {
 		alert("학번은 9자이어야 합니다.")
 		$("#username").focus();
 		return false;
@@ -130,9 +131,8 @@ function check() {
 			return false;
 		}
 	}
-	if ($("#dept_name").val() == "") {
+	if ($("#dept_name").val() == null || $("#dept_name2").val() == null || $("#dept_name3").val() == null) {
 		alert("학과 또는 부서를 선택하세요.");
-		$("#dept_name").focus();
 		return false;
 	}
 
@@ -153,9 +153,13 @@ $(document).ready(function() {
 		if ($('input[type=radio][name="dept_type"]:checked').val() == "학과") {
 			$("#dept_name3").css("visibility", "hidden");
 			$("#dept_name2").css("visibility", "visible");
+			$("#dept_name3").css("display","none");
+			$("#dept_name2").css("display","block");
 		} else if ($('input[type=radio][name="dept_type"]:checked').val() == "부서") {
 			$("#dept_name2").css("visibility", "hidden");
 			$("#dept_name3").css("visibility", "visible");
+			$("#dept_name2").css("display","none");
+			$("#dept_name3").css("display","block");
 		}
 
 	});
@@ -313,7 +317,7 @@ function id_check() {
 	}
 
 	// 1.입력글자 길이 체크
-	if ($.trim($("#username").val()).length == 10) {
+	if ($.trim($("#username").val()).length !== 9) {
 		var newtext = '<font color="red">학번은 9자이어야 합니다.</font>';
 		$("#idcheck").text('');
 		$("#idcheck").show();
