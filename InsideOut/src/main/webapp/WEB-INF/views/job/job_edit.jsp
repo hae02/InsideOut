@@ -10,13 +10,9 @@
 
 <!-- 보기 편하게 CSS 추가해주었습니다. -->
 <style>
-* {
-	text-align: center;
-}
-
 #formgroup {
-	border: 1px solid;
-	width: 70%;
+	border: none;
+	width: 945px;
 	margin: 0 auto;
 }
 
@@ -25,35 +21,70 @@
 	width: 50%;
 	margin: 0 auto;
 }
-/* !!여기!! 새로운 div태그 스타일 추가해줬습니다. */
-#post_content {
+
+#postwrite_menu {
+	text-align: center;
+}
+
+/* post_container의 너비를 조절합니다. */
+#post_container {
 	width: 50%;
-	height: 100px;
-	margin: 30px auto;
-	border: 1px solid;
+	margin: 0 auto;
+}
+
+/* 로고이미지 */
+.image {
+	position: relative;
+}
+
+/* 로고이미지 내부 글씨 */
+.image .img_text {
+	position: absolute;
+	bottom: 30px;
+	left: 100px;
+	color: #FFF;
+	font-size: 70px;
+}
+
+/* 로고이미지 사이즈 조절 */
+.local {
+	width: 100%;
+	height: 400px;
+	object-fit: cover;
+	object-position: left 0px;
+	position: relative;
 }
 </style>
 
 <!-- TOAST UI Editor CDN URL(CSS)-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.min.css" />
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
+	crossorigin="anonymous">
 </head>
 <body>
-	<h1>취업 수정</h1>
+	<c:import url="../staffHeader.jsp" />
+	 <div class="form-group image" >
+	<img class="local" id="main_img" src="/images/Bbanner1.jpg">
+	<div class="img_text container" id="img_text">
+	<span><p>취업게시판</p></span>
+	</div>
+	</div>
+
 	<form method="post" action="board_edit_ok" enctype="multipart/form-data">
 		<input Type = hidden name= post_no value="${bcont.post_no}"/>
 		<input Type = hidden name= page value="${page}"/>
 		<input Type = hidden name= board_name value="job"/>
-		<div class="formgroup">
-			<label for="post_title">글제목:  </label> <input
-				name="post_title" id="post_title" size="60" class="input_box" value="${bcont.post_title}" />
-		</div>
-		<table border=0 width=400 align=center>
-			<tr>
-				<th>파일</th>
-				<td><input type="file" name="nFile"></td>
-			</tr>
-		</table> 
+	<div class="container d-flex justify-content-center" id="post_container">
+    <div class="form-group" id="formgroup">
+      <label class="col-form-label mt-4" for="post_title"></label>
+      <input name="post_title" id="post_title" class="form-control" type="text" value="${bcont.post_title}">
+      <label for="formFile" class="form-label mt-4"></label>
+      <input name="nFile" id="formFile" class="form-control" type="file">
+    </div>
+  </div>
 		<br>
 		<!-- TOAST UI Editor가 들어갈 div태그 -->
 		<div id="editor" class="editor-container"></div>

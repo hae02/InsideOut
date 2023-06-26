@@ -8,7 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <title>받은 메시지</title>
-
+<!-- <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
+	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
+	crossorigin="anonymous"> -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/flatly/bootstrap.min.css"
+	integrity="sha384-qF/QmIAj5ZaYFAeQcrQ6bfVMAh4zZlrGwTPY7T/M+iTTLJqJBJjwwnsE5Y0mV7QK"
+	crossorigin="anonymous">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -16,7 +23,74 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 
+<!-- 파비콘  -->
+<link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
+
+
 <style>
+.bd-navbar {
+	position: sticky;
+	top: 0;
+	z-index: 1071;
+	min-height: 4rem;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .05), inset 0 -1px 0
+		rgba(0, 0, 0, .1);
+}
+
+.bd-sidebar {
+	position: sticky;
+	z-index: 1000;
+	background: #fff;
+	border-right: 1px solid rgba(0, 0, 0, .1);
+	overflow-y: auto;
+	min-width: 160px;
+	max-width: 25% !important;
+	margin-top: 4rem; /* Adjust the top margin if needed */
+	padding-right: 0; /* Remove right padding */
+	padding-left: 0; /* Remove left padding */
+}
+
+.bd-sidebar .nav {
+	display: block;
+	margin: 20px auto;
+}
+
+.bd-sidebar .nav>li>a {
+	display: block;
+	padding: 1rem 1.5rem;
+	font-size: 110%;
+	text-decoration: none;
+	color: green;
+	font-weight: bold;
+}
+
+.bd-sidebar .nav>li>a.text-info {
+	color: #28a745; /* Change text color to green */
+}
+
+/* Increase the vertical spacing */
+.bd-sidebar {
+	margin-top: 1rem;
+}
+
+.container {
+	margin-top: 2rem; /* Increase container spacing */
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.row .col-3 .nav>li>a:hover {
+	text-decoration: none;
+	color: #D3D3D3;
+	background-color: #D3D3D3; /* Add background color for hover effect */
+}
+</style>
+
+<!-- <style>
+.container-fluid {
+	width: 1400px !important;
+}
+
 .bd-navbar {
 	position: sticky;
 	top: 0;
@@ -46,10 +120,35 @@
 	padding: 1rem 1.5rem;
 	font-size: 110%;
 	text-decoration: none;
-	color: green;
+	color: navy;
 	font-weight: bold;
 }
 </style>
+ -->
+<!-- <style>
+.pg-wrapper {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.pg-wrapper .pgn {
+	display: inline-block;
+}
+</style> -->
+
+<style>
+.pg-wrapper {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pg-wrapper .pgn {
+	display: inline-block;
+}
+</style>
+
 
 <script>
 	// 받은 메세지
@@ -63,102 +162,197 @@
 		alert(send_id);
 		location.href = "sendlist?send_id=" + send_id;
 	}
-
-	function msgchk() {
-		alert("전체 메시지를 읽음처리합니다.");
-		var checkboxes = document.getElementsByName("checked");
-		for (var i = 0; i < checkboxes.length; i++) {
-			if (checkboxes[i].checked) {
-				var row = checkboxes[i].parentNode.parentNode;
-				var contentCell = row.cells[2];
-				contentCell.style.textDecoration = "none";
-			}
-		}
-		document.getElementById("rdform").action = "msgchk";
-		document.getElementById("rdform").submit();
-	}
-
-	function msgdel() {
-		if (confirm("정말로 선택한 메시지를 삭제하시겠습니까?")) {
-			document.getElementById("rdform").action = "msgdel";
-			document.getElementById("rdform").submit();
-		}
-	}
 </script>
+
+<style>
+/* .table-hover tbody tr.table-secondary:hover { */
+.table-hover
+ 
+tbody
+ 
+tr
+ 
+.
+{
+background-color
+:
+ 
+#f5f5f5
+;
+
+	
+cursor
+:
+ 
+pointer
+;
+
+
+}
+</style>
 </head>
+
 <body>
+
+
+
+
 	<c:if test="${role == 'ROLE_STUDENT'}">
 		<c:import url="../studentHeader.jsp" />
 	</c:if>
 	<c:if test="${role == 'ROLE_STAFF'}">
 		<c:import url="../staffHeader.jsp" />
 	</c:if>
-	<div class="container">
+
+
+	<div class="row flex-nowrap">
+		<div class="col-3 bd-sidebar">
+			<ul class="nav">
+				<c:if test="${role == 'ROLE_STUDENT'}">
+					<li><a href="/api/v1/student/StudentList" class="text-info">상담
+							내역</a></li>
+					<li><a href="/api/v1/student/surveyList" class="text-info">만족도
+							조사</a></li>
+				</c:if>
+				<c:if test="${role == 'ROLE_STAFF'}">
+					<li><a href="/api/v1/staff/StaffList" class="text-info">상담
+							내역</a></li>
+					<li><a href="/api/v1/staff/surveyList" class="text-info">만족도
+							조사</a></li>
+				</c:if>
+				<li><a href="/api/v1/user/AskList" class="text-info">1:1 문의</a></li>
+				<li><a href="/api/v1/user/recvlist?recv_id=${send_id}"
+					class="text-info">받은쪽지함</a></li>
+				<li><a href="/api/v1/user/sendlist?send_id=${send_id}"
+					class="text-info">보낸쪽지함</a></li>
+				<li><a href="/api/v1/user/writenote?send_id=${send_id}"
+					class="text-info">쪽지작성</a></li>
+				<c:if test="${role == 'ROLE_STUDENT'}">
+					<li><a href="/api/v1/student/studentUpdateForm"
+						class="text-info">회원정보 수정</a></li>
+				</c:if>
+				<c:if test="${role == 'ROLE_STAFF'}">
+					<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보
+							수정</a></li>
+				</c:if>
+				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info">비밀번호
+						수정</a></li>
+			</ul>
+		</div>
+
+		<%-- <div class="container">
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
 					<c:if test="${role == 'ROLE_STUDENT'}">
-						<li><a href="/api/v1/student/StudentList">상담 내역</a></li>
-						<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
+						<li><a href="/api/v1/student/StudentList" class="text-info">상담 내역</a></li>
+						<li><a href="/api/v1/student/surveyList" class="text-info">만족도 조사</a></li>
 					</c:if>
 					<c:if test="${role == 'ROLE_STAFF'}">
-						<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
-						<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
+						<li><a href="/api/v1/staff/StaffList" class="text-info">상담 내역</a></li>
+						<li><a href="/api/v1/staff/surveyList" class="text-info">만족도 조사</a></li>
 					</c:if>
-					<li><a href="#">1:1 문의</a></li>
-					<li><a href="/api/v1/user/recvlist?recv_id=${recv_id}">받은쪽지함</a></li>
-					<li><a href="/api/v1/user/sendlist?send_id=${recv_id}">보낸쪽지함</a></li>
-					<li><a href="/api/v1/user/writenote?send_id=${recv_id}">쪽지작성</a></li>
+					<li><a href="#" class="text-info">1:1 문의</a></li>
+					<li><a href="/api/v1/user/recvlist?recv_id=${send_id}" class="text-info">받은쪽지함</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${send_id}" class="text-info">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${send_id}" class="text-info">쪽지작성</a></li>
 					<c:if test="${role == 'ROLE_STUDENT'}">
-						<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
+						<li><a href="/api/v1/student/studentUpdateForm" class="text-info">회원정보 수정</a></li>
 					</c:if>
 					<c:if test="${role == 'ROLE_STAFF'}">
-						<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
+						<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보 수정</a></li>
 					</c:if>
-					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
+					<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info">비밀번호 수정</a></li>
 				</ul>
-			</div>
-			<div class="col-9" style="margin-top: 20px;">
-				<h4>받은쪽지함</h4>
-				<form method="post" action="" name="rdform" id="rdform">
+			</div> --%>
+
+		<%-- <div class="col-9" style="margin-bottom: 20px;">
+				<!-- 페이징 처리  -->
+				<div class="pg-wrapper">
+					<ul class="pagination pagination-sm">
+						<a class="page-link" a href="recvlist?page=1&recv_id=${recv_id}"
+							style="text-decoration: none">&laquo;</a>
+						<c:if test="${startPage != 1}">
+							<a href="recvlist?page=${page}&recv_id=${recv_id}">&laquo;</a>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<li class="page-item active"><a class="page-link"
+								href="recvlist?page=${i}&recv_id=${recv_id}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage != pageCount}">
+							<a class="page-link"
+								href="recvlist?page=${page}&recv_id=${recv_id}">&raquo;</a>
+						</c:if>
+						<a class="page-link"
+							href="recvlist?page=${pageCount}&recv_id=${recv_id}"
+							style="text-decoration: none">&raquo;</a>
+					</ul>
+				</div> --%>
+
+		<div class="container" style="max-width: 1400px;">
+			<form method="post" action="" name="rdform" id="rdform">
+				<div class="table-hover">
 					<table class="table">
 						<thead>
 							<tr>
-								<th>No.</th>
-								<th>보낸 사람</th>
-								<th>받은 사람</th>
-								<th>내용</th>
-								<th>시간</th>
-								<!--          <th>확인</th> -->
+								<th style="width: 5%;">No.</th>
+								<th style="width: 25%;">보낸 사람</th>
+								<th style="width: 15%;">받은 사람</th>
+								<th style="width: 35%;">내용</th>
+								<th style="width: 20%;">시간</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${noteList}" var="note" varStatus="vs">
+								<!-- 			<tr class="table-secondary" style="background-color: pink;"> -->
 								<tr>
-									<td style="width: 6%; text-align: center;">${note.note_no}</td>
-									<td style="width: 15%; text-align: center;">${note.send_id}</td>
-									<td style="width: 15%; text-align: center;">${note.recv_id}</td>
-									<td style="width: 30%; text-align: center;"><a href=""
-										id="message" data-bs-toggle="modal"
-										data-bs-target="#noteModal${vs.index}">${note.message}</a></td>
-									<td style="width: 16%; text-align: center;"><fmt:formatDate
-											value="${note.rcv_dt}" pattern="yyyy.MM.dd" /></td>
-									<%--                                     <td style="width: 6%; text-align: center;"><input type="checkbox" id="checked" name="checked" value="${note.note_no}" style="width: 20px; height: 20px;"></td> --%>
+									<td>${note.note_no}</td>
+									<td><c:choose>
+											<c:when test="${not empty note.send_nm}">
+													${note.send_nm}
+												</c:when>
+											<c:otherwise>
+													${note.send_id}
+												</c:otherwise>
+										</c:choose></td>
+									<td><c:choose>
+											<c:when test="${not empty note.recv_nm}">
+													${note.recv_nm}
+												</c:when>
+											<c:otherwise>
+													${note.recv_id}
+												</c:otherwise>
+										</c:choose></td>
+									<td><a href="" id="message" data-bs-toggle="modal"
+										data-bs-target="#noteModal${vs.index}"> ${note.message} </a></td>
+									<td><fmt:formatDate value="${note.rcv_dt}"
+											pattern="yyyy.MM.dd" /></td>
 								</tr>
-
-								<!-- Modal -->
 								<div class="modal fade" id="noteModal${vs.index}" tabindex="-1"
 									aria-labelledby="resultModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5>보낸이 ${note.send_id}</h5>
+												<h5>
+													보낸이
+													<c:choose>
+														<c:when test="${not empty note.send_nm}">
+																${note.send_nm}
+															</c:when>
+														<c:otherwise>
+																${note.send_id}
+															</c:otherwise>
+													</c:choose>
+												</h5>
 												<button type="button" class="btn-close"
 													data-bs-dismiss="modal" aria-label="Close"></button>
 											</div>
 											<div class="modal-body">
-												<p>${note.message}</p>
+												<button type="button" class="btn btn-link"
+													style="white-space: pre-line; text-decoration: none;">
+													${note.message}</button>
 											</div>
+
 											<div class="modal-footer">
 												<button type="button" class="btn btn-outline-primary"
 													onClick="location.href='notereplyform?send_id=${note.send_id}&recv_id=${note.recv_id}&note_No=${note.note_no}'">답장</button>
@@ -171,34 +365,58 @@
 							</c:forEach>
 						</tbody>
 					</table>
+				</div>
+			</form>
 
-
-					<!-- 페이지 블록 -->
-					<div class="pgn" style="text-align: center;">
-						<a href="recvlist?page=1&recv_id=${recv_id}"
-							style="text-decoration: none"> < </a>
-						<c:if test="${startPage !=1 }">
-							<a href="recvlist?page=${page }&recv_id=${recv_id}">이전</a>
+			<%-- <div class="col-9" style="margin-bottom: 20px;">
+				<div class="pg-wrapper text-center">
+					<ul class="pagination pagination-sm">
+						<a class="page-link" a href="recvlist?page=1&recv_id=${recv_id}"
+							style="text-decoration: none">&laquo;</a>
+						<c:if test="${startPage != 1}">
+							<a href="recvlist?page=${page}&recv_id=${recv_id}">&laquo;</a>
 						</c:if>
 						<c:forEach var="i" begin="${startPage}" end="${endPage}">
-							<a href="recvlist?page=${i}&recv_id=${recv_id}"> [${i}] </a>
+							<li class="page-item active"><a class="page-link"
+								href="recvlist?page=${i}&recv_id=${recv_id}">${i}</a></li>
 						</c:forEach>
 						<c:if test="${endPage != pageCount}">
-							<a href="recvlist?page=${page }&recv_id=${recv_id}">다음 </a>
+							<a class="page-link"
+								href="recvlist?page=${page}&recv_id=${recv_id}">&raquo;</a>
 						</c:if>
-						<a href="recvlist?page=${pageCount }&recv_id=${recv_id}"
-							style="text-decoration: none"> > </a>
-					</div>
+						<a class="page-link"
+							href="recvlist?page=${pageCount}&recv_id=${recv_id}"
+							style="text-decoration: none">&raquo;</a>
+					</ul>
+				</div> --%>
+
+			<div class="col-9" style="margin-bottom: 20px;">
+				<div class="pg-wrapper text-center">
+					<ul class="pagination pagination-sm">
+						<li class="page-item"><a class="page-link"
+							href="recvlist?page=1&recv_id=${recv_id}"
+							style="text-decoration: none">&laquo;</a></li>
+						<c:if test="${startPage != 1}">
+							<li class="page-item"><a class="page-link"
+								href="recvlist?page=${page}&recv_id=${recv_id}">&laquo;</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${startPage}" end="${endPage}">
+							<li class="page-item active"><a class="page-link"
+								href="recvlist?page=${i}&recv_id=${recv_id}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${endPage != pageCount}">
+							<li class="page-item"><a class="page-link"
+								href="recvlist?page=${page}&recv_id=${recv_id}">&raquo;</a></li>
+						</c:if>
+						<li class="page-item"><a class="page-link"
+							href="recvlist?page=${pageCount}&recv_id=${recv_id}"
+							style="text-decoration: none">&raquo;</a></li>
+					</ul>
+				</div>
 			</div>
 
 
-
-			<!--  <div style="float: left;">
-                        <button type="button" class="btn btn-primary" onclick="msgchk()">읽음</button>
-                    </div> -->
-			</form>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

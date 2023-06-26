@@ -31,6 +31,9 @@
 	overflow-y: auto;
 	min-width: 160px;
 	max-width: 25% !important;
+	margin-top: 4rem; /* Adjust the top margin if needed */
+	padding-right: 0; /* Remove right padding */
+	padding-left: 0; /* Remove left padding */
 }
 
 .bd-sidebar .nav {
@@ -45,6 +48,27 @@
 	text-decoration: none;
 	color: green;
 	font-weight: bold;
+}
+
+.bd-sidebar .nav>li>a.text-info {
+	color: #28a745; /* Change text color to green */
+}
+
+/* Increase the vertical spacing */
+.bd-sidebar {
+	margin-top: 1rem;
+}
+
+.container {
+	margin-top: 2rem; /* Increase container spacing */
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.row .col-3 .nav>li>a:hover {
+	text-decoration: none;
+	color: #D3D3D3;
+	background-color: #D3D3D3; /* Add background color for hover effect */
 }
 
 #question {
@@ -67,14 +91,21 @@
 		<div class="row flex-nowrap">
 			<div class="col-3 bd-sidebar">
 				<ul class="nav">
-					<li><a href="/api/v1/student/StudentList">상담 내역</a></li>
-					<li><a href="/api/v1/student/surveyList">만족도 조사</a></li>
-					<li><a href="#">1:1 문의</a></li>
-					<li><a href="/api/v1/user/recvlist?recv_id=${student_no}">받은쪽지함</a></li>
-                    <li><a href="/api/v1/user/sendlist?send_id=${student_no}">보낸쪽지함</a></li>
-                    <li><a href="/api/v1/user/writenote?send_id=${student_no}">쪽지작성</a></li>
-					<li><a href="/api/v1/student/studentUpdateForm">회원정보 수정</a></li>
-					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
+					<li><a href="/api/v1/student/StudentList" class="text-info">상담
+							내역</a></li>
+					<li><a href="/api/v1/student/surveyList" class="text-info">만족도
+							조사</a></li>
+					<li><a href="/api/v1/user/AskList" class="text-info">1:1 문의</a></li>
+					<li><a href="/api/v1/user/recvlist?recv_id=${student_no}"
+						class="text-info">받은쪽지함</a></li>
+					<li><a href="/api/v1/user/sendlist?send_id=${student_no}"
+						class="text-info">보낸쪽지함</a></li>
+					<li><a href="/api/v1/user/writenote?send_id=${student_no}"
+						class="text-info">쪽지작성</a></li>
+					<li><a href="/api/v1/student/studentUpdateForm"
+						class="text-info">회원정보 수정</a></li>
+					<li><a href="/api/v1/user/PasswordUpdateForm"
+						class="text-info">비밀번호 수정</a></li>
 				</ul>
 			</div>
 
@@ -102,7 +133,8 @@
 					<c:forEach var="question" items="${question}" begin="5">
 						<div class="questionname">Q. ${question.question_name}</div>
 						<textarea name="answer${question.question_no}"
-							id="answer${question.question_no}" class="form-control surveysubj"></textarea>
+							id="answer${question.question_no}"
+							class="form-control surveysubj"></textarea>
 					</c:forEach>
 
 					<div>

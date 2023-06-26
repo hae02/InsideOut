@@ -63,7 +63,7 @@ table, td, th {
 				<ul class="nav">
 					<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
 					<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
-					<li><a href="#">1:1 문의</a></li>
+					<li><a href="/api/v1/user/AskList">1:1 문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
 					<li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
 					<li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>

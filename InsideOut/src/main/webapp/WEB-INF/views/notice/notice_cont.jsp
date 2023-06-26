@@ -6,11 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 내용</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-	<div id="noticecont_wrap">
+	<c:if test="${memtype == '0100'}">
+	<c:import url="../studentHeader.jsp" />
+	</c:if>
+	<c:if test="${memtype != '0100'}">
+	<c:import url="../staffHeader.jsp" />
+	</c:if>
+	
+	
+	<div class="container">
 		<h2 class="noticecont_title">게시물 내용보기</h2>
 		<table id="noticecont_t">
 			<tr>

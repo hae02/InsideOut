@@ -382,6 +382,7 @@ public class BoardController {
 
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 		String name = principalDetails.getUser().getUsername();
+		String role = memberService.getUserRole(name);
 		String membertype = principalDetails.getUser().getMem_type();
 		String writer;
 		if (membertype.equals("0100")) {
@@ -394,6 +395,7 @@ public class BoardController {
 
 		List<BoardBean> askList = boardService.getAskList(writer);
 
+		model.addAttribute("role", role);
 		model.addAttribute("askList", askList);
 
 		return "ask/askList";
