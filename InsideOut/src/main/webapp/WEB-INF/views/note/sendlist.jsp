@@ -182,7 +182,7 @@ style="text-decoration: none">&raquo;</a>
 								<%-- 		<td style="width: 5%; text-align: center;">${note.note_no}</td> --%>
 										<td>${send.note_no}</td>
 									<!-- 	<td style="width: 30%; text-align: center;"> -->
-										<td>
+										<%-- <td>
 											<c:choose>
 												<c:when test="${not empty send.send_nm}">
 													${send.send_nm}
@@ -191,7 +191,19 @@ style="text-decoration: none">&raquo;</a>
 													${send.send_id}
 												</c:otherwise>
 											</c:choose>
-										</td>
+										</td> --%>
+									<td>
+  <c:choose>
+    <c:when test="${not empty send.send_nm}">
+      ${send.send_nm}
+    </c:when>
+    <c:otherwise>
+   	${send.send_id} 
+    </c:otherwise>
+  </c:choose>
+</td>
+
+										
 									<!-- 	<td style="width: 15%; text-align: center;"> -->
 										<td>
 											<c:choose>

@@ -3,8 +3,8 @@
 
 <mapper namespace="com.example.InsideOut.dao.StudentDAO">
 
-    <select id="getStudentByMemNo" parameterType="String" resultType="student">
-        SELECT * FROM student WHERE student_no = #{username}
+    <select id="getStudentByMemNo" parameterType="String" resultType="student">        
+        SELECT * FROM student WHERE student_no = #{username}        
     </select>
 
     <update id="updateStudent" parameterType="student">

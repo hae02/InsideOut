@@ -9,8 +9,8 @@
     
     <!-- note 테이블에 쪽지 삽입 -->
 	<insert id="sendNote" parameterType="com.example.InsideOut.model.NoteBean">
-   	 INSERT INTO note (message, snd_dt, rcv_dt, recv_id, send_id)
-   	 VALUES (#{message}, sysdate(), sysdate(), #{recv_id}, #{send_id})
+   	 INSERT INTO note (message, snd_dt, rcv_dt, recv_id, send_id, send_nm, recv_nm)
+   	 VALUES (#{message}, sysdate(), sysdate(), #{recv_id, jdbcType=VARCHAR}, #{send_id}, #{send_nm}, #{recv_nm, jdbcType=VARCHAR} )
 	</insert>
 	
 	<select id="getNoteno" resultType="int">
@@ -42,43 +42,7 @@ FROM
 WHERE
     t1.recv_id = #{recv_id}
 ORDER BY
-    t1.note_no DESC
-    
-  <!--   <select id="getReceivedList" parameterType="com.example.InsideOut.model.NoteBean" resultType="com.example.InsideOut.model.NoteBean">
-            select t1.note_no
-            , t1.message
-            , t1.snd_dt
-            , t1.rcv_dt
-            , t1.recv_id
-            , t1.send_id
-            , t1.recv_nm
-            , t1.send_nm
-            , case 
-                when m1.mem_type = '0100' then (select student_name
-                                                 from student
-                                                 where student_no = t1.recv_id)
-                when m1.mem_type = '0200' then (select staff_name
-                                                  from staff
-                                                where staff_no = t1.recv_id)
-           end AS recv_nm
-            , case 
-                when m1.mem_type = '0100' then (select student_name
-                                                 from student
-                                                 where student_no = t1.send_id)
-                when m1.mem_type = '0200' then (select staff_name
-                                                  from staff
-                                                where staff_no = t1.send_id)
-           end AS send_nm
-                
-            from note t1
-            left join member m1 on (m1.username = t1.recv_id)
-            left join member m2 on (m2.username = t1.send_id)
-        where recv_id =  #{recv_id}
-        where recv_id =  '202301044'
-        order by note_no desc
-        limit #{startRow}, #{endRow}
-    </select> -->
-    
+    t1.note_no DESC   
     </select>
 
     <!-- 보낸 쪽지 리스트 -->

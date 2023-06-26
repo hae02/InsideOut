@@ -152,11 +152,10 @@ $(function() {
                 <li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
             </ul>
         </div>
-
         <div class="container note-form-container">
             <form class="note-form" id="snote" method="post" action="sendnote">
-                <input type="hidden" name="send_id" value="${sessionScope.send_id}">
-                <input type="hidden" name="send_id" value="${sessionScope.recv_id}">
+               <%--  <input type="hidden" name="send_id" value="${sessionScope.send_id}"> --%>
+               <%--  <input type="hidden" name="recv_id" value="${sessionScope.recv_id}"> --%>
                 <label for="recv_id">받는 사람:</label>
                 <input type="text" id="recv_id" name="recv_id">
                 <br>
@@ -173,6 +172,6 @@ $(function() {
             </form>
         </div>
     </div>
-</div>
+</div>${sessionScope.send_id}-${sessionScope.recv_id}
 </body>
 </html>
