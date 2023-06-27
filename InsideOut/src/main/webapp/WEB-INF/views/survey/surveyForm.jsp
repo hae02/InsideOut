@@ -95,17 +95,20 @@
 							내역</a></li>
 					<li><a href="/api/v1/student/surveyList" class="text-info">만족도
 							조사</a></li>
-					<li><a href="/api/v1/user/AskList" class="text-info">1:1 문의</a></li>
+					<li><a href="/api/v1/user/AskList" class="text-info">1:1
+							문의</a></li>
 					<li><a href="/api/v1/user/recvlist?recv_id=${student_no}"
 						class="text-info">받은쪽지함</a></li>
 					<li><a href="/api/v1/user/sendlist?send_id=${student_no}"
 						class="text-info">보낸쪽지함</a></li>
 					<li><a href="/api/v1/user/writenote?send_id=${student_no}"
-						class="text-info">쪽지작성</a></li>
+						class="text-info" data-bs-toggle="modal"
+						data-bs-target="#wnoteModal">쪽지작성</a></li>
 					<li><a href="/api/v1/student/studentUpdateForm"
 						class="text-info">회원정보 수정</a></li>
 					<li><a href="/api/v1/user/PasswordUpdateForm"
-						class="text-info">비밀번호 수정</a></li>
+						class="text-info" data-bs-toggle="modal"
+						data-bs-target="#noteModal">비밀번호 수정</a></li>
 				</ul>
 			</div>
 

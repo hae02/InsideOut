@@ -31,6 +31,51 @@
 .button-container {
 	margin-bottom: 2rem; /* 원하는 간격 값으로 수정하세요 */
 }
+
+#formgroup {
+	border: none;
+	width: 945px;
+	margin: 0 auto;
+}
+
+#editor {
+	/* border: 1px solid; */
+	width: 50%;
+	margin: 0 auto;
+}
+
+#postwrite_menu {
+	text-align: center;
+}
+
+/* post_container의 너비를 조절합니다. */
+#post_container {
+	width: 50%;
+	margin: 0 auto;
+}
+
+/* 로고이미지 */
+.image {
+	position: relative;
+}
+
+/* 로고이미지 내부 글씨 */
+.image .img_text {
+	position: absolute;
+	bottom: 30px;
+	left: 100px;
+	color: #FFF;
+	font-size: 70px;
+}
+
+/* 로고이미지 사이즈 조절 */
+.local {
+	width: 100%;
+	height: 400px;
+	object-fit: cover;
+	object-position: left 0px;
+	position: relative;
+}
 </style>
 </head>
 <body>
@@ -40,6 +85,12 @@
 	<c:if test="${role == 'ROLE_STAFF'}">
 		<c:import url="../staffHeader.jsp" />
 	</c:if>
+	<div class="form-group image">
+		<img class="local" id="main_img" src="/images/Bbanner1.jpg">
+		<div class="img_text container" id="img_text">
+			<span><p>QnA</p></span>
+		</div>
+	</div>
 	<div id="QnAlist_wrap">
 		<div class="container">
 			<c:if test="${memtype != '0100'}">

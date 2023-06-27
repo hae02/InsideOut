@@ -7,13 +7,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>쪽지 보내기</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
-	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
 
+
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css"
+	rel="stylesheet">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+
+<link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
 
 <style>
 .bd-navbar {
@@ -72,35 +80,37 @@
 	color: #D3D3D3;
 	background-color: #D3D3D3; /* Add background color for hover effect */
 }
+</style>
 
+<style>
 .note-form-container {
-	max-width: 500px;
+	max-width: 600px;
 	margin: 0 auto;
 }
 
-.note-form {
-	padding: 20px;
-	background-color: #f5f5f5;
-	border: 1px solid #ccc;
-}
-
 .note-form label {
-	display: block;
-	margin-bottom: 10px;
+	margin-top: 1rem;
 	font-weight: bold;
 }
 
 .note-form input[type="text"], .note-form textarea {
 	width: 100%;
-	padding: 8px;
-	border: 1px solid #ccc;
+	padding: 0.5rem;
+	margin-top: 0.5rem;
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
 }
 
 .note-form textarea {
-	margin-bottom: 10px;
-	/* Add spacing between the note content and the textarea */
+	resize: vertical;
+}
+
+.note-form button[type="submit"] {
+	margin-top: 1rem;
+	width: 100%;
 }
 </style>
+
 
 <script>
 	$(function() {
@@ -127,8 +137,7 @@
 	<c:if test="${role == 'ROLE_STAFF'}">
 		<c:import url="../staffHeader.jsp" />
 	</c:if>
-
-	<div class="row">
+	<div class="row flex-nowrap">
 		<div class="col-3 bd-sidebar">
 			<ul class="nav">
 				<c:if test="${role == 'ROLE_STUDENT'}">
@@ -144,12 +153,13 @@
 							조사</a></li>
 				</c:if>
 				<li><a href="/api/v1/user/AskList" class="text-info">1:1 문의</a></li>
-				<li><a href="/api/v1/user/recvlist?recv_id=${send_id}"
+				<li><a href="/api/v1/user/recvlist?recv_id=${recv_id}"
 					class="text-info">받은쪽지함</a></li>
-				<li><a href="/api/v1/user/sendlist?send_id=${send_id}"
+				<li><a href="/api/v1/user/sendlist?send_id=${recv_id}"
 					class="text-info">보낸쪽지함</a></li>
-				<li><a href="/api/v1/user/writenote?send_id=${send_id}"
-					class="text-info">쪽지작성</a></li>
+				<li><a href="/api/v1/user/writenote?send_id=${recv_id}"
+					class="text-info" data-bs-toggle="modal"
+					data-bs-target="#wnoteModal">쪽지작성</a></li>
 				<c:if test="${role == 'ROLE_STUDENT'}">
 					<li><a href="/api/v1/student/studentUpdateForm"
 						class="text-info">회원정보 수정</a></li>
@@ -158,29 +168,30 @@
 					<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보
 							수정</a></li>
 				</c:if>
-				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info">비밀번호
-						수정</a></li>
+				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info"
+					data-bs-toggle="modal" data-bs-target="#noteModal">비밀번호 수정</a></li>
 			</ul>
 		</div>
 
-		<div class="col-9">
+		<div class="container" style="max-width: 1000px;">
 			<div class="container note-form-container">
 				<form class="note-form" id="snote" method="post" action="sendnote">
 					<label for="recv_id">받는 사람:</label> <input type="text" id="recv_id"
 						name="recv_id"> <br>
 					<div class="form-group">
-						<label for="message">쪽지 내용:</label>
+						<br> <label for="message">쪽지 내용:</label>
 						<textarea class="form-control" id="message" cols="100" rows="10"
-							name="message"></textarea>
+							name="message" required="required"></textarea>
 					</div>
-
+					<br>
 					<div class="d-grid gap-2">
-						<button class="btn btn-lg btn-primary" type="submit" id="sendmsg"
-							class="btn btn-info btn-sm">보내기</button>
+						<button class="btn btn-lg btn-primary btn-sm" type="submit"
+							id="sendmsg" class="btn btn-info btn-sm">보내기</button>
 					</div>
-				</form>
 			</div>
+			</form>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

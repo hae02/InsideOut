@@ -12,8 +12,39 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
+<style>
+/* 로고이미지 */
+.image {
+	position: relative;
+}
+
+/* 로고이미지 내부 글씨 */
+.image .img_text {
+	position: absolute;
+	bottom: 30px;
+	left: 100px;
+	color: #FFF;
+	font-size: 80px;
+}
+
+/* 로고이미지 사이즈 조절 */
+.local {
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+	object-position: left 0px;
+	/* position: relative; */
+}
+</style>
 <body>
 	<c:import url="../studentHeader.jsp" />
+	<div class="form-group image">
+		<img class="local" id="main_img" src="/images/img_sub01.png">
+		<div class="img_text container" id="img_text">
+			<span><p>${counselType.counsel_typename}</p></span> <span><h5
+					style="color: #fff; font-size: 24px;">${counselType.counsel_typedetail}</h5></span>
+		</div>
+	</div>
 	<div class="container">
 		<form method="post" action="counselContentOk">
 			<input type="hidden" id="student_no" name="student_no"

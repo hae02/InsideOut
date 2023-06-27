@@ -38,7 +38,7 @@ public class LoginController {
 		String role = memberService.getUserRole(username);
 
 		if (role.equals("ROLE_STUDENT")) {
-			return "redirect:/api/v1/student/StudentList";
+			return "redirect:/api/v1/student/counselType";
 		} else if (role.equals("ROLE_STAFF")) {
 			return "redirect:/api/v1/staff/StaffList";
 		} else if (role.equals("ROLE_ADMIN")) {

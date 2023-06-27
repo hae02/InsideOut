@@ -403,9 +403,16 @@ public class BoardController {
 
 	// 관리자 문의게시판 목록 조회
 	@RequestMapping("/admin/adminAskList")
-	public String getAskBoardList(Model model) throws Exception {
+	public String getAskBoardList(Authentication authentication, Model model) throws Exception {
+		
+		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+		String username = principalDetails.getUser().getUsername();
+		String role = memberService.getUserRole(username);
+		String membertype = principalDetails.getUser().getMem_type();
 
 		List<BoardBean> askBoardList = boardService.getAskBoardList();
+		model.addAttribute("role", role);
+		model.addAttribute("membertype", membertype);
 		model.addAttribute("askBoardList", askBoardList);
 
 		return "ask/adminAskList";
@@ -418,10 +425,12 @@ public class BoardController {
 		PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 
 		String username = principalDetails.getUser().getUsername();
+		String role = memberService.getUserRole(username);
 		String membertype = principalDetails.getUser().getMem_type();
 		
 		BoardBean askBoard = boardService.getAskView(post_no);
 
+		model.addAttribute("role", role);
 		model.addAttribute("membertype", membertype);
 		model.addAttribute("askBoard", askBoard);
 		return "ask/askView";

@@ -229,8 +229,7 @@ public class NoteController {
 	 */
 
 	
-	// 쪽지] 답장 작성
-	@RequestMapping("/notereply")
+	
 
 	/*
 	 * public String notereply(@RequestParam String send_id, @RequestParam String
@@ -251,6 +250,9 @@ public class NoteController {
 	 * }
 	 */
 	
+	// 쪽지] 답장 작성
+	 @RequestMapping("/notereply") 
+	/* @RequestMapping("/noteresult") */
 	public String notereply(Authentication authentication, @ModelAttribute NoteBean note, Model model) {
 		if (authentication != null) {
 
@@ -279,7 +281,7 @@ public class NoteController {
 			model.addAttribute("recv_id", note.getRecv_id());
 			model.addAttribute("result", result1);
 
-			return "note/recvlist";
+			return "note/notereply";
 		} else {
 			throw new NullPointerException("authentication is null");
 		}

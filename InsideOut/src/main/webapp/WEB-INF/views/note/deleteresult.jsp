@@ -11,7 +11,6 @@
     <c:when test="${result == 1}">
         <script>
             alert("쪽지 삭제 성공");
-   /*          location.href="noteclose.do"; */
    			   location.href="recvlist?recv_id=${recv_id}";
         </script>
     </c:when>

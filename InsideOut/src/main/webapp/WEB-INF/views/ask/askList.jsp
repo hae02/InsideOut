@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,6 +68,10 @@
 	color: #D3D3D3;
 	background-color: #D3D3D3; /* Add background color for hover effect */
 }
+
+#asklist_c {
+  margin-top: 2rem; /* 글쓰기 버튼 위쪽 간격 조정 */
+}
 </style>
 </head>
 <body>
@@ -80,21 +85,36 @@
 	<div class="row flex-nowrap">
 		<div class="col-3 bd-sidebar">
 			<ul class="nav">
-				<li><a href="/api/v1/student/StudentList" class="text-info">상담
-						내역</a></li>
-				<li><a href="/api/v1/student/surveyList" class="text-info">만족도
-						조사</a></li>
+				<c:if test="${role == 'ROLE_STUDENT'}">
+					<li><a href="/api/v1/student/StudentList" class="text-info">상담
+							내역</a></li>
+					<li><a href="/api/v1/student/surveyList" class="text-info">만족도
+							조사</a></li>
+				</c:if>
+				<c:if test="${role == 'ROLE_STAFF'}">
+					<li><a href="/api/v1/staff/StaffList" class="text-info">상담
+							내역</a></li>
+					<li><a href="/api/v1/staff/surveyList" class="text-info">만족도
+							조사</a></li>
+				</c:if>
 				<li><a href="/api/v1/user/AskList" class="text-info">1:1 문의</a></li>
-				<li><a href="/api/v1/user/recvlist?recv_id=${student_no}"
+				<li><a href="/api/v1/user/recvlist?recv_id=${send_id}"
 					class="text-info">받은쪽지함</a></li>
-				<li><a href="/api/v1/user/sendlist?send_id=${student_no}"
+				<li><a href="/api/v1/user/sendlist?send_id=${send_id}"
 					class="text-info">보낸쪽지함</a></li>
-				<li><a href="/api/v1/user/writenote?send_id=${student_no}"
-					class="text-info">쪽지작성</a></li>
-				<li><a href="/api/v1/student/studentUpdateForm"
-					class="text-info">회원정보 수정</a></li>
-				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info">비밀번호
-						수정</a></li>
+				<li><a href="/api/v1/user/writenote?send_id=${send_id}"
+					class="text-info" data-bs-toggle="modal"
+					data-bs-target="#wnoteModal">쪽지작성</a></li>
+				<c:if test="${role == 'ROLE_STUDENT'}">
+					<li><a href="/api/v1/student/studentUpdateForm"
+						class="text-info">회원정보 수정</a></li>
+				</c:if>
+				<c:if test="${role == 'ROLE_STAFF'}">
+					<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보
+							수정</a></li>
+				</c:if>
+				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info"
+					data-bs-toggle="modal" data-bs-target="#noteModal">비밀번호 수정</a></li>
 			</ul>
 			<br>
 		</div>

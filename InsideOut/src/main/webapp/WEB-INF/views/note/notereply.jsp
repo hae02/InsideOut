@@ -11,14 +11,14 @@
 <body>
 <c:if test="${result == 1 }">
 	<script>
-		alert("쪽지 보내기 성공");
-		location.href="notereplyform.do";
+		alert("답장 보내기 성공");
+		location.href="recvlist?recv_id=${recv_id}";
 	</script>
 </c:if>
 
 <c:if test="${result != 1 }">
 	<script>
-		alert("쪽지 보내기 실패");
+		alert("답장 보내기 실패");
 		history.go(-1);
 	</script>
 </c:if>

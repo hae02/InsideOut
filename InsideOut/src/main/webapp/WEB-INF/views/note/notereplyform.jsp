@@ -7,10 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>쪽지 보내기</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/minty/bootstrap.min.css"
-	integrity="sha384-H4X+4tKc7b8s4GoMrylmy2ssQYpDHoqzPa9aKXbDwPoPUA3Ra8PA5dGzijN+ePnH"
-	crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css"
+	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <link rel="shortcut icon" href="/images/floo3.ico" type="image/x-icon">
 
@@ -238,35 +237,22 @@ right
 	<div class="row flex-nowrap">
 		<div class="col-3 bd-sidebar">
 			<ul class="nav">
-				<c:if test="${role == 'ROLE_STUDENT'}">
-					<li><a href="/api/v1/student/StudentList" class="text-info">상담
-							내역</a></li>
-					<li><a href="/api/v1/student/surveyList" class="text-info">만족도
-							조사</a></li>
-				</c:if>
-				<c:if test="${role == 'ROLE_STAFF'}">
-					<li><a href="/api/v1/staff/StaffList" class="text-info">상담
-							내역</a></li>
-					<li><a href="/api/v1/staff/surveyList" class="text-info">만족도
-							조사</a></li>
-				</c:if>
-				<li><a href="/api/v1/user/AskList" class="text-info">1:1 문의</a></li>
-				<li><a href="/api/v1/user/recvlist?recv_id=${send_id}"
+				<li><a href="/api/v1/staff/StaffList" class="text-info">상담
+						내역</a></li>
+				<li><a href="/api/v1/staff/surveyList" class="text-info">만족도
+						조사</a></li>
+				<li><a href="#" class="text-info">1:1 문의</a></li>
+				<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}"
 					class="text-info">받은쪽지함</a></li>
-				<li><a href="/api/v1/user/sendlist?send_id=${send_id}"
+				<li><a href="/api/v1/user/sendlist?send_id=${staff_no}"
 					class="text-info">보낸쪽지함</a></li>
-				<li><a href="/api/v1/user/writenote?send_id=${send_id}"
-					class="text-info">쪽지작성</a></li>
-				<c:if test="${role == 'ROLE_STUDENT'}">
-					<li><a href="/api/v1/student/studentUpdateForm"
-						class="text-info">회원정보 수정</a></li>
-				</c:if>
-				<c:if test="${role == 'ROLE_STAFF'}">
-					<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보
-							수정</a></li>
-				</c:if>
-				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info">비밀번호
+				<li><a href="/api/v1/user/writenote?send_id=${staff_no}"
+					class="text-info" data-bs-toggle="modal"
+					data-bs-target="#wnoteModal">쪽지작성</a></li>
+				<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보
 						수정</a></li>
+				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info"
+					data-bs-toggle="modal" data-bs-target="#noteModal">비밀번호 수정</a></li>
 			</ul>
 		</div>
 
@@ -285,19 +271,89 @@ right
 				<br>
 
 				<div class="form-group">
-					<label for="message">쪽지 내용:</label>
+					<label for="message">쪽지 내용:</label> <br>
 					<textarea class="form-control" id="message" cols="100" rows="10"
 						name="message"></textarea>
 				</div>
 				<!--    <button type="submit" id="sendmsg" class="btn btn-info btn-sm">보내기</button> -->
-
+				<br>
 				<div class="d-grid gap-2">
 					<button class="btn btn-lg btn-primary" type="submit" id="sendmsg"
 						class="btn btn-info btn-sm">보내기</button>
 				</div>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close" onclick="modal.style.display = 'none';"></button>
 
 			</form>
 		</div>
 	</div>
+	</div>
+	</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%-- 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>답장하기</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+	function send() {
+	/* 	if ($("#nsubject").val() == "") {
+			alert("제목을 입력하세요");
+			$("#msubject").focus();
+			return false;
+		} */
+		if ($("#message").val() == "") {
+			alert("내용을 입력하세요");
+			$("#message").focus();
+			return false;
+		}
+		//	});	
+	/* 	document.myform.action = "/notereply";
+		document.myform.submit(); */
+//		self.close();
+	}
+</script>
+</head>
+<body>
+
+<div class="container" style="width:90%; margin:0 auto;">
+  <form id="snote" method="post"  action="sendnote">
+    <input type="hidden" name="send_id" value="${sessionScope.send_id}">
+           받는 사람: <input type="text" id="recv_id" name="recv_id">
+    <div class="form-group">
+      <textarea class="form-control" id="message" cols="100" rows="10" name="message"></textarea>
+    </div>
+    <input type="submit" id=sendreply class="btn btn-info btn-sm" value="답장" style="font-size:1.6rem;">
+  </form>
+</div>  
+
+
+
+</body>
+</html> --%>

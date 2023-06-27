@@ -11,7 +11,11 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css"
 	rel="stylesheet">
-
+<!-- <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"> -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 <style>
 .bd-navbar {
 	position: sticky;
@@ -86,11 +90,12 @@
 				<li><a href="/api/v1/user/sendlist?send_id=${staff_no}"
 					class="text-info">보낸쪽지함</a></li>
 				<li><a href="/api/v1/user/writenote?send_id=${staff_no}"
-					class="text-info">쪽지작성</a></li>
+					class="text-info" data-bs-toggle="modal"
+					data-bs-target="#wnoteModal">쪽지작성</a></li>
 				<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보
 						수정</a></li>
-				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info">비밀번호
-						수정</a></li>
+				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info"
+					data-bs-toggle="modal" data-bs-target="#noteModal">비밀번호 수정</a></li>
 			</ul>
 		</div>
 

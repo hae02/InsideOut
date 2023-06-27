@@ -53,61 +53,65 @@ table, td, th {
 	color: green;
 	font-weight: bold;
 }
+
+.container-fluid {
+	width: 1000px !important;
+}
 </style>
 <body>
 	<c:import url="../staffHeader.jsp" />
-	<div class="container">
-		<div class="row flex-nowrap">
-			<div class="col-3 bd-sidebar">
-				<ul class="nav">
-					<li><a href="/api/v1/staff/StaffList">상담 내역</a></li>
-					<li><a href="/api/v1/staff/surveyList">만족도 조사</a></li>
-					<li><a href="#">1:1 문의</a></li>
-					<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}">받은쪽지함</a></li>
-					<li><a href="/api/v1/user/sendlist?send_id=${staff_no}">보낸쪽지함</a></li>
-					<li><a href="/api/v1/user/writenote?send_id=${staff_no}">쪽지작성</a></li>
-					<li><a href="/api/v1/staff/staffUpdateForm">회원정보 수정</a></li>
-					<li><a href="/api/v1/user/PasswordUpdateForm">비밀번호 수정</a></li>
-				</ul>
-				<br>
+	<br>
+	<div class="row flex-nowrap">
+		<div class="col-3 bd-sidebar">
+			<ul class="nav">
+				<li><a href="/api/v1/staff/StaffList" class="text-info">상담 내역</a></li>
+				<li><a href="/api/v1/staff/surveyList" class="text-info">만족도 조사</a></li>
+				<li><a href="/api/v1/user/AskList" class="text-info">1:1 문의</a></li>
+				<li><a href="/api/v1/user/recvlist?recv_id=${staff_no}" class="text-info">받은쪽지함</a></li>
+				<li><a href="/api/v1/user/sendlist?send_id=${staff_no}" class="text-info">보낸쪽지함</a></li>
+				<li><a href="/api/v1/user/writenote?send_id=${staff_no}"
+					class="text-info" data-bs-toggle="modal"
+					data-bs-target="#wnoteModal">쪽지작성</a></li>
+				<li><a href="/api/v1/staff/staffUpdateForm" class="text-info">회원정보 수정</a></li>
+				<li><a href="/api/v1/user/PasswordUpdateForm" class="text-info"
+					data-bs-toggle="modal" data-bs-target="#noteModal">비밀번호 수정</a></li>
+			</ul>
+		</div>
+		<div class="container-fluid">
+			<input type="hidden" id="staff_no" name="staff_no"
+				value="${staff_no}"> <br>
+			<!-- <h3>상담기록</h3> -->
+			<div class="form-group row">
+				<label for="student_name" class="col-sm-2 col-form-label">학생이름:
+				</label>
+				<div class="col-sm-4">${record.student_name}</div>
+				<label for="student_no" class="col-sm-2 col-form-label">학번:
+				</label>
+				<div class="col-sm-4">${record.student_no}</div>
 			</div>
-			<form>
-				<input type="hidden" id="staff_no" name="staff_no"
-					value="${staff_no}">
-
-				<h3>상담기록</h3>
-
-				<table class="table table-bordered">
-					<tr>
-						<th>이름</th>
-						<td>${record.student_name}</td>
-						<th>학번</th>
-						<td>${record.student_no}</td>
-						<th>상담번호</th>
-						<td>${record.booking_no}</td>
-					</tr>
-					<tr>
-						<th>상담기록일</th>
-						<td colspan="3">${record.counsel_record_dt}</td>
-					</tr>
-					<tr>
-						<th>상담내용</th>
-						<td colspan="3">${record.counsel_content}</td>
-
-					</tr>
-					<!-- 기록일자 -->
-				</table>
-				<br> <input type="button" class="btn btn-success"
+			<div class="form-group row">
+				<label for="student_name" class="col-sm-2 col-form-label">상담기록
+					일자: </label>
+				<div class="col-sm-4"><fmt:formatDate value="${record.counsel_record_dt}"
+												pattern="yyyy-MM-dd" /></div>
+			</div>
+			<div class="form-group row">
+				<label for="student_name" class="col-sm-2 col-form-label">상담기록:</label>
+				<div class="counsel_content">${record.counsel_content}</div>
+			</div>
+			<br>
+			<div align="center">
+				<input type="button" class="btn btn-warning"
 					onclick="location.href='counselRecordList?page=${page}'" value="목록">
-				<input type="button" class="btn btn-success"
+				<input type="button" class="btn btn-warning"
 					onclick="location.href='counselRecordUpdate?booking_no=${record.booking_no}&page=${page}'"
-					value="수정"> <input type="button" class="btn btn-success"
+					value="수정"> <input type="button" class="btn btn-warning"
 					onclick="location.href='counselRecordDelete?booking_no=${record.booking_no}&page=${page}'"
 					value="삭제">
-			</form>
-			<script
-				src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+			</div>
 		</div>
 	</div>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

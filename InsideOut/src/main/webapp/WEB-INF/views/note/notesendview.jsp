@@ -16,23 +16,17 @@
 			<td width=100 align=center>보낸 이</td>
 			<td>${send_id}</td>
 		</tr>
-		
+
 		<tr>
 			<td height=200 align=center>내용</td>
 			<td>${message}</td>
 		</tr>
 		<tr>
-			<td colspan=2 align=center>
-			
-
-				<input type="button" value="답장하기"
-				onclick="location.href='notereplyform?send_id=${send.send_id}&recv_id=${send.recv_id}&note_No=${note.note_no}'">
-
-
-				<%-- <input type="button" value="삭제하기"
-				onclick="location.href='notedelete?note_No=${send.note_no}'"> --%>
+			<td colspan=2 align=center><input type="button" value="답장하기"
+				onclick="location.href='notereplyform?send_id=${send.send_id}
+				&recv_id=${send.recv_id}&note_No=${note.note_no}'">
 				<input type="button" value="삭제하기"
-    onclick="location.href='notedelete?note_No=${note.note_no}'">
+				onclick="location.href='notedelete?note_No=${note.note_no}'">
 
 
 

@@ -13,23 +13,35 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
 
 <script>
-
 	function deleteMember(mem_no) {
 		alert(mem_no);
 		location.href = "deleteMember?mem_no=" + mem_no;
 	}
 </script>
 
+<style>
+.main-button {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+</style>
+
 </head>
 <body>
-	<div>
+	<a href="adminMain" class="btn btn-outline-success main-button">관리자
+		메인</a>
+
+	<div style="margin-left: 100px; margin-right: 100px;">
 		<section id=content>
 			<div>&nbsp;</div>
 			<div id=title align="center">
-				<h2>회원목록 조회 / 수정</h2>
+				<h2>회원목록 조회</h2>
+				<br>
+				<br>
 			</div>
 			<div align="center">
-				<table class="table" id="table2">
+				<table class="table table-hover">
 					<tr>
 						<td>아이디</td>
 						<td>회원구분</td>
@@ -41,14 +53,21 @@
 							<td>${list.username }</td>
 							<td>${list.role }</td>
 							<td><input type="button" value="회원 삭제"
+								class="btn btn-outline-success"
 								onClick="deleteMember('${b.mem_no }')"></td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 
-			<div class="fl-search-container">
+			<div>
 				<form align="center">
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+
 					<!-- 검색 기능 폼-->
 					<input type="hidden" name="pageNum" value="1">
 					<!-- 페이지(1)와 search, keyword가지고 list로 이동 -->
@@ -57,13 +76,13 @@
 					<option value="username"
 						<c:if test="${search=='username'}">selected="selected" </c:if>>작성자</option>
 					</select>  --%>
-					<input type="text" placeholder="검색어를 입력해 주세요!" name="keyword"
-						required>
+					<input type="text" placeholder="아이디 검색" name="keyword" required>
 					<!-- 사용자가 입력한 검색어(keyword)를 list로 가져감 -->
-					<input type="submit" class="fl-search-btn" value="확인">
-				</form>
+					<input type="submit" style="margin-bottom: 5px;"
+						class="btn btn-outline-primary btn-sm" value="확인">
 			</div>
-
+			<br>
+			<br>
 			<div class="page d-flex justify-content-center">
 				<nav aria-label="Page navigation example">
 					<ul class="pagination">

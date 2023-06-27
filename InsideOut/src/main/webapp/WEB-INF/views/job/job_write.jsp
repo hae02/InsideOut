@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -54,6 +55,10 @@
 	object-position: left 0px;
 	position: relative;
 }
+
+.button-container button {
+	margin-right: 10px;
+}
 </style>
 
 <!-- TOAST UI Editor CDN URL(CSS)-->
@@ -69,24 +74,25 @@
 </head>
 <body>
 	<c:import url="../staffHeader.jsp" />
-	 <div class="form-group image" >
+	<div class="form-group image">
 		<img class="local" id="main_img" src="/images/Bbanner1.jpg">
 		<div class="img_text container" id="img_text">
 			<span><p>취업정보</p></span>
 		</div>
-	</div> 
-	
-	<form method="post" action="board_write_ok" enctype="multipart/form-data">
-	<input Type = hidden name= board_name value="job"/>
-	<input Type = hidden name= board_no value="200"/>
-	 <div class="container d-flex justify-content-center" id="post_container">
-    <div class="form-group" id="formgroup">
-      <label class="col-form-label mt-4" for="post_title"></label>
-      <input name="post_title" id="post_title" class="form-control" type="text" placeholder="제목을 입력하세요">
-      <label for="formFile" class="form-label mt-4"></label>
-      <input name="nFile" id="formFile" class="form-control" type="file">
-    </div>
-    </div>
+	</div>
+
+	<form method="post" action="board_write_ok"
+		enctype="multipart/form-data">
+		<input Type=hidden name=board_name value="job" /> <input Type=hidden
+			name=board_no value="200" />
+
+		<div class="form-group" id="formgroup">
+			<label class="col-form-label mt-4" for="post_title"></label> <input
+				name="post_title" id="post_title" class="form-control" type="text"
+				placeholder="제목을 입력하세요"> <label for="formFile"
+				class="form-label mt-4"></label> <input name="nFile" id="formFile"
+				class="form-control" type="file">
+		</div>
 		<br>
 		<!-- TOAST UI Editor가 들어갈 div태그 -->
 		<div id="editor" class="editor-container"></div>
@@ -95,7 +101,8 @@
 		<!-- !!여기!! HTML 형식의 내용을 받을 input 태그-->
 		<input type="hidden" name="htmlPost_content" id="htmlPost_content" />
 		<!-- TOAST UI Editor CDN URL(JS) -->
-		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+		<script
+			src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 
 		<!-- TOAST UI Editor 생성 JavaScript 코드 -->
 		<script>
@@ -110,7 +117,8 @@
 
 				const form = document.querySelector('form');
 				const postContent = document.querySelector('#post_content');
-				const htmlPostContent = document.querySelector('#htmlPost_content');
+				const htmlPostContent = document
+						.querySelector('#htmlPost_content');
 
 				form.addEventListener('submit', function(event) {
 					event.preventDefault();
@@ -130,12 +138,13 @@
 			});
 		</script>
 
-
-		<div id="postwrite_menu">
-			<input type="submit" value="등록" class="input_button" /> <input
-				type="reset" value="취소" class="input_button"
+		<br>
+		<div id="postwrite_menu" class="button-container">
+			<input type="submit" value="등록" class="btn btn-success" /> <input
+				type="reset" value="취소" class="btn btn-success"
 				onclick="$('#post_title').focus();" />
 		</div>
 	</form>
+	<br>
 </body>
 </html>
