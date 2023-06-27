@@ -88,12 +88,14 @@ td.title {
 </style>
 <body>
 	<c:import url="../studentHeader.jsp" />
-	<!-- <div class="form-group image">
-		<img class="local" id="main_img" src="/images/inside out.png">
+	<div class="form-group image">
+		<img class="local" id="main_img" src="/images/box4_4.jpeg">
 		<div class="img_text container" id="img_text">
-			<span><p align="center">INSIDE OUT</p></span> 
+			<span><p>인사이드 아웃이 함께합니다.</p></span> <span><h5
+					style="color: #fff; font-size: 24px;">인사이드 아웃은 성장과 소통 실천을 통한 자아실현을 교육이념으로하는 대학교 상담센터입니다.
+본 센터에서는 교수진을 비롯한 각 분야의 상담전문가가 개인의 성장과 회복을 돕는 상담서비스를 제공합니다.</h5></span>
 		</div>
-	</div> -->
+	</div>
 	<br>
 	<br>
 	<div class="container-fluid">
