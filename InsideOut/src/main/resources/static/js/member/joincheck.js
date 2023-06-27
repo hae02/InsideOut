@@ -131,7 +131,7 @@ function check() {
 			return false;
 		}
 	}
-	if ($("#dept_name").val() == null || $("#dept_name2").val() == null || $("#dept_name3").val() == null) {
+	if ($("#dept_name").val() == null && $("#dept_name2").val() == null && $("#dept_name3").val() == null) {
 		alert("학과 또는 부서를 선택하세요.");
 		return false;
 	}
