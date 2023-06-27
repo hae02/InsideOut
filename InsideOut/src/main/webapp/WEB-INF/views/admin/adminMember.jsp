@@ -54,7 +54,7 @@
 							<td>${list.role }</td>
 							<td><input type="button" value="회원 삭제"
 								class="btn btn-outline-success"
-								onClick="deleteMember('${b.mem_no }')"></td>
+								onClick="deleteMember('${list.username }')"></td>
 						</tr>
 					</c:forEach>
 				</table>

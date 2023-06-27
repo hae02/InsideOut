@@ -73,7 +73,7 @@ public class AdminController {
 	}
 
 	// 삭제
-	@RequestMapping("deleteMember")
+	@RequestMapping("/deleteMember")
 	public String userdelete(int mem_no) {
 		System.out.println("mem_no:" + mem_no);
 

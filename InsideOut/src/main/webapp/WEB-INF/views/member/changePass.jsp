@@ -5,6 +5,6 @@
 <c:if test="${result == 1}">
 	<script>
 		alert("비밀번호가 재설정되었습니다.");
-		location.href="/loginform";
+		location.href="/loginForm";
 	</script>
 </c:if>
